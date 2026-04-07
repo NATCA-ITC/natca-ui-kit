@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NATCA UI Kit — Navigation Design Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Barlow:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ── UPDATED BRAND TOKENS (corrected from actual logo) ── */
+:root {
+  --natca-red:       #CB092F;
+  --natca-red-dark:  #97061F;
+  --natca-red-light: #F9E5E9;
+  --natca-navy:      #032449;
+  --natca-navy-mid:  #0A3D70;
+  --natca-navy-light:#E6EDF5;
+  --natca-blue:      #1490D7;
+  --natca-sky:       #6AC9FF;
+  --natca-gold:      #D4A017;
+
+  --white: #FFFFFF;
+  --off-white: #FAF9F5;
+  --gray-100: #F4F4F4;
+  --gray-200: #E8E8E8;
+  --gray-400: #999999;
+  --gray-600: #555555;
+  --gray-800: #2C2C2C;
+  --dark-900: #0F1117;
+
+  --font-display: 'Outfit', 'Barlow', sans-serif;
+  --font-body:    'DM Sans', 'Inter', sans-serif;
+
+  --transition: 180ms ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  font-family: var(--font-body);
+  background: #1a1a2e;
+  color: #e0e0e0;
+  padding-bottom: 80px;
+}
+
+.page-header {
+  background: #0d0d1a;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  padding: 28px 48px;
+}
+.page-header h1 { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: white; margin-bottom: 4px; }
+.page-header p  { font-size: 13px; color: rgba(255,255,255,0.45); }
+
+.variant-section {
+  margin: 40px 0 0;
+  padding: 0 40px;
+}
+
+.variant-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.variant-num {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--natca-red);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--font-display);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.variant-name { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: white; }
+.variant-desc { font-size: 12px; color: rgba(255,255,255,0.4); margin-left: 4px; }
+
+.variant-frame {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.fake-hero {
+  background: linear-gradient(135deg, #032449 0%, #0A3D70 40%, #1a6da8 100%);
+  height: 200px;
+  display: flex;
+  align-items: flex-end;
+  padding: 32px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.fake-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('https://natca.org/wp-content/uploads/2025/04/ZiYangLaiSFO.png') center/cover no-repeat;
+  opacity: 0.25;
+}
+.fake-hero-text { position: relative; z-index: 1; }
+.fake-hero-text h2 { font-family: var(--font-display); font-size: 28px; font-weight: 800; color: white; }
+.fake-hero-text p  { font-size: 14px; color: rgba(255,255,255,0.65); margin-top: 4px; }
+
+/* VARIANT A */
+.va { font-family: var(--font-body); }
+.va-utility { background: var(--natca-navy); height: 34px; display: flex; align-items: center; justify-content: flex-end; padding: 0 40px; }
+.va-utility ul { display: flex; align-items: center; list-style: none; gap: 0; }
+.va-utility li + li::before { content: '|'; color: rgba(255,255,255,0.2); margin: 0 10px; font-size: 11px; }
+.va-utility a { font-size: 11.5px; font-weight: 500; color: rgba(255,255,255,0.72); text-decoration: none; letter-spacing: 0.2px; white-space: nowrap; transition: color var(--transition); }
+.va-utility a:hover { color: white; }
+.va-utility .va-join { background: var(--natca-red); color: white; padding: 3px 12px; border-radius: 3px; font-weight: 600; }
+.va-utility .va-join:hover { background: var(--natca-red-dark); }
+.va-utility .va-members { color: var(--natca-sky); font-weight: 600; }
+.va-primary { background: white; height: 68px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; border-bottom: 3px solid var(--natca-red); box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+.va-brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+.va-brand img { height: 46px; width: auto; }
+.va-tagline { font-family: var(--font-display); font-size: 12.5px; font-weight: 600; color: var(--gray-600); border-left: 2px solid var(--natca-red); padding-left: 12px; line-height: 1.35; letter-spacing: 0.1px; }
+.va-menu { display: flex; align-items: center; height: 100%; gap: 0; list-style: none; }
+.va-menu li { height: 100%; display: flex; align-items: center; }
+.va-menu a { font-family: var(--font-display); font-size: 12.5px; font-weight: 700; color: var(--gray-800); text-decoration: none; letter-spacing: 0.7px; text-transform: uppercase; padding: 0 16px; height: 100%; display: flex; align-items: center; border-bottom: 3px solid transparent; transition: color var(--transition), border-color var(--transition), background var(--transition); }
+.va-menu a:hover { color: var(--natca-blue); border-bottom-color: var(--natca-blue); background: #f0f8ff; }
+.va-menu .active a { color: var(--natca-navy); border-bottom-color: var(--natca-red); }
+
+/* VARIANT B */
+.vb { font-family: var(--font-body); }
+.vb-utility { background: #021b36; height: 32px; display: flex; align-items: center; justify-content: flex-end; padding: 0 40px; }
+.vb-utility ul { display: flex; align-items: center; list-style: none; gap: 0; }
+.vb-utility li + li::before { content: '|'; color: rgba(255,255,255,0.15); margin: 0 10px; font-size: 10px; }
+.vb-utility a { font-size: 11px; color: rgba(255,255,255,0.55); text-decoration: none; font-weight: 500; transition: color var(--transition); }
+.vb-utility a:hover { color: var(--natca-sky); }
+.vb-utility .vb-join { color: var(--natca-sky); font-weight: 700; }
+.vb-utility .vb-members { background: rgba(106,201,255,0.12); color: var(--natca-sky); padding: 2px 10px; border-radius: 3px; border: 1px solid rgba(106,201,255,0.25); }
+.vb-primary { background: var(--natca-navy); height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; position: relative; }
+.vb-primary::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--natca-red) 0%, #ff4560 50%, var(--natca-red) 100%); }
+.vb-brand { display: flex; align-items: center; gap: 16px; text-decoration: none; }
+.vb-brand img { height: 48px; width: auto; filter: brightness(0) invert(1); }
+.vb-tagline { font-family: var(--font-display); font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.55); border-left: 2px solid var(--natca-red); padding-left: 12px; line-height: 1.4; letter-spacing: 1px; text-transform: uppercase; }
+.vb-menu { display: flex; align-items: center; height: 100%; gap: 0; list-style: none; }
+.vb-menu li { height: 100%; display: flex; align-items: center; }
+.vb-menu a { font-family: var(--font-display); font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.75); text-decoration: none; letter-spacing: 0.8px; text-transform: uppercase; padding: 0 15px; height: 100%; display: flex; align-items: center; border-bottom: 3px solid transparent; transition: color var(--transition), border-color var(--transition), background var(--transition); }
+.vb-menu a:hover { color: white; border-bottom-color: var(--natca-sky); background: rgba(255,255,255,0.05); }
+.vb-menu .active a { color: white; border-bottom-color: var(--natca-red); }
+.vb-search-btn { width: 32px; height: 32px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-left: 8px; transition: background var(--transition); }
+.vb-search-btn:hover { background: rgba(255,255,255,0.15); }
+.vb-search-btn svg { color: rgba(255,255,255,0.6); }
+
+/* VARIANT C */
+.vc { font-family: var(--font-body); }
+.vc-utility { background: var(--natca-red); height: 36px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
+.vc-utility-left { display: flex; align-items: center; gap: 8px; }
+.vc-utility-left span { font-size: 11px; color: rgba(255,255,255,0.75); font-weight: 500; }
+.vc-utility-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.35); }
+.vc-utility ul { display: flex; align-items: center; list-style: none; gap: 0; }
+.vc-utility li + li::before { content: '|'; color: rgba(255,255,255,0.25); margin: 0 10px; font-size: 10px; }
+.vc-utility a { font-size: 11.5px; color: rgba(255,255,255,0.85); text-decoration: none; font-weight: 500; transition: color var(--transition); }
+.vc-utility a:hover { color: white; }
+.vc-utility .vc-members { background: rgba(255,255,255,0.15); padding: 2px 10px; border-radius: 3px; font-weight: 700; color: white; }
+.vc-primary { background: white; height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; border-bottom: 1px solid var(--gray-200); box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.vc-brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+.vc-brand img { height: 48px; width: auto; }
+.vc-tagline { font-family: var(--font-body); font-size: 12px; font-weight: 500; color: var(--gray-400); letter-spacing: 0.3px; margin-top: 2px; font-style: italic; }
+.vc-right { display: flex; align-items: center; gap: 20px; }
+.vc-menu { display: flex; align-items: center; height: 72px; gap: 0; list-style: none; }
+.vc-menu li { height: 100%; display: flex; align-items: center; }
+.vc-menu a { font-family: var(--font-display); font-size: 13px; font-weight: 700; color: var(--natca-navy); text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase; padding: 0 15px; height: 100%; display: flex; align-items: center; position: relative; transition: color var(--transition); }
+.vc-menu a::after { content: ''; position: absolute; bottom: 0; left: 15px; right: 15px; height: 3px; background: var(--natca-red); border-radius: 3px 3px 0 0; transform: scaleX(0); transition: transform var(--transition); }
+.vc-menu a:hover { color: var(--natca-red); }
+.vc-menu a:hover::after { transform: scaleX(1); }
+.vc-menu .active a { color: var(--natca-red); }
+.vc-menu .active a::after { transform: scaleX(1); }
+.vc-cta { background: var(--natca-navy); color: white; border: none; border-radius: 5px; padding: 9px 20px; font-family: var(--font-display); font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: background var(--transition); white-space: nowrap; }
+.vc-cta:hover { background: var(--natca-navy-mid); color: white; }
+
+/* VARIANT D */
+.vd { font-family: var(--font-body); }
+.vd-bar { background: white; height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; border-bottom: 1px solid var(--gray-200); box-shadow: 0 1px 6px rgba(0,0,0,0.06); }
+.vd-brand { display: flex; align-items: center; gap: 14px; text-decoration: none; flex-shrink: 0; }
+.vd-brand img { height: 38px; width: auto; }
+.vd-divider { width: 1px; height: 24px; background: var(--gray-200); margin: 0 20px; }
+.vd-menu { display: flex; align-items: center; height: 60px; gap: 0; list-style: none; }
+.vd-menu li { height: 100%; display: flex; align-items: center; }
+.vd-menu a { font-family: var(--font-display); font-size: 12.5px; font-weight: 600; color: var(--gray-600); text-decoration: none; letter-spacing: 0.4px; padding: 0 14px; height: 100%; display: flex; align-items: center; transition: color var(--transition); border-bottom: 2px solid transparent; }
+.vd-menu a:hover { color: var(--natca-navy); border-bottom-color: var(--natca-navy); }
+.vd-menu .active a { color: var(--natca-navy); border-bottom-color: var(--natca-red); font-weight: 700; }
+.vd-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.vd-search-btn { width: 30px; height: 30px; background: none; border: 1px solid var(--gray-200); border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all var(--transition); color: var(--gray-400); }
+.vd-search-btn:hover { border-color: var(--natca-navy); color: var(--natca-navy); }
+.vd-join { background: var(--natca-red); color: white; border: none; border-radius: 5px; padding: 7px 16px; font-family: var(--font-display); font-size: 12px; font-weight: 700; letter-spacing: 0.4px; cursor: pointer; text-decoration: none; transition: background var(--transition); white-space: nowrap; }
+.vd-join:hover { background: var(--natca-red-dark); color: white; }
+.vd-members { background: var(--natca-navy); color: white; border: none; border-radius: 5px; padding: 7px 16px; font-family: var(--font-display); font-size: 12px; font-weight: 700; letter-spacing: 0.4px; cursor: pointer; text-decoration: none; transition: background var(--transition); white-space: nowrap; }
+.vd-members:hover { background: var(--natca-navy-mid); color: white; }
+.vd-sub { background: var(--gray-100); height: 34px; display: flex; align-items: center; justify-content: flex-end; padding: 0 40px; border-bottom: 1px solid var(--gray-200); }
+.vd-sub ul { display: flex; align-items: center; list-style: none; gap: 0; }
+.vd-sub li + li::before { content: '·'; color: var(--gray-400); margin: 0 10px; }
+.vd-sub a { font-size: 11.5px; color: var(--gray-600); text-decoration: none; font-weight: 500; transition: color var(--transition); }
+.vd-sub a:hover { color: var(--natca-navy); }
+
+/* AUTHENTICATED SHELLS */
+.ve { font-family: var(--font-body); }
+.ve-utility { background: #020e1c; height: 32px; display: flex; align-items: center; justify-content: flex-end; padding: 0 40px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.ve-utility ul { display: flex; align-items: center; list-style: none; gap: 0; }
+.ve-utility li + li::before { content: '|'; color: rgba(255,255,255,0.12); margin: 0 10px; font-size: 10px; }
+.ve-utility a { font-size: 11px; color: rgba(255,255,255,0.45); text-decoration: none; font-weight: 500; transition: color var(--transition); }
+.ve-utility a:hover { color: rgba(255,255,255,0.8); }
+.ve-utility .ve-members { color: var(--natca-sky); font-weight: 700; letter-spacing: 0.2px; }
+.ve-primary { background: #091929; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; border-bottom: 1px solid rgba(255,255,255,0.06); box-shadow: 0 2px 12px rgba(0,0,0,0.4); }
+.ve-brand { display: flex; align-items: center; gap: 16px; text-decoration: none; }
+.ve-brand img { height: 42px; width: auto; filter: brightness(0) invert(1); }
+.ve-divider { width: 1px; height: 28px; background: rgba(255,255,255,0.1); }
+.ve-context { font-family: var(--font-display); font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.4); letter-spacing: 0.8px; text-transform: uppercase; }
+.ve-context span { color: var(--natca-sky); }
+.ve-menu { display: flex; align-items: center; height: 64px; gap: 0; list-style: none; }
+.ve-menu li { height: 100%; display: flex; align-items: center; }
+.ve-menu a { font-family: var(--font-display); font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.6); text-decoration: none; letter-spacing: 0.6px; text-transform: uppercase; padding: 0 14px; height: 100%; display: flex; align-items: center; border-bottom: 2px solid transparent; transition: all var(--transition); }
+.ve-menu a:hover { color: white; border-bottom-color: var(--natca-sky); background: rgba(255,255,255,0.04); }
+.ve-menu .active a { color: white; border-bottom-color: var(--natca-red); }
+.ve-actions { display: flex; align-items: center; gap: 10px; }
+.ve-search { width: 30px; height: 30px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: rgba(255,255,255,0.5); transition: all var(--transition); }
+.ve-search:hover { background: rgba(255,255,255,0.1); color: white; }
+.ve-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--natca-red); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: white; cursor: pointer; border: 2px solid rgba(203,9,47,0.4); }
+.ve-notif { position: relative; }
+.ve-notif-dot { position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; background: var(--natca-red); border-radius: 50%; border: 2px solid #091929; }
+.ve-sub { background: #040f1e; height: 36px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.ve-breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: rgba(255,255,255,0.35); }
+.ve-breadcrumb a { color: rgba(255,255,255,0.35); text-decoration: none; }
+.ve-breadcrumb a:hover { color: var(--natca-sky); }
+.ve-breadcrumb .sep { color: rgba(255,255,255,0.15); }
+.ve-breadcrumb .current { color: rgba(255,255,255,0.65); }
+.ve-facility { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.35); letter-spacing: 0.5px; }
+.ve-facility span { color: var(--natca-sky); }
+
+.notes { margin-top: 16px; padding: 14px 18px; background: rgba(255,255,255,0.04); border-left: 3px solid var(--natca-red); border-radius: 0 6px 6px 0; font-size: 12.5px; color: rgba(255,255,255,0.5); line-height: 1.7; }
+.notes strong { color: rgba(255,255,255,0.75); font-weight: 600; }
+
+.badge-pill { display: inline-block; background: rgba(203,9,47,0.2); color: #ff6b84; border: 1px solid rgba(203,9,47,0.3); border-radius: 20px; font-size: 10px; font-weight: 700; padding: 1px 8px; letter-spacing: 0.5px; text-transform: uppercase; margin-left: 6px; }
+.badge-pill.blue { background: rgba(20,144,215,0.2); color: var(--natca-sky); border-color: rgba(20,144,215,0.3); }
+.badge-pill.green { background: rgba(46,125,50,0.25); color: #81c784; border-color: rgba(46,125,50,0.3); }
+
+.compare-strip { margin: 0 40px 0; padding: 20px 24px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; text-align: center; }
+.compare-col { font-size: 12px; color: rgba(255,255,255,0.4); }
+.compare-col strong { display: block; color: white; font-size: 13px; font-family: var(--font-display); margin-bottom: 6px; }
+
+/* OPTION 5 FLOATING GLASS */
+.vf2-stage { position: relative; background: linear-gradient(160deg, #021830 0%, var(--natca-navy) 45%, #0d4a8a 100%); height: 340px; overflow: hidden; font-family: var(--font-body); }
+.vf2-stage::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 80% at 15% 110%, rgba(203,9,47,0.12) 0%, transparent 60%), radial-gradient(ellipse 50% 60% at 85% -10%, rgba(20,144,215,0.15) 0%, transparent 55%); pointer-events: none; }
+.vf2-stage::after { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px); background-size: 48px 48px; pointer-events: none; }
+.vf2-header { position: absolute; top: 18px; left: 24px; right: 24px; z-index: 20; display: flex; flex-direction: column; gap: 8px; }
+.vf2-util { display: flex; justify-content: flex-end; }
+.vf2-util ul { list-style: none; display: flex; align-items: center; gap: 0; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 0 4px; }
+.vf2-util li + li::before { content: '|'; color: rgba(255,255,255,0.15); font-size: 10px; }
+.vf2-util a { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.5); text-decoration: none; padding: 4px 10px; border-radius: 20px; transition: color 150ms, background 150ms; white-space: nowrap; }
+.vf2-util a:hover { color: white; background: rgba(255,255,255,0.08); }
+.vf2-nav { display: flex; align-items: center; height: 60px; background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.14); border-radius: 14px; padding: 0 10px 0 14px; box-shadow: 0 4px 24px rgba(0,0,0,0.3), 0 1px 0 rgba(255,255,255,0.08) inset; }
+.vf2-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; padding-right: 16px; border-right: 1px solid rgba(255,255,255,0.12); flex-shrink: 0; }
+.vf2-brand img { height: 40px; width: auto; }
+.vf2-brand-name { font-family: var(--font-display); font-size: 16px; font-weight: 800; color: white; letter-spacing: 2px; text-transform: uppercase; line-height: 1; }
+.vf2-brand-tag { font-size: 9.5px; font-weight: 500; color: rgba(255,255,255,0.4); letter-spacing: 0.8px; margin-top: 2px; white-space: nowrap; }
+.vf2-spacer { flex: 1; }
+.vf2-links { display: flex; align-items: center; height: 100%; gap: 0; list-style: none; margin-right: 4px; }
+.vf2-links li { height: 100%; display: flex; align-items: center; }
+.vf2-links a { font-family: var(--font-display); font-size: 12.5px; font-weight: 600; color: rgba(255,255,255,0.65); text-decoration: none; letter-spacing: 0.5px; padding: 0 13px; height: 44px; display: flex; align-items: center; border-radius: 8px; transition: color 150ms, background 150ms; white-space: nowrap; }
+.vf2-links a:hover { color: white; background: rgba(255,255,255,0.08); }
+.vf2-links li.active a { color: white; background: rgba(255,255,255,0.1); }
+.vf2-links li.active a::after { content: ''; display: inline-block; width: 4px; height: 4px; background: var(--natca-red); border-radius: 50%; margin-left: 6px; vertical-align: middle; margin-bottom: 1px; }
+.vf2-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; padding-left: 10px; margin-left: 6px; border-left: 1px solid rgba(255,255,255,0.1); }
+.vf2-search { width: 32px; height: 32px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: rgba(255,255,255,0.6); transition: all 150ms; flex-shrink: 0; }
+.vf2-search:hover { background: rgba(255,255,255,0.14); color: white; }
+.vf2-join { display: inline-flex; align-items: center; background: var(--natca-red); color: white !important; border-radius: 8px; padding: 0 14px; height: 34px; font-family: var(--font-display); font-size: 12px; font-weight: 700; letter-spacing: 0.3px; text-decoration: none; transition: background 150ms; white-space: nowrap; flex-shrink: 0; }
+.vf2-join:hover { background: var(--natca-red-dark); color: white !important; }
+.vf2-members { display: inline-flex; align-items: center; gap: 6px; background: white; color: var(--natca-navy) !important; border-radius: 8px; padding: 0 14px; height: 34px; font-family: var(--font-display); font-size: 12px; font-weight: 700; letter-spacing: 0.3px; text-decoration: none; transition: all 150ms; white-space: nowrap; flex-shrink: 0; }
+.vf2-members:hover { background: rgba(255,255,255,0.9); color: var(--natca-navy) !important; box-shadow: 0 2px 12px rgba(0,0,0,0.2); }
+.vf2-hero { position: absolute; bottom: 0; left: 0; right: 0; padding: 0 48px 44px; z-index: 10; }
+.vf2-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--natca-red); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.vf2-eyebrow::before { content: ''; display: block; width: 18px; height: 2px; background: var(--natca-red); border-radius: 1px; }
+.vf2-headline { font-family: var(--font-display); font-size: 44px; font-weight: 800; color: white; line-height: 1.05; letter-spacing: -0.5px; margin-bottom: 16px; }
+.vf2-headline em { font-style: normal; color: var(--natca-sky); }
+.vf2-ctas { display: flex; align-items: center; gap: 10px; }
+.vf2-cta-primary { background: var(--natca-red); color: white; border: none; border-radius: 8px; padding: 11px 22px; font-family: var(--font-display); font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: none; transition: all 150ms; white-space: nowrap; }
+.vf2-cta-primary:hover { background: var(--natca-red-dark); color: white; transform: translateY(-1px); }
+.vf2-cta-secondary { color: rgba(255,255,255,0.65); font-family: var(--font-display); font-size: 13px; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 150ms; padding: 11px 4px; }
+.vf2-cta-secondary:hover { color: white; }
+.vf2-cta-secondary::after { content: '→'; }
+
+/* AUTH SECTION */
+.auth-section-header { background: linear-gradient(90deg, var(--natca-navy) 0%, #0a3d70 100%); padding: 32px 40px 28px; margin-top: 48px; border-top: 4px solid var(--natca-red); }
+.auth-section-header h2 { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: white; letter-spacing: 0.5px; margin-bottom: 6px; }
+.auth-section-header p { font-size: 13px; color: rgba(255,255,255,0.5); max-width: 700px; line-height: 1.6; }
+.auth-option-label { margin: 32px 40px 12px; display: flex; align-items: center; gap: 12px; }
+.auth-option-num { font-family: var(--font-display); font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--natca-sky); background: rgba(106,201,255,0.1); border: 1px solid rgba(106,201,255,0.25); border-radius: 20px; padding: 3px 12px; }
+.auth-option-title { font-family: var(--font-display); font-size: 17px; font-weight: 700; color: white; }
+.auth-option-desc { font-size: 12px; color: rgba(255,255,255,0.4); }
+.auth-variant-label { padding: 8px 40px 8px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.3); display: flex; align-items: center; gap: 8px; }
+.auth-variant-label::before { content: ''; width: 16px; height: 1px; background: rgba(255,255,255,0.15); }
+
+/* AUTH OPTION A - COMMAND SHELL */
+.g-shell { display: flex; flex-direction: column; background: #0a0f1a; overflow: hidden; border-radius: 10px; border: 1px solid rgba(255,255,255,0.06); box-shadow: 0 8px 40px rgba(0,0,0,0.5); margin: 0 40px 8px; font-family: var(--font-body); }
+.g-topbar { background: #0d1420; border-bottom: 1px solid rgba(255,255,255,0.07); height: 52px; display: flex; align-items: center; padding: 0 16px 0 0; flex-shrink: 0; position: relative; z-index: 10; }
+.g-brand-zone { width: 220px; height: 52px; display: flex; align-items: center; padding: 0 14px; gap: 10px; border-right: 1px solid rgba(255,255,255,0.07); flex-shrink: 0; overflow: hidden; transition: width 300ms cubic-bezier(0.4,0,0.2,1); }
+.g-brand-zone img { height: 30px; width: auto; flex-shrink: 0; }
+.g-brand-text { font-family: var(--font-display); font-size: 13px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; color: white; white-space: nowrap; opacity: 1; transition: opacity 200ms; }
+.g-toggle-btn { width: 28px; height: 28px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; margin: 0 10px 0 8px; color: rgba(255,255,255,0.45); transition: all 150ms; flex-shrink: 0; }
+.g-toggle-btn:hover { background: rgba(255,255,255,0.1); color: white; border-color: rgba(255,255,255,0.15); }
+.g-toggle-icon { transition: transform 300ms cubic-bezier(0.4,0,0.2,1); }
+.g-context { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.35); display: flex; align-items: center; gap: 6px; }
+.g-context strong { color: rgba(255,255,255,0.7); font-weight: 600; }
+.g-topbar-right { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+.g-facility { display: flex; align-items: center; gap: 5px; background: rgba(20,144,215,0.1); border: 1px solid rgba(20,144,215,0.2); border-radius: 6px; padding: 4px 10px; font-size: 11px; font-weight: 600; color: var(--natca-sky); white-space: nowrap; }
+.g-icon-btn { width: 32px; height: 32px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 7px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: rgba(255,255,255,0.4); transition: all 150ms; position: relative; }
+.g-icon-btn:hover { background: rgba(255,255,255,0.09); color: white; border-color: rgba(255,255,255,0.14); }
+.g-badge-dot { position: absolute; top: -3px; right: -3px; width: 8px; height: 8px; background: var(--natca-red); border-radius: 50%; border: 2px solid #0d1420; }
+.g-avatar { width: 32px; height: 32px; border-radius: 8px; background: var(--natca-red); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: white; cursor: pointer; flex-shrink: 0; }
+.g-body { display: flex; height: 320px; overflow: hidden; }
+.g-sidebar { width: 220px; background: #0d1420; border-right: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; flex-shrink: 0; overflow: hidden; transition: width 300ms cubic-bezier(0.4,0,0.2,1); }
+.g-sidebar-inner { padding: 10px 8px; display: flex; flex-direction: column; gap: 2px; flex: 1; overflow-y: auto; overflow-x: hidden; }
+.g-sec-title { font-size: 9.5px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(255,255,255,0.2); padding: 10px 10px 4px; white-space: nowrap; overflow: hidden; transition: opacity 250ms; }
+.g-nav-link { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 7px; text-decoration: none; color: rgba(255,255,255,0.5); font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; transition: all 150ms; position: relative; }
+.g-nav-link:hover { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.9); }
+.g-nav-link.g-active { background: rgba(203,9,47,0.15); color: white; }
+.g-nav-link.g-active .g-nav-icon { color: var(--natca-red); }
+.g-nav-icon { width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: inherit; opacity: 0.7; }
+.g-nav-link:hover .g-nav-icon, .g-nav-link.g-active .g-nav-icon { opacity: 1; }
+.g-nav-label { font-size: 13px; font-weight: 500; flex: 1; overflow: hidden; text-overflow: ellipsis; transition: opacity 200ms; }
+.g-nav-badge { background: var(--natca-red); color: white; font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 20px; flex-shrink: 0; transition: opacity 200ms; }
+.g-sidebar-foot { padding: 10px 8px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; gap: 2px; }
+.g-content { flex: 1; background: #111825; overflow: auto; }
+.g-content-head { padding: 20px 24px 16px; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; }
+.g-content-title { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: white; }
+.g-content-sub { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+.g-stat-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; padding: 16px 24px; }
+.g-stat-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 14px; }
+.g-stat-label { font-size: 10px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 6px; }
+.g-stat-val { font-family: var(--font-display); font-size: 20px; font-weight: 800; color: white; line-height: 1; }
+.g-stat-change { font-size: 11px; color: #4caf50; margin-top: 4px; }
+.g-shell.g-collapsed .g-sidebar { width: 52px; }
+.g-shell.g-collapsed .g-brand-zone { width: 52px; }
+.g-shell.g-collapsed .g-brand-text { opacity: 0; pointer-events: none; }
+.g-shell.g-collapsed .g-nav-label { opacity: 0; pointer-events: none; }
+.g-shell.g-collapsed .g-nav-badge { opacity: 0; pointer-events: none; }
+.g-shell.g-collapsed .g-sec-title { opacity: 0; pointer-events: none; }
+.g-shell.g-collapsed .g-nav-link { justify-content: center; padding: 10px; }
+.g-shell.g-collapsed .g-context { display: none; }
+.g-shell.g-collapsed .g-toggle-icon { transform: rotate(180deg); }
+.g-shell.g-no-sidebar .g-sidebar { display: none; }
+.g-shell.g-no-sidebar .g-brand-zone { border-right: none; }
+.g-shell.g-no-sidebar .g-toggle-btn { display: none; }
+.auth-notes { margin: 8px 40px 0; padding: 14px 18px; background: rgba(255,255,255,0.03); border-left: 3px solid rgba(106,201,255,0.4); border-radius: 0 6px 6px 0; font-size: 12.5px; color: rgba(255,255,255,0.45); line-height: 1.7; }
+.auth-notes strong { color: rgba(255,255,255,0.75); font-weight: 600; }
+
+/* AUTH OPTION B - HORIZONTAL NAV SHELL */
+.b-shell { display: flex; flex-direction: column; background: #0a0e17; overflow: hidden; border-radius: 10px; border: 1px solid rgba(255,255,255,0.06); box-shadow: 0 8px 40px rgba(0,0,0,0.5); margin: 0 40px 8px; font-family: var(--font-body); }
+.b-topbar { background: var(--natca-navy); height: 44px; display: flex; align-items: center; padding: 0 24px; flex-shrink: 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.b-logo-zone { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+.b-logo-zone img { height: 26px; width: auto; }
+.b-wordmark { font-family: var(--font-display); font-size: 13px; font-weight: 800; letter-spacing: 3px; color: white; text-transform: uppercase; }
+.b-portal-tag { margin-left: 12px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; background: rgba(203,9,47,0.25); border: 1px solid rgba(203,9,47,0.4); color: #ff8a9a; border-radius: 3px; padding: 2px 8px; }
+.b-topbar-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.b-facility-tag { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.45); letter-spacing: 0.3px; }
+.b-facility-tag strong { color: rgba(255,255,255,0.8); }
+.b-top-icon { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.4); cursor: pointer; border-radius: 6px; transition: all 150ms; position: relative; }
+.b-top-icon:hover { background: rgba(255,255,255,0.08); color: white; }
+.b-top-badge { position: absolute; top: 2px; right: 2px; width: 6px; height: 6px; background: var(--natca-red); border-radius: 50%; border: 1.5px solid var(--natca-navy); }
+.b-avatar { width: 28px; height: 28px; border-radius: 6px; background: var(--natca-red); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: white; cursor: pointer; }
+.b-navbar { background: #0f1520; height: 46px; display: flex; align-items: stretch; padding: 0 24px; border-bottom: 1px solid rgba(255,255,255,0.06); flex-shrink: 0; gap: 0; }
+.b-nav-link { display: flex; align-items: center; gap: 7px; padding: 0 16px; font-family: var(--font-display); font-size: 12.5px; font-weight: 600; color: rgba(255,255,255,0.45); text-decoration: none; letter-spacing: 0.4px; white-space: nowrap; border-bottom: 2px solid transparent; transition: color 150ms, border-color 150ms; position: relative; }
+.b-nav-link:hover { color: rgba(255,255,255,0.85); }
+.b-nav-link.b-active { color: white; border-bottom-color: var(--natca-red); }
+.b-nav-icon { width: 14px; height: 14px; opacity: 0.6; flex-shrink: 0; }
+.b-nav-link:hover .b-nav-icon, .b-nav-link.b-active .b-nav-icon { opacity: 1; }
+.b-nav-count { background: rgba(203,9,47,0.2); color: #ff8a9a; border: 1px solid rgba(203,9,47,0.3); font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 20px; }
+.b-navbar-right { margin-left: auto; display: flex; align-items: center; }
+.b-search-inline { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 4px 10px; font-size: 12px; color: rgba(255,255,255,0.3); cursor: pointer; transition: all 150ms; }
+.b-search-inline:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.15); }
+.b-subnav { background: #0c1119; height: 38px; display: flex; align-items: center; padding: 0 24px; border-bottom: 1px solid rgba(255,255,255,0.04); flex-shrink: 0; gap: 0; }
+.b-sub-link { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.35); text-decoration: none; padding: 0 12px; height: 100%; display: flex; align-items: center; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 150ms; }
+.b-sub-link:hover { color: rgba(255,255,255,0.7); }
+.b-sub-link.b-sub-active { color: rgba(255,255,255,0.85); border-bottom-color: rgba(106,201,255,0.5); }
+.b-breadcrumb { font-size: 11px; color: rgba(255,255,255,0.25); display: flex; align-items: center; gap: 6px; }
+.b-breadcrumb a { color: rgba(255,255,255,0.25); text-decoration: none; }
+.b-breadcrumb a:hover { color: rgba(255,255,255,0.6); }
+.b-breadcrumb .b-sep { color: rgba(255,255,255,0.1); }
+.b-subnav-right { margin-left: auto; font-size: 11px; color: rgba(255,255,255,0.2); }
+.b-content { flex: 1; background: #080c14; overflow: auto; }
+.b-content-head { padding: 20px 24px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: flex-start; justify-content: space-between; }
+.b-content-title { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: white; }
+.b-content-sub { font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 3px; }
+.b-action-btn { background: var(--natca-red); color: white; border: none; border-radius: 6px; padding: 7px 14px; font-family: var(--font-display); font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+.b-stat-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,0.04); border-top: 1px solid rgba(255,255,255,0.04); }
+.b-stat-cell { background: #080c14; padding: 16px 24px; border-right: 1px solid rgba(255,255,255,0.04); }
+.b-stat-cell:last-child { border-right: none; }
+.b-stat-label { font-size: 10px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 6px; }
+.b-stat-val { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: white; line-height: 1; }
+.b-stat-delta { font-size: 11px; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>NATCA Navigation Design Proposal</h1>
+  <p>5 public nav concepts + 2 authenticated shell options — Brand colors: Red #CB092F · Navy #032449</p>
+</div>
+
+<div style="padding: 24px 40px 0;">
+  <div class="compare-strip">
+    <div class="compare-col"><strong>1 — Classic Refined</strong><span class="badge-pill green">Low risk</span><br>Most familiar, modernized</div>
+    <div class="compare-col"><strong>2 — Navy Command</strong><span class="badge-pill blue">Bold</span><br>Authority-first, high trust</div>
+    <div class="compare-col"><strong>3 — Red Impact</strong><span class="badge-pill">Striking</span><br>Red utility bar, clean nav</div>
+    <div class="compare-col"><strong>4 — Compact Modern</strong><span class="badge-pill blue">Fresh</span><br>Single bar, SaaS-style</div>
+    <div class="compare-col"><strong>5 — Floating Glass</strong><span class="badge-pill blue">Modern</span><br>Frosted nav, hero overlay</div>
+  </div>
+</div>
+
+<!-- OPTION 1 -->
+<div class="variant-section">
+  <div class="variant-label">
+    <div class="variant-num">1</div>
+    <span class="variant-name">Option 1 — Classic Refined</span>
+    <span class="variant-desc">— White primary nav, navy utility bar, red bottom border. Direct evolution of current site.</span>
+  </div>
+  <div class="variant-frame">
+    <div class="va">
+      <nav class="va-utility">
+        <ul>
+          <li><a href="#">Newsroom</a></li>
+          <li><a href="#">Benefits</a></li>
+          <li><a href="#">NATCA Store</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#" class="va-join">Join NATCA</a></li>
+          <li><a href="#" class="va-members">Members Home</a></li>
+        </ul>
+      </nav>
+      <nav class="va-primary">
+        <a href="#" class="va-brand">
+          <img src="https://natca.org/wp-content/uploads/2024/03/natca-logo.png" alt="NATCA" style="height:46px;width:auto;" onerror="this.style.display='none';this.nextSibling.style.display='flex'">
+          <div style="display:none;width:46px;height:46px;background:var(--natca-red);align-items:center;justify-content:center;border-radius:4px;font-family:var(--font-display);font-weight:800;font-size:14px;color:white;">N</div>
+          <div class="va-tagline">We Guide<br>You Home</div>
+        </a>
+        <ul class="va-menu">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">About NATCA ▾</a></li>
+          <li><a href="#">Events ▾</a></li>
+          <li><a href="#">Community ▾</a></li>
+          <li><a href="#">Education ▾</a></li>
+          <li><a href="#">Issues ▾</a></li>
+          <li>
+            <button class="vb-search-btn" style="background:var(--gray-100);border:1px solid var(--gray-200);" aria-label="Search">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="fake-hero">
+      <div class="fake-hero-text"><h2>Discover NATCA</h2><p>National Air Traffic Controllers Association</p></div>
+    </div>
+  </div>
+  <div class="notes"><strong>Design rationale:</strong> Keeps the familiar two-tier structure but uses the correct navy <code>#032449</code> utility bar. Red border-bottom ties it to the logo. Barlow headings modernize the nav labels. <strong>Best for:</strong> Lowest transition risk.</div>
+</div>
+
+<!-- OPTION 2 -->
+<div class="variant-section">
+  <div class="variant-label">
+    <div class="variant-num">2</div>
+    <span class="variant-name">Option 2 — Navy Command</span>
+    <span class="variant-desc">— Full navy primary bar, inverted logo, red active accent. Strong institutional authority.</span>
+  </div>
+  <div class="variant-frame">
+    <div class="vb">
+      <nav class="vb-utility">
+        <ul>
+          <li><a href="#">Newsroom</a></li>
+          <li><a href="#">Benefits</a></li>
+          <li><a href="#">NATCA Store</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#" class="vb-join">Join NATCA ↗</a></li>
+          <li><a href="#" class="vb-members">Members Home</a></li>
+        </ul>
+      </nav>
+      <nav class="vb-primary">
+        <a href="#" class="vb-brand">
+          <div style="width:48px;height:48px;background:rgba(255,255,255,0.15);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:16px;color:white;letter-spacing:-1px;">N</div>
+          <div class="vb-tagline">We Guide<br>You Home</div>
+        </a>
+        <ul class="vb-menu">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">About NATCA ▾</a></li>
+          <li><a href="#">Events ▾</a></li>
+          <li><a href="#">Community ▾</a></li>
+          <li><a href="#">Education ▾</a></li>
+          <li><a href="#">Issues ▾</a></li>
+          <li>
+            <button class="vb-search-btn" aria-label="Search">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="fake-hero" style="background:linear-gradient(135deg,#020e1c 0%,var(--natca-navy) 60%,#0A3D70 100%);">
+      <div class="fake-hero-text"><h2>Discover NATCA</h2><p>National Air Traffic Controllers Association</p></div>
+    </div>
+  </div>
+  <div class="notes"><strong>Design rationale:</strong> Navy header bleeds into hero imagery. Red gradient stripe along bottom is a strong brand moment. <strong>Best for:</strong> High institutional credibility, FAA/Congress-facing pages.</div>
+</div>
+
+<!-- OPTION 3 -->
+<div class="variant-section">
+  <div class="variant-label">
+    <div class="variant-num">3</div>
+    <span class="variant-name">Option 3 — Red Impact</span>
+    <span class="variant-desc">— Crimson utility bar, white primary, navy text. High energy, unmistakable brand color up top.</span>
+  </div>
+  <div class="variant-frame">
+    <div class="vc">
+      <nav class="vc-utility">
+        <div class="vc-utility-left">
+          <span>National Air Traffic Controllers Association</span>
+          <div class="vc-utility-dot"></div>
+          <span>AFL-CIO affiliated</span>
+        </div>
+        <ul>
+          <li><a href="#">Newsroom</a></li>
+          <li><a href="#">Benefits</a></li>
+          <li><a href="#">NATCA Store</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#" class="vc-members">Members Home →</a></li>
+        </ul>
+      </nav>
+      <nav class="vc-primary">
+        <a href="#" class="vc-brand">
+          <div style="width:48px;height:48px;background:var(--natca-red);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:16px;color:white;">N</div>
+          <div>
+            <div style="font-family:var(--font-display);font-size:18px;font-weight:800;color:var(--natca-navy);letter-spacing:-0.3px;line-height:1;">NATCA</div>
+            <div class="vc-tagline">We Guide You Home</div>
+          </div>
+        </a>
+        <div class="vc-right">
+          <ul class="vc-menu">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">About ▾</a></li>
+            <li><a href="#">Events ▾</a></li>
+            <li><a href="#">Community ▾</a></li>
+            <li><a href="#">Education ▾</a></li>
+            <li><a href="#">Issues ▾</a></li>
+          </ul>
+          <a href="#" class="vc-cta">Join NATCA</a>
+        </div>
+      </nav>
+    </div>
+    <div class="fake-hero" style="background:linear-gradient(135deg,var(--natca-navy) 0%,#1a6da8 100%);">
+      <div class="fake-hero-text"><h2>Discover NATCA</h2><p>National Air Traffic Controllers Association</p></div>
+    </div>
+  </div>
+  <div class="notes"><strong>Design rationale:</strong> Red utility bar signals "action zone" while white nav stays clean. Underline hover on nav links is a modern touch. <strong>Best for:</strong> Recruitment-forward pages, new member outreach.</div>
+</div>
+
+<!-- OPTION 4 -->
+<div class="variant-section">
+  <div class="variant-label">
+    <div class="variant-num">4</div>
+    <span class="variant-name">Option 4 — Compact Modern</span>
+    <span class="variant-desc">— Single 60px bar, actions inline with nav. Clean, space-efficient.</span>
+  </div>
+  <div class="variant-frame">
+    <div class="vd">
+      <nav class="vd-sub">
+        <ul>
+          <li><a href="#">Newsroom</a></li>
+          <li><a href="#">Benefits</a></li>
+          <li><a href="#">NATCA Store</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </nav>
+      <nav class="vd-bar">
+        <div style="display:flex;align-items:center;">
+          <a href="#" class="vd-brand">
+            <div style="width:38px;height:38px;background:var(--natca-red);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:14px;color:white;">N</div>
+          </a>
+          <div class="vd-divider"></div>
+          <ul class="vd-menu">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">About ▾</a></li>
+            <li><a href="#">Events ▾</a></li>
+            <li><a href="#">Community ▾</a></li>
+            <li><a href="#">Education ▾</a></li>
+            <li><a href="#">Issues ▾</a></li>
+          </ul>
+        </div>
+        <div class="vd-actions">
+          <button class="vd-search-btn" aria-label="Search">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </button>
+          <a href="#" class="vd-join">Join NATCA</a>
+          <a href="#" class="vd-members">Members Home</a>
+        </div>
+      </nav>
+    </div>
+    <div class="fake-hero" style="background:linear-gradient(135deg,var(--natca-navy) 0%,#1a6da8 100%);">
+      <div class="fake-hero-text"><h2>Discover NATCA</h2><p>National Air Traffic Controllers Association</p></div>
+    </div>
+  </div>
+  <div class="notes"><strong>Design rationale:</strong> Utility links move to a subtle gray sub-bar above. Total header height ~94px. <strong>Best for:</strong> Content-heavy pages, easiest to adapt to mobile.</div>
+</div>
+
+<!-- OPTION 5 -->
+<div class="variant-section">
+  <div class="variant-label">
+    <div class="variant-num" style="background:linear-gradient(135deg,#0d2a4a,var(--natca-navy));">5</div>
+    <span class="variant-name">Option 5 — Floating Glass</span>
+    <span class="variant-desc">— The nav floats above the hero with blur + depth.</span>
+    <span class="badge-pill" style="background:rgba(20,144,215,0.2);color:#6AC9FF;border-color:rgba(20,144,215,0.3);">Modern</span>
+  </div>
+  <div class="variant-frame">
+    <div class="vf2-stage">
+      <div class="vf2-header">
+        <div class="vf2-util">
+          <ul>
+            <li><a href="#">Newsroom</a></li>
+            <li><a href="#">Benefits</a></li>
+            <li><a href="#">NATCA Store</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+        <nav class="vf2-nav">
+          <a href="#" class="vf2-brand">
+            <div style="width:40px;height:40px;background:var(--natca-red);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:15px;color:white;flex-shrink:0;">N</div>
+            <div>
+              <div class="vf2-brand-name">NATCA</div>
+              <div class="vf2-brand-tag">We Guide You Home</div>
+            </div>
+          </a>
+          <div class="vf2-spacer"></div>
+          <ul class="vf2-links">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">About ▾</a></li>
+            <li><a href="#">Events ▾</a></li>
+            <li><a href="#">Community ▾</a></li>
+            <li><a href="#">Education ▾</a></li>
+            <li><a href="#">Issues ▾</a></li>
+          </ul>
+          <div class="vf2-actions">
+            <div class="vf2-search" title="Search">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <a href="#" class="vf2-join">Join NATCA</a>
+            <a href="#" class="vf2-members">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              Members
+            </a>
+          </div>
+        </nav>
+      </div>
+      <div class="vf2-hero">
+        <div class="vf2-eyebrow">National Air Traffic Controllers Association</div>
+        <div class="vf2-headline">Keeping America's<br>Skies <em>Safe.</em></div>
+        <div class="vf2-ctas">
+          <a href="#" class="vf2-cta-primary">Discover NATCA</a>
+          <a href="#" class="vf2-cta-secondary">Our Members</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="notes"><strong>Design rationale:</strong> Header floats inside the hero with frosted glass blur (<code>backdrop-filter: blur(20px)</code>). Pattern used by Arc, Apple.com, Stripe, Linear. <strong>Best for:</strong> Homepage hero — pairs with a solid sticky nav after scroll.</div>
+</div>
+
+<!-- AUTH SECTION -->
+<div class="auth-section-header">
+  <h2>Authenticated Member &amp; Admin Views</h2>
+  <p>Two design options for the MyNATCA portal, bidding system, GATS, and admin panels. Both use <code>data-theme="dark"</code>. The sidebar toggle on Option A is live — click ☰ to collapse.</p>
+</div>
+
+<!-- AUTH OPTION A -->
+<div class="auth-option-label">
+  <span class="auth-option-num">Auth Option A</span>
+  <span class="auth-option-title">Command Shell</span>
+  <span class="auth-option-desc">— Deep navy top bar, icon-rail collapsible sidebar. Dense, data-forward.</span>
+</div>
+
+<div class="auth-variant-label">With Sidebar (expanded — click ☰ to collapse)</div>
+<div class="g-shell" id="g-with">
+  <div class="g-topbar">
+    <div class="g-brand-zone">
+      <div style="width:30px;height:30px;background:var(--natca-red);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:12px;color:white;flex-shrink:0;">N</div>
+      <span class="g-brand-text">NATCA</span>
+    </div>
+    <button class="g-toggle-btn" onclick="document.getElementById('g-with').classList.toggle('g-collapsed')" style="background:none;border:1px solid rgba(255,255,255,0.1);cursor:pointer;">
+      <svg class="g-toggle-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="g-context"><strong>MyNATCA</strong> <span style="color:rgba(255,255,255,0.15)">·</span> Member Portal</div>
+    <div class="g-topbar-right">
+      <div class="g-facility"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg> ZJX</div>
+      <div class="g-icon-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+      <div class="g-icon-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><div class="g-badge-dot"></div></div>
+      <div class="g-icon-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div>
+      <div class="g-avatar">JD</div>
+    </div>
+  </div>
+  <div class="g-body">
+    <aside class="g-sidebar">
+      <div class="g-sidebar-inner">
+        <div class="g-sec-title">Navigation</div>
+        <a href="#" class="g-nav-link g-active" data-label="Dashboard"><span class="g-nav-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span><span class="g-nav-label">Dashboard</span></a>
+        <a href="#" class="g-nav-link" data-label="My Profile"><span class="g-nav-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span class="g-nav-label">My Profile</span></a>
+        <a href="#" class="g-nav-link" data-label="Bidding"><span class="g-nav-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span><span class="g-nav-label">Bidding</span><span class="g-nav-badge">3</span></a>
+        <a href="#" class="g-nav-link" data-label="Grievances"><span class="g-nav-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span class="g-nav-label">Grievances</span></a>
+        <a href="#" class="g-nav-link" data-label="Documents"><span class="g-nav-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg></span><span class="g-nav-label">Documents</span></a>
+        <div class="g-sec-title" style="margin-top:8px;">ITC Admin</div>
+        <a href="#" class="g-nav-link" data-label="Members"><span class="g-nav-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span><span class="g-nav-label">Members</span></a>
+        <a href="#" class="g-nav-link" data-label="GATS"><span class="g-nav-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span><span class="g-nav-label">GATS</span></a>
+      </div>
+      <div class="g-sidebar-foot">
+        <a href="#" class="g-nav-link" data-label="Sign Out" style="color:rgba(203,9,47,0.6);"><span class="g-nav-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span><span class="g-nav-label">Sign Out</span></a>
+      </div>
+    </aside>
+    <div class="g-content">
+      <div class="g-content-head">
+        <div><div class="g-content-title">Dashboard</div><div class="g-content-sub">Welcome back, Jason · ZJX · ITC Chair</div></div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.2);">Last login: Today 09:42 AM</div>
+      </div>
+      <div class="g-stat-grid">
+        <div class="g-stat-card"><div class="g-stat-label">Facility Members</div><div class="g-stat-val">247</div><div class="g-stat-change">↑ 3 this month</div></div>
+        <div class="g-stat-card"><div class="g-stat-label">Open Bids</div><div class="g-stat-val">3</div><div class="g-stat-change" style="color:var(--natca-sky);">2 closing soon</div></div>
+        <div class="g-stat-card"><div class="g-stat-label">Grievances</div><div class="g-stat-val">12</div><div class="g-stat-change" style="color:rgba(255,255,255,0.3);">4 pending</div></div>
+        <div class="g-stat-card"><div class="g-stat-label">Unread Notices</div><div class="g-stat-val">5</div><div class="g-stat-change" style="color:var(--natca-red);opacity:0.8;">Action required</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="auth-notes">
+  <strong>Auth Option A — Navy Command Shell:</strong> Deep navy top bar with sidebar that collapses to icon-rail. ZJX facility badge provides location context. No-sidebar version (below) useful for focused task flows.
+</div>
+
+<!-- AUTH OPTION B -->
+<div class="auth-option-label" style="margin-top:32px;">
+  <span class="auth-option-num">Auth Option B</span>
+  <span class="auth-option-title">Horizontal Nav Shell</span>
+  <span class="auth-option-desc">— No sidebar. Two-bar authenticated shell: slim identity strip + full-width horizontal nav. Like GitHub/Notion/Stripe.</span>
+</div>
+
+<div class="auth-variant-label">With Sub-Nav (section context)</div>
+<div class="b-shell">
+  <div class="b-topbar">
+    <a href="#" class="b-logo-zone">
+      <div style="width:26px;height:26px;background:var(--natca-red);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:11px;color:white;">N</div>
+      <span class="b-wordmark">NATCA</span>
+    </a>
+    <span class="b-portal-tag">MyNATCA</span>
+    <div class="b-topbar-right">
+      <span class="b-facility-tag">Signed in as <strong>Jason D.</strong> &nbsp;·&nbsp; <strong>ZJX</strong></span>
+      <div class="b-top-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><div class="b-top-badge"></div></div>
+      <div class="b-avatar">JD</div>
+    </div>
+  </div>
+  <nav class="b-navbar">
+    <a href="#" class="b-nav-link b-active"><svg class="b-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard</a>
+    <a href="#" class="b-nav-link"><svg class="b-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Bidding<span class="b-nav-count">3</span></a>
+    <a href="#" class="b-nav-link"><svg class="b-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Grievances</a>
+    <a href="#" class="b-nav-link"><svg class="b-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>Documents</a>
+    <a href="#" class="b-nav-link"><svg class="b-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>Members</a>
+    <a href="#" class="b-nav-link"><svg class="b-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>GATS</a>
+    <div class="b-navbar-right"><div class="b-search-inline"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Search portal…</div></div>
+  </nav>
+  <div class="b-subnav">
+    <a href="#" class="b-sub-link b-sub-active">Overview</a>
+    <a href="#" class="b-sub-link">Facility Stats</a>
+    <a href="#" class="b-sub-link">Recent Activity</a>
+    <a href="#" class="b-sub-link">Announcements</a>
+    <div class="b-subnav-right">Last updated: Today 09:42 AM</div>
+  </div>
+  <div class="b-content" style="height:220px;">
+    <div class="b-content-head">
+      <div><div class="b-content-title">Dashboard — Overview</div><div class="b-content-sub">ZJX · Jacksonville ARTCC · ITC Chair view</div></div>
+    </div>
+    <div class="b-stat-row">
+      <div class="b-stat-cell"><div class="b-stat-label">Facility Members</div><div class="b-stat-val">247</div><div class="b-stat-delta" style="color:#4caf50;">↑ 3 this month</div></div>
+      <div class="b-stat-cell"><div class="b-stat-label">Open Bids</div><div class="b-stat-val">3</div><div class="b-stat-delta" style="color:var(--natca-sky);">2 closing soon</div></div>
+      <div class="b-stat-cell"><div class="b-stat-label">Grievances</div><div class="b-stat-val">12</div><div class="b-stat-delta" style="color:rgba(255,255,255,0.3);">4 pending</div></div>
+      <div class="b-stat-cell"><div class="b-stat-label">Unread Notices</div><div class="b-stat-val">5</div><div class="b-stat-delta" style="color:#ff8a9a;">Action required</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="auth-variant-label">On a deeper page (breadcrumb sub-nav, GATS case view)</div>
+<div class="b-shell">
+  <div class="b-topbar">
+    <a href="#" class="b-logo-zone">
+      <div style="width:26px;height:26px;background:var(--natca-red);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:11px;color:white;">N</div>
+      <span class="b-wordmark">NATCA</span>
+    </a>
+    <span class="b-portal-tag">GATS</span>
+    <div class="b-topbar-right">
+      <span class="b-facility-tag">Jason D. &nbsp;·&nbsp; <strong>ZJX</strong></span>
+      <div class="b-top-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></div>
+      <div class="b-avatar">JD</div>
+    </div>
+  </div>
+  <nav class="b-navbar">
+    <a href="#" class="b-nav-link"><svg class="b-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard</a>
+    <a href="#" class="b-nav-link"><svg class="b-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Bidding<span class="b-nav-count">3</span></a>
+    <a href="#" class="b-nav-link"><svg class="b-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Grievances</a>
+    <a href="#" class="b-nav-link"><svg class="b-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>Documents</a>
+    <a href="#" class="b-nav-link b-active"><svg class="b-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>GATS</a>
+    <div class="b-navbar-right"><div class="b-search-inline"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Search portal…</div></div>
+  </nav>
+  <div class="b-subnav">
+    <div class="b-breadcrumb">
+      <a href="#">GATS</a>
+      <span class="b-sep">/</span>
+      <a href="#">ZJX Grievances</a>
+      <span class="b-sep">/</span>
+      <span style="color:rgba(255,255,255,0.55);">Article 9 Violation — Case #2026-041</span>
+    </div>
+    <div class="b-subnav-right">Case opened: Mar 12, 2026</div>
+  </div>
+  <div class="b-content" style="height:180px;">
+    <div class="b-content-head">
+      <div><div class="b-content-title">Case #2026-041 — Article 9 Violation</div><div class="b-content-sub">Step 2 · Open · Assigned to ITC Chair · Filed by M. Torres</div></div>
+      <button class="b-action-btn">Update Case</button>
+    </div>
+    <div class="b-stat-row">
+      <div class="b-stat-cell"><div class="b-stat-label">Status</div><div class="b-stat-val" style="font-size:15px;margin-top:4px;">Step 2</div><div class="b-stat-delta" style="color:rgba(255,255,255,0.3);">Agency Response Due</div></div>
+      <div class="b-stat-cell"><div class="b-stat-label">Filed</div><div class="b-stat-val" style="font-size:15px;margin-top:4px;">Mar 12</div><div class="b-stat-delta" style="color:rgba(255,255,255,0.3);">25 days open</div></div>
+      <div class="b-stat-cell"><div class="b-stat-label">Article</div><div class="b-stat-val" style="font-size:15px;margin-top:4px;">Art. 9</div><div class="b-stat-delta" style="color:rgba(255,255,255,0.3);">Scheduling</div></div>
+      <div class="b-stat-cell"><div class="b-stat-label">Next Deadline</div><div class="b-stat-val" style="font-size:15px;margin-top:4px;">Apr 14</div><div class="b-stat-delta" style="color:#ff8a9a;">7 days</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="auth-notes">
+  <strong>Auth Option B — Horizontal Nav Shell:</strong> All navigation in a full-width tab bar. Contextual sub-nav shows section tabs or breadcrumb trail when deep inside a record. Maximizes horizontal content width — ideal for data tables, GATS case files, and bidding grids.
+</div>
+
+<div style="padding:30px 40px;font-size:12px;color:rgba(255,255,255,0.2);text-align:center;">
+  NATCA UI Kit · Navigation Design Proposal · April 2026
+</div>
+
+</body>
+</html>

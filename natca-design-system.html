@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NATCA Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   natca-design-system.css  —  NATCA Unified Design System v1
+   Drop this file into any project and theme with data-theme.
+   ============================================================ */
+
+:root,
+[data-theme="light"] {
+  /* --- Brand Palette --- */
+  --natca-red:          #C1272D;
+  --natca-red-dark:     #8B1A1F;
+  --natca-red-subtle:   #F9E5E6;
+
+  --natca-blue:         #1490D7;
+  --natca-blue-deep:    #2572A1;
+  --natca-blue-dark:    #0E6FA3;
+  --natca-blue-subtle:  #E6F4FB;
+  --natca-sky:          #6AC9FF;
+
+  /* --- Neutrals --- */
+  --color-bg-page:      #FAF9F5;
+  --color-bg-surface:   #FFFFFF;
+  --color-bg-elevated:  #FFFFFF;
+  --color-bg-subtle:    #EFEFEF;
+  --color-bg-dark:      #353535;
+
+  --color-text-primary: #333333;
+  --color-text-body:    #4D4D4D;
+  --color-text-muted:   #666666;
+  --color-text-faint:   #999999;
+  --color-text-inverse: #FFFFFF;
+
+  --color-border:       #DDDDDD;
+  --color-border-light: #EEEEEE;
+  --color-border-focus: #1490D7;
+
+  /* --- Footer --- */
+  --color-footer-bg:    #414141;
+  --color-footer-text:  #CCCCCC;
+  --color-footer-link:  #6AC9FF;
+
+  /* --- Semantic --- */
+  --color-success:      #2E7D32;
+  --color-success-bg:   #E8F5E9;
+  --color-warning:      #E65100;
+  --color-warning-bg:   #FFF3E0;
+  --color-danger:       #C1272D;
+  --color-danger-bg:    #FFEBEE;
+  --color-info:         #1490D7;
+  --color-info-bg:      #E6F4FB;
+
+  /* --- Typography --- */
+  --font-display: 'Barlow', 'Open Sans', sans-serif;
+  --font-body:    'Inter', 'Open Sans', sans-serif;
+  --font-mono:    'Courier New', monospace;
+
+  /* --- Type Scale --- */
+  --text-xs:   12px;
+  --text-sm:   13px;
+  --text-base: 15px;
+  --text-md:   17px;
+  --text-lg:   20px;
+  --text-xl:   24px;
+  --text-2xl:  30px;
+  --text-3xl:  38px;
+  --text-4xl:  48px;
+
+  /* --- Spacing (4px base) --- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* --- Radii --- */
+  --radius-sm: 3px;
+  --radius:    6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* --- Shadows --- */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow:    0 2px 8px rgba(0,0,0,0.10);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.14);
+
+  /* --- Nav Heights --- */
+  --nav-utility-height: 36px;
+  --nav-primary-height: 64px;
+}
+
+/* ============================================================
+   DARK THEME  (data-theme="dark")
+   Used for: member portal, admin, bidding, authenticated views
+   ============================================================ */
+[data-theme="dark"] {
+  --color-bg-page:      #0F1117;
+  --color-bg-surface:   #1A1D27;
+  --color-bg-elevated:  #22263A;
+  --color-bg-subtle:    #2E3347;
+  --color-bg-dark:      #090B12;
+
+  --color-text-primary: #E8EAF0;
+  --color-text-body:    #C4C8D8;
+  --color-text-muted:   #8891A8;
+  --color-text-faint:   #5A6178;
+  --color-text-inverse: #0F1117;
+
+  --color-border:       #2E3347;
+  --color-border-light: #252839;
+  --color-border-focus: #6AC9FF;
+
+  --color-footer-bg:    #090B12;
+  --color-footer-text:  #8891A8;
+  --color-footer-link:  #6AC9FF;
+
+  --natca-blue:         #6AC9FF;
+  --natca-blue-dark:    #4AB8F5;
+  --natca-blue-subtle:  #1A2A3F;
+  --natca-sky:          #6AC9FF;
+
+  --color-success:      #66BB6A;
+  --color-success-bg:   #1B2E1C;
+  --color-warning:      #FFA726;
+  --color-warning-bg:   #2E1F0A;
+  --color-danger:       #EF5350;
+  --color-danger-bg:    #2E1010;
+  --color-info:         #6AC9FF;
+  --color-info-bg:      #0D2233;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.30);
+  --shadow:    0 2px 8px rgba(0,0,0,0.40);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.50);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.60);
+}
+
+/* ============================================================
+   BASE RESET & GLOBAL
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--color-bg-page);
+  color: var(--color-text-body);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  transition: background 0.2s, color 0.2s;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: var(--font-display);
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+h1 { font-size: var(--text-4xl); font-weight: 800; }
+h2 { font-size: var(--text-3xl); font-weight: 700; }
+h3 { font-size: var(--text-2xl); font-weight: 600; }
+h4 { font-size: var(--text-xl);  font-weight: 600; }
+
+a { color: var(--natca-blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+p.lead { font-size: var(--text-lg); line-height: 1.7; }
+.eyebrow { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--color-text-muted); }
+
+/* ============================================================
+   NAVIGATION — Two-Tier Pattern
+   ============================================================ */
+
+/* Utility Bar (top, always dark) */
+.nav-utility {
+  background: var(--color-bg-dark);
+  height: var(--nav-utility-height);
+  display: flex;
+  align-items: center;
+}
+.nav-utility__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-utility__links { display: flex; gap: var(--space-5); }
+.nav-utility__links a {
+  color: rgba(255,255,255,0.65);
+  font-size: var(--text-xs);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: color 0.15s;
+}
+.nav-utility__links a:hover { color: #FFFFFF; text-decoration: none; }
+.nav-utility__cta {
+  background: var(--natca-red);
+  color: #FFFFFF !important;
+  padding: 3px var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs) !important;
+  font-weight: 700 !important;
+}
+.nav-utility__cta:hover { background: var(--natca-red-dark); }
+
+/* Primary Nav */
+.nav-primary {
+  background: var(--color-bg-surface);
+  height: var(--nav-primary-height);
+  box-shadow: var(--shadow-sm);
+  border-bottom: 3px solid var(--natca-red);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-primary__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-primary__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+}
+.nav-primary__logo-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--natca-red);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: -1px;
+}
+.nav-primary__logo-text {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-lg);
+  color: var(--color-text-primary);
+  letter-spacing: -0.5px;
+}
+.nav-primary__menu {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 4px;
+}
+.nav-primary__item { position: relative; }
+.nav-primary__link {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s, color 0.15s;
+  cursor: pointer;
+}
+.nav-primary__link:hover,
+.nav-primary__item:hover .nav-primary__link {
+  background: var(--color-bg-subtle);
+  color: var(--natca-blue);
+  text-decoration: none;
+}
+.nav-primary__dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-top: 2px solid var(--natca-red);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  min-width: 240px;
+  box-shadow: var(--shadow-md);
+  list-style: none;
+  padding: var(--space-2) 0;
+  z-index: 200;
+}
+.nav-primary__item:hover .nav-primary__dropdown { display: block; }
+.nav-primary__dropdown-link {
+  display: block;
+  padding: var(--space-2) var(--space-5);
+  font-size: var(--text-sm);
+  color: var(--color-text-body);
+  transition: background 0.1s, color 0.1s;
+}
+.nav-primary__dropdown-link:hover {
+  background: var(--color-bg-subtle);
+  color: var(--natca-blue);
+  text-decoration: none;
+}
+.nav-primary__search {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-2);
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  transition: background 0.15s, color 0.15s;
+}
+.nav-primary__search:hover {
+  background: var(--color-bg-subtle);
+  color: var(--natca-blue);
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-5);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: var(--radius);
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s;
+  line-height: 1;
+}
+.btn-sm  { padding: var(--space-1) var(--space-3); font-size: var(--text-xs); }
+.btn-lg  { padding: var(--space-3) var(--space-8); font-size: var(--text-base); }
+
+.btn-primary   { background: var(--natca-blue);  color: #FFFFFF; border-color: var(--natca-blue); }
+.btn-primary:hover   { background: var(--natca-blue-dark); border-color: var(--natca-blue-dark); text-decoration: none; color: #fff; }
+
+.btn-secondary { background: transparent; color: var(--natca-blue); border-color: var(--natca-blue); }
+.btn-secondary:hover { background: var(--natca-blue-subtle); text-decoration: none; }
+
+.btn-danger    { background: var(--natca-red); color: #FFFFFF; border-color: var(--natca-red); }
+.btn-danger:hover { background: var(--natca-red-dark); border-color: var(--natca-red-dark); text-decoration: none; color: #fff; }
+
+.btn-ghost  { background: transparent; color: var(--color-text-muted); border-color: var(--color-border); }
+.btn-ghost:hover { background: var(--color-bg-subtle); color: var(--color-text-primary); text-decoration: none; }
+
+.btn-accent { background: var(--natca-red); color: #FFFFFF; border-color: var(--natca-red); }
+.btn-accent:hover { background: var(--natca-red-dark); border-color: var(--natca-red-dark); text-decoration: none; color: #fff; }
+
+/* ============================================================
+   CARDS
+   ============================================================ */
+.card {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+.card--accent { border-top: 3px solid var(--natca-blue); }
+.card--alert  { border-top: 3px solid var(--natca-red); }
+.card__title  { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 700; color: var(--color-text-primary); margin-bottom: var(--space-2); }
+.card__meta   { font-size: var(--text-xs); color: var(--color-text-muted); margin-bottom: var(--space-3); text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* ============================================================
+   BADGES
+   ============================================================ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.badge-info    { background: var(--color-info-bg);    color: var(--color-info);    }
+.badge-success { background: var(--color-success-bg); color: var(--color-success); }
+.badge-warning { background: var(--color-warning-bg); color: var(--color-warning); }
+.badge-danger  { background: var(--color-danger-bg);  color: var(--color-danger);  }
+.badge-neutral { background: var(--color-bg-subtle);  color: var(--color-text-muted); }
+
+/* ============================================================
+   ALERTS
+   ============================================================ */
+.alert {
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-md);
+  border-left: 4px solid;
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-4);
+}
+.alert-info    { background: var(--color-info-bg);    border-color: var(--color-info);    color: var(--color-text-body); }
+.alert-success { background: var(--color-success-bg); border-color: var(--color-success); color: var(--color-text-body); }
+.alert-warning { background: var(--color-warning-bg); border-color: var(--color-warning); color: var(--color-text-body); }
+.alert-danger  { background: var(--color-danger-bg);  border-color: var(--color-danger);  color: var(--color-text-body); }
+
+/* ============================================================
+   FORMS
+   ============================================================ */
+.form-label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-1);
+}
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px rgba(20,144,215,0.15);
+}
+.form-textarea { min-height: 100px; resize: vertical; }
+
+/* ============================================================
+   DATA TABLE
+   ============================================================ */
+.ds-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+.ds-table th {
+  background: var(--color-bg-subtle);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  border-bottom: 2px solid var(--color-border);
+}
+.ds-table td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border-light);
+  color: var(--color-text-body);
+}
+.ds-table tr:hover td { background: var(--color-bg-subtle); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  background: var(--color-footer-bg);
+  color: var(--color-footer-text);
+  padding: var(--space-12) var(--space-6) var(--space-6);
+  margin-top: var(--space-16);
+}
+footer a { color: var(--color-footer-link); }
+footer a:hover { color: #FFFFFF; }
+
+/* ============================================================
+   DESIGN SYSTEM REFERENCE PAGE STYLES
+   ============================================================ */
+.ds-page { max-width: 1100px; margin: 0 auto; padding: 0 var(--space-6); }
+.ds-section { padding: var(--space-10) 0; border-bottom: 1px solid var(--color-border); }
+.ds-section-title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-3);
+  border-bottom: 3px solid var(--natca-red);
+  display: inline-block;
+}
+.ds-row { display: flex; gap: var(--space-6); flex-wrap: wrap; }
+.ds-col { flex: 1; min-width: 200px; }
+
+.swatch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: var(--space-4); }
+.swatch { border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--color-border); }
+.swatch__color { height: 72px; }
+.swatch__info { padding: var(--space-2) var(--space-3); background: var(--color-bg-surface); }
+.swatch__name { font-size: var(--text-sm); font-weight: 600; color: var(--color-text-primary); }
+.swatch__hex  { font-size: var(--text-xs); color: var(--color-text-muted); font-family: var(--font-mono); }
+
+.type-row { display: flex; align-items: baseline; justify-content: space-between; padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border-light); }
+.type-meta { font-size: var(--text-xs); color: var(--color-text-muted); font-family: var(--font-mono); text-align: right; flex-shrink: 0; margin-left: var(--space-4); }
+
+.token-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); margin-bottom: var(--space-8); }
+.token-table th { background: var(--color-bg-subtle); padding: var(--space-2) var(--space-4); text-align: left; font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-text-muted); }
+.token-table td { padding: var(--space-2) var(--space-4); border-bottom: 1px solid var(--color-border-light); font-family: var(--font-mono); font-size: 12px; }
+.token-table tr:hover td { background: var(--color-bg-subtle); }
+
+.btn-row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; margin-bottom: var(--space-4); }
+.badge-row { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+
+/* Theme Toggle */
+.theme-toggle {
+  position: fixed;
+  top: var(--space-4);
+  right: var(--space-4);
+  z-index: 9999;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: var(--space-2) var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+}
+.theme-toggle:hover { background: var(--color-bg-subtle); }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="toggleTheme()">
+  <span id="theme-icon">☀</span>
+  <span id="theme-label">Light mode</span>
+</button>
+
+<!-- NAV DEMO -->
+<div class="nav-utility">
+  <div class="nav-utility__inner">
+    <div class="nav-utility__links">
+      <a href="#">Members</a>
+      <a href="#">Locals</a>
+      <a href="#">News</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="nav-utility__links">
+      <a href="#" class="nav-utility__cta">Member Login</a>
+    </div>
+  </div>
+</div>
+
+<nav class="nav-primary">
+  <div class="nav-primary__inner">
+    <a href="#" class="nav-primary__logo">
+      <div class="nav-primary__logo-icon">N</div>
+      <span class="nav-primary__logo-text">NATCA</span>
+    </a>
+    <ul class="nav-primary__menu">
+      <li class="nav-primary__item">
+        <a href="#" class="nav-primary__link">About NATCA ▾</a>
+        <ul class="nav-primary__dropdown">
+          <li><a href="#" class="nav-primary__dropdown-link">Mission, Values &amp; Vision</a></li>
+          <li><a href="#" class="nav-primary__dropdown-link">NATCA Leadership</a></li>
+          <li><a href="#" class="nav-primary__dropdown-link">NATCA Staff</a></li>
+          <li><a href="#" class="nav-primary__dropdown-link">Who We Represent</a></li>
+          <li><a href="#" class="nav-primary__dropdown-link">Foundations of Professionalism</a></li>
+          <li><a href="#" class="nav-primary__dropdown-link">NATCA Through the Years</a></li>
+        </ul>
+      </li>
+      <li class="nav-primary__item">
+        <a href="#" class="nav-primary__link">Events ▾</a>
+        <ul class="nav-primary__dropdown">
+          <li><a href="#" class="nav-primary__dropdown-link">Activism &amp; Training Expo (ATX)</a></li>
+          <li><a href="#" class="nav-primary__dropdown-link">Communicating for Safety</a></li>
+          <li><a href="#" class="nav-primary__dropdown-link">Convention</a></li>
+          <li><a href="#" class="nav-primary__dropdown-link">NATCA in Washington</a></li>
+        </ul>
+      </li>
+      <li class="nav-primary__item">
+        <a href="#" class="nav-primary__link">Community ▾</a>
+        <ul class="nav-primary__dropdown">
+          <li><a href="#" class="nav-primary__dropdown-link">Scholarships</a></li>
+          <li><a href="#" class="nav-primary__dropdown-link">NATCA Charitable Foundation</a></li>
+          <li><a href="#" class="nav-primary__dropdown-link">Awards</a></li>
+          <li><a href="#" class="nav-primary__dropdown-link">Corporate Members</a></li>
+          <li><a href="#" class="nav-primary__dropdown-link">Critical Incident Stress Mgmt.</a></li>
+        </ul>
+      </li>
+      <li class="nav-primary__item"><a href="#" class="nav-primary__link">Education ▾</a></li>
+      <li class="nav-primary__item"><a href="#" class="nav-primary__link">Issues ▾</a></li>
+      <li class="nav-primary__item">
+        <button class="nav-primary__search" aria-label="Search">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </button>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- DESIGN SYSTEM CONTENT -->
+<main style="padding: var(--space-10) 0;">
+  <div class="ds-page">
+
+    <div style="margin-bottom: var(--space-8);">
+      <p class="eyebrow">NATCA ITC</p>
+      <h1 style="margin-top: var(--space-2);">Design System <span style="color: var(--natca-blue);">v1.0</span></h1>
+      <p class="lead" style="margin-top: var(--space-4); max-width: 640px; color: var(--color-text-muted);">
+        The single source of truth for all NATCA web properties. Toggle between light (public) and dark (member/admin) themes using the button at top right.
+      </p>
+    </div>
+
+    <!-- COLOR TOKENS -->
+    <div class="ds-section">
+      <div class="ds-section-title">Color Tokens</div>
+      <p style="color: var(--color-text-muted); font-size: var(--text-sm); margin-bottom: var(--space-6);">All colors defined as CSS custom properties. Dark theme overrides same tokens on <code>[data-theme="dark"]</code>.</p>
+
+      <h4 style="margin-bottom: var(--space-4); font-size: var(--text-base);">Brand Colors</h4>
+      <div class="swatch-grid" style="margin-bottom: var(--space-8);">
+        <div class="swatch"><div class="swatch__color" style="background:#C1272D;"></div><div class="swatch__info"><div class="swatch__name">NATCA Red</div><div class="swatch__hex">--natca-red · #C1272D</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#8B1A1F;"></div><div class="swatch__info"><div class="swatch__name">Red Dark</div><div class="swatch__hex">--natca-red-dark · #8B1A1F</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#1490D7;"></div><div class="swatch__info"><div class="swatch__name">NATCA Blue</div><div class="swatch__hex">--natca-blue · #1490D7</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#2572A1;"></div><div class="swatch__info"><div class="swatch__name">Blue Deep</div><div class="swatch__hex">--natca-blue-deep · #2572A1</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#6AC9FF;"></div><div class="swatch__info"><div class="swatch__name">Sky / Accent</div><div class="swatch__hex">--natca-sky · #6AC9FF</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#E6F4FB; border: 1px solid #cce4f0;"></div><div class="swatch__info"><div class="swatch__name">Blue Subtle</div><div class="swatch__hex">--natca-blue-subtle · #E6F4FB</div></div></div>
+      </div>
+
+      <h4 style="margin-bottom: var(--space-4); font-size: var(--text-base);">Semantic Colors</h4>
+      <div class="swatch-grid">
+        <div class="swatch"><div class="swatch__color" style="background:#2E7D32;"></div><div class="swatch__info"><div class="swatch__name">Success</div><div class="swatch__hex">--color-success · #2E7D32</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#E65100;"></div><div class="swatch__info"><div class="swatch__name">Warning</div><div class="swatch__hex">--color-warning · #E65100</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#C1272D;"></div><div class="swatch__info"><div class="swatch__name">Danger</div><div class="swatch__hex">--color-danger · #C1272D</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#1490D7;"></div><div class="swatch__info"><div class="swatch__name">Info</div><div class="swatch__hex">--color-info · #1490D7</div></div></div>
+      </div>
+    </div>
+
+    <!-- TYPOGRAPHY -->
+    <div class="ds-section">
+      <div class="ds-section-title">Typography</div>
+      <div class="ds-row" style="margin-bottom: var(--space-8);">
+        <div class="ds-col">
+          <p class="eyebrow">Display / Headings</p>
+          <p style="font-size: var(--text-2xl); font-family: var(--font-display); font-weight: 800; margin-top: var(--space-2);">Barlow · 800</p>
+        </div>
+        <div class="ds-col">
+          <p class="eyebrow">Body / UI</p>
+          <p style="font-size: var(--text-2xl); font-family: var(--font-body); font-weight: 400; margin-top: var(--space-2);">Inter · 400</p>
+        </div>
+      </div>
+      <div class="type-row"><h1>Heading 1 — Barlow 800</h1><div class="type-meta">var(--text-4xl)<br>48px · 800</div></div>
+      <div class="type-row"><h2>Heading 2 — Barlow 700</h2><div class="type-meta">var(--text-3xl)<br>38px · 700</div></div>
+      <div class="type-row"><h3>Heading 3 — Barlow 600</h3><div class="type-meta">var(--text-2xl)<br>30px · 600</div></div>
+      <div class="type-row"><h4>Heading 4 — Barlow 600</h4><div class="type-meta">var(--text-xl)<br>24px · 600</div></div>
+      <div class="type-row"><p class="lead">Lead paragraph — slightly larger body text for intros and hero sections.</p><div class="type-meta">var(--text-lg)<br>20px · 400</div></div>
+      <div class="type-row"><p>Body copy — Inter Regular. Used for all prose content across the site.</p><div class="type-meta">var(--text-base)<br>15px · 400</div></div>
+      <div class="type-row"><p class="eyebrow">Eyebrow Label</p><div class="type-meta">var(--text-xs)<br>12px · 700 caps</div></div>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="ds-section">
+      <div class="ds-section-title">Buttons</div>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="#">Primary</a>
+        <a class="btn btn-secondary" href="#">Secondary</a>
+        <a class="btn btn-accent" href="#">Accent (Red)</a>
+        <a class="btn btn-danger" href="#">Danger</a>
+        <a class="btn btn-ghost" href="#">Ghost</a>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn-primary btn-sm" href="#">Small Primary</a>
+        <a class="btn btn-secondary btn-sm" href="#">Small Secondary</a>
+        <a class="btn btn-ghost btn-sm" href="#">Small Ghost</a>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn-primary btn-lg" href="#">Large Primary</a>
+        <a class="btn btn-secondary btn-lg" href="#">Large Secondary</a>
+      </div>
+    </div>
+
+    <!-- BADGES -->
+    <div class="ds-section">
+      <div class="ds-section-title">Badges</div>
+      <div class="badge-row">
+        <span class="badge badge-info">Info</span>
+        <span class="badge badge-success">Active</span>
+        <span class="badge badge-warning">Pending</span>
+        <span class="badge badge-danger">Urgent</span>
+        <span class="badge badge-neutral">Archived</span>
+      </div>
+    </div>
+
+    <!-- ALERTS -->
+    <div class="ds-section">
+      <div class="ds-section-title">Alerts</div>
+      <div class="alert alert-info">ℹ️ <strong>Info:</strong> This is an informational message for users.</div>
+      <div class="alert alert-success">✅ <strong>Success:</strong> Your changes have been saved successfully.</div>
+      <div class="alert alert-warning">⚠️ <strong>Warning:</strong> Your session will expire in 10 minutes.</div>
+      <div class="alert alert-danger">🚨 <strong>Error:</strong> Failed to submit. Please check required fields.</div>
+    </div>
+
+    <!-- CARDS -->
+    <div class="ds-section">
+      <div class="ds-section-title">Cards</div>
+      <div class="ds-row">
+        <div class="ds-col">
+          <div class="card card--accent">
+            <p class="card__meta">News · Apr 7, 2026</p>
+            <p class="card__title">NATCA Announces New Safety Initiative</p>
+            <p style="color: var(--color-text-muted); font-size: var(--text-sm); margin-top: var(--space-3);">A new joint task force will review current procedures across all major ARTCCs to improve controller workload distribution.</p>
+            <div style="margin-top: var(--space-5);"><a class="btn btn-primary btn-sm" href="#">Read More</a></div>
+          </div>
+        </div>
+        <div class="ds-col">
+          <div class="card card--alert">
+            <p class="card__meta">Alert · Urgent</p>
+            <p class="card__title">System Maintenance Window</p>
+            <p style="color: var(--color-text-muted); font-size: var(--text-sm); margin-top: var(--space-3);">MyNATCA will be offline for maintenance Saturday April 12 from 0200–0600 ET. Plan accordingly.</p>
+            <div style="margin-top: var(--space-5);"><span class="badge badge-danger">Urgent</span></div>
+          </div>
+        </div>
+        <div class="ds-col">
+          <div class="card">
+            <p class="card__meta">Default Card</p>
+            <p class="card__title">Member Resource</p>
+            <p style="color: var(--color-text-muted); font-size: var(--text-sm); margin-top: var(--space-3);">Standard card without accent border. Used for general content blocks, dashboards, and utility panels.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORMS -->
+    <div class="ds-section">
+      <div class="ds-section-title">Forms</div>
+      <div class="ds-row">
+        <div class="ds-col">
+          <div style="margin-bottom: var(--space-4);">
+            <label class="form-label">Full Name</label>
+            <input class="form-input" type="text" placeholder="John Smith">
+          </div>
+          <div style="margin-bottom: var(--space-4);">
+            <label class="form-label">Facility / Local</label>
+            <select class="form-select">
+              <option>Select facility...</option>
+              <option>ZDC - Washington ARTCC</option>
+              <option>ZNY - New York ARTCC</option>
+              <option>ZLA - Los Angeles ARTCC</option>
+            </select>
+          </div>
+          <div style="margin-bottom: var(--space-4);">
+            <label class="form-label">Message</label>
+            <textarea class="form-textarea" placeholder="Enter your message..."></textarea>
+          </div>
+          <div><a class="btn btn-primary" href="#">Submit</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DATA TABLE -->
+    <div class="ds-section">
+      <div class="ds-section-title">Data Table</div>
+      <div style="overflow-x: auto;">
+        <table class="ds-table">
+          <thead>
+            <tr>
+              <th>Facility</th>
+              <th>Region</th>
+              <th>Members</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>ZDC — Washington ARTCC</td><td>Eastern</td><td>312</td><td><span class="badge badge-success">Active</span></td><td><a class="btn btn-ghost btn-sm" href="#">View</a></td></tr>
+            <tr><td>ZNY — New York ARTCC</td><td>Eastern</td><td>287</td><td><span class="badge badge-success">Active</span></td><td><a class="btn btn-ghost btn-sm" href="#">View</a></td></tr>
+            <tr><td>ZLA — Los Angeles ARTCC</td><td>Western</td><td>241</td><td><span class="badge badge-warning">Pending</span></td><td><a class="btn btn-ghost btn-sm" href="#">View</a></td></tr>
+            <tr><td>ZAU — Chicago ARTCC</td><td>Central</td><td>198</td><td><span class="badge badge-success">Active</span></td><td><a class="btn btn-ghost btn-sm" href="#">View</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- .ds-page -->
+</main>
+
+<footer>
+  <div class="ds-page">
+    <div style="display: flex; justify-content: space-between; align-items: center; font-size: var(--text-xs); padding-top: var(--space-6); border-top: 1px solid rgba(255,255,255,0.08);">
+      <span>© 2026 National Air Traffic Controllers Association. All rights reserved.</span>
+      <span>
+        <a href="#" style="margin-right: 16px;">Privacy Policy</a>
+        <a href="#">Accessibility</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<!-- Claude Code Integration Block -->
+<div style="background: #0F1117; color: #C4C8D8; padding: var(--space-10) var(--space-8); font-family: var(--font-mono); font-size: 13px; line-height: 1.8;">
+  <div class="ds-page">
+    <p style="color: #6AC9FF; margin-bottom: var(--space-4); font-weight: 700; font-family: 'Inter', sans-serif; text-transform: uppercase; letter-spacing: 1px; font-size: 11px;">Claude Code Integration Notes</p>
+    <div style="background: #1A1D27; border: 1px solid #2E3347; border-radius: 8px; padding: var(--space-5); white-space: pre-wrap; color: #E8EAF0;">
+# NATCA Design System Adoption Prompt
+
+You are refactoring [SYSTEM NAME] to adopt the NATCA Design System.
+
+## Rules
+1. Import natca-design-system.css as the first stylesheet
+2. Replace all hardcoded colors with CSS token variables (e.g. var(--natca-blue))
+3. Apply data-theme="light" to &lt;html&gt; for public pages
+4. Apply data-theme="dark" to &lt;html&gt; for authenticated/member/admin pages
+5. Use .btn, .btn-primary, .btn-secondary, .btn-accent for all buttons
+6. Use .card, .card--accent, .card--alert for content panels
+7. Use .badge-* for status indicators
+8. Use .ds-table for all data tables
+9. Use .alert-* for system messages
+10. Use .form-input, .form-label, .form-select, .form-textarea for all forms
+11. Replace font-family declarations with var(--font-display) or var(--font-body)
+12. Navigation must use the two-tier pattern: .nav-utility (top dark) + .nav-primary (sticky)
+
+## Do NOT
+- Hardcode any hex values — always use CSS tokens
+- Use inline styles for color, font, or spacing
+- Introduce new color variables — use the existing token set
+- Change the token file — only consume it
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const next = current === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', next);
+  document.getElementById('theme-icon').textContent = next === 'dark' ? '☽' : '☀';
+  document.getElementById('theme-label').textContent = next === 'dark' ? 'Dark mode' : 'Light mode';
+}
+</script>
+</body>
+</html>
