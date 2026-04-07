@@ -40,7 +40,7 @@ Key patterns documented in header variants:
 - **Fonts (under review):** Three options in design system — A: Barlow + Inter (current), B: Public Sans (single-family), C: Outfit + DM Sans
 - **Light theme:** Public-facing pages (`data-theme="light"`)
 - **Dark theme:** Authenticated/member views (`data-theme="dark"`)
-- **Brand colors:** Red (#CB092F), Navy (#032449), Blue (#1490D7), Sky (#6AC9FF)
+- **Brand colors:** Red (#CE0E2D), Navy/Blue (#003366), Sky (#6AC9FF)
 
 ## Rules
 

@@ -15,14 +15,14 @@
 :root,
 [data-theme="light"] {
   /* --- Brand Palette --- */
-  --natca-red:          #C1272D;
-  --natca-red-dark:     #8B1A1F;
-  --natca-red-subtle:   #F9E5E6;
+  --natca-red:          #CE0E2D;
+  --natca-red-dark:     #A30B24;
+  --natca-red-subtle:   #FDE8EC;
 
-  --natca-blue:         #1490D7;
-  --natca-blue-deep:    #2572A1;
-  --natca-blue-dark:    #0E6FA3;
-  --natca-blue-subtle:  #E6F4FB;
+  --natca-blue:         #003366;
+  --natca-blue-deep:    #002952;
+  --natca-blue-dark:    #00254D;
+  --natca-blue-subtle:  #E6EDF5;
   --natca-sky:          #6AC9FF;
 
   /* --- Neutrals --- */
@@ -40,7 +40,7 @@
 
   --color-border:       #DDDDDD;
   --color-border-light: #EEEEEE;
-  --color-border-focus: #1490D7;
+  --color-border-focus: #003366;
 
   /* --- Footer --- */
   --color-footer-bg:    #414141;
@@ -52,10 +52,10 @@
   --color-success-bg:   #E8F5E9;
   --color-warning:      #E65100;
   --color-warning-bg:   #FFF3E0;
-  --color-danger:       #C1272D;
-  --color-danger-bg:    #FFEBEE;
-  --color-info:         #1490D7;
-  --color-info-bg:      #E6F4FB;
+  --color-danger:       #CE0E2D;
+  --color-danger-bg:    #FDE8EC;
+  --color-info:         #003366;
+  --color-info-bg:      #E6EDF5;
 
   /* --- Typography --- */
   --font-display: 'Barlow', 'Open Sans', sans-serif;
@@ -123,15 +123,15 @@
 
   --color-border:       #2E3347;
   --color-border-light: #252839;
-  --color-border-focus: #6AC9FF;
+  --color-border-focus: #5BA3D9;
 
   --color-footer-bg:    #090B12;
   --color-footer-text:  #8891A8;
-  --color-footer-link:  #6AC9FF;
+  --color-footer-link:  #5BA3D9;
 
-  --natca-blue:         #6AC9FF;
-  --natca-blue-dark:    #4AB8F5;
-  --natca-blue-subtle:  #1A2A3F;
+  --natca-blue:         #5BA3D9;
+  --natca-blue-dark:    #4888BC;
+  --natca-blue-subtle:  #0D1E2F;
   --natca-sky:          #6AC9FF;
 
   --color-success:      #66BB6A;
@@ -140,8 +140,8 @@
   --color-warning-bg:   #2E1F0A;
   --color-danger:       #EF5350;
   --color-danger-bg:    #2E1010;
-  --color-info:         #6AC9FF;
-  --color-info-bg:      #0D2233;
+  --color-info:         #5BA3D9;
+  --color-info-bg:      #0D1E2F;
 
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.30);
   --shadow:    0 2px 8px rgba(0,0,0,0.40);
@@ -359,8 +359,21 @@ p.lead { font-size: var(--text-lg); line-height: 1.7; }
 .btn-primary   { background: var(--natca-blue);  color: #FFFFFF; border-color: var(--natca-blue); }
 .btn-primary:hover   { background: var(--natca-blue-dark); border-color: var(--natca-blue-dark); text-decoration: none; color: #fff; }
 
+/* Secondary Option A: navy outline */
+.btn-secondary-outline { background: transparent; color: var(--natca-blue); border-color: var(--natca-blue); }
+.btn-secondary-outline:hover { background: var(--natca-blue); color: #FFFFFF; text-decoration: none; }
+
+/* Secondary Option B: soft navy fill */
+.btn-secondary-soft { background: var(--natca-blue-subtle); color: var(--natca-blue); border-color: var(--natca-blue-subtle); }
+.btn-secondary-soft:hover { background: var(--natca-blue); color: #FFFFFF; border-color: var(--natca-blue); text-decoration: none; }
+
+/* Secondary Option C: red outline (pairs with navy primary) */
+.btn-secondary-red { background: transparent; color: var(--natca-red); border-color: var(--natca-red); }
+.btn-secondary-red:hover { background: var(--natca-red); color: #FFFFFF; text-decoration: none; }
+
+/* Default secondary = outline for backward compat */
 .btn-secondary { background: transparent; color: var(--natca-blue); border-color: var(--natca-blue); }
-.btn-secondary:hover { background: var(--natca-blue-subtle); text-decoration: none; }
+.btn-secondary:hover { background: var(--natca-blue); color: #FFFFFF; text-decoration: none; }
 
 .btn-danger    { background: var(--natca-red); color: #FFFFFF; border-color: var(--natca-red); }
 .btn-danger:hover { background: var(--natca-red-dark); border-color: var(--natca-red-dark); text-decoration: none; color: #fff; }
@@ -874,20 +887,20 @@ footer a:hover { color: #FFFFFF; }
 
       <h4 style="margin-bottom: var(--space-4); font-size: var(--text-base);">Brand Colors</h4>
       <div class="swatch-grid" style="margin-bottom: var(--space-8);">
-        <div class="swatch"><div class="swatch__color" style="background:#C1272D;"></div><div class="swatch__info"><div class="swatch__name">NATCA Red</div><div class="swatch__hex">--natca-red · #C1272D</div></div></div>
-        <div class="swatch"><div class="swatch__color" style="background:#8B1A1F;"></div><div class="swatch__info"><div class="swatch__name">Red Dark</div><div class="swatch__hex">--natca-red-dark · #8B1A1F</div></div></div>
-        <div class="swatch"><div class="swatch__color" style="background:#1490D7;"></div><div class="swatch__info"><div class="swatch__name">NATCA Blue</div><div class="swatch__hex">--natca-blue · #1490D7</div></div></div>
-        <div class="swatch"><div class="swatch__color" style="background:#2572A1;"></div><div class="swatch__info"><div class="swatch__name">Blue Deep</div><div class="swatch__hex">--natca-blue-deep · #2572A1</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#CE0E2D;"></div><div class="swatch__info"><div class="swatch__name">NATCA Red</div><div class="swatch__hex">--natca-red · #CE0E2D</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#A30B24;"></div><div class="swatch__info"><div class="swatch__name">Red Dark</div><div class="swatch__hex">--natca-red-dark · #A30B24</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#003366;"></div><div class="swatch__info"><div class="swatch__name">NATCA Blue</div><div class="swatch__hex">--natca-blue · #003366</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#002952;"></div><div class="swatch__info"><div class="swatch__name">Blue Deep</div><div class="swatch__hex">--natca-blue-deep · #002952</div></div></div>
         <div class="swatch"><div class="swatch__color" style="background:#6AC9FF;"></div><div class="swatch__info"><div class="swatch__name">Sky / Accent</div><div class="swatch__hex">--natca-sky · #6AC9FF</div></div></div>
-        <div class="swatch"><div class="swatch__color" style="background:#E6F4FB; border: 1px solid #cce4f0;"></div><div class="swatch__info"><div class="swatch__name">Blue Subtle</div><div class="swatch__hex">--natca-blue-subtle · #E6F4FB</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#E6EDF5; border: 1px solid #ccd6e3;"></div><div class="swatch__info"><div class="swatch__name">Blue Subtle</div><div class="swatch__hex">--natca-blue-subtle · #E6EDF5</div></div></div>
       </div>
 
       <h4 style="margin-bottom: var(--space-4); font-size: var(--text-base);">Semantic Colors</h4>
       <div class="swatch-grid">
         <div class="swatch"><div class="swatch__color" style="background:#2E7D32;"></div><div class="swatch__info"><div class="swatch__name">Success</div><div class="swatch__hex">--color-success · #2E7D32</div></div></div>
         <div class="swatch"><div class="swatch__color" style="background:#E65100;"></div><div class="swatch__info"><div class="swatch__name">Warning</div><div class="swatch__hex">--color-warning · #E65100</div></div></div>
-        <div class="swatch"><div class="swatch__color" style="background:#C1272D;"></div><div class="swatch__info"><div class="swatch__name">Danger</div><div class="swatch__hex">--color-danger · #C1272D</div></div></div>
-        <div class="swatch"><div class="swatch__color" style="background:#1490D7;"></div><div class="swatch__info"><div class="swatch__name">Info</div><div class="swatch__hex">--color-info · #1490D7</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#CE0E2D;"></div><div class="swatch__info"><div class="swatch__name">Danger</div><div class="swatch__hex">--color-danger · #CE0E2D</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#003366;"></div><div class="swatch__info"><div class="swatch__name">Info</div><div class="swatch__hex">--color-info · #003366</div></div></div>
       </div>
     </div>
 
@@ -984,21 +997,37 @@ footer a:hover { color: #FFFFFF; }
     <!-- BUTTONS -->
     <div class="ds-section">
       <div class="ds-section-title">Buttons</div>
+      <p class="eyebrow" style="margin-bottom: var(--space-3);">Primary + Accent</p>
       <div class="btn-row">
-        <a class="btn btn-primary" href="#">Primary</a>
-        <a class="btn btn-secondary" href="#">Secondary</a>
+        <a class="btn btn-primary" href="#">Primary (Navy)</a>
         <a class="btn btn-accent" href="#">Accent (Red)</a>
         <a class="btn btn-danger" href="#">Danger</a>
         <a class="btn btn-ghost" href="#">Ghost</a>
       </div>
+
+      <p class="eyebrow" style="margin-bottom: var(--space-3); margin-top: var(--space-6);">Secondary Options — pick one</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="#">Primary</a>
+        <a class="btn btn-secondary-outline" href="#">A: Navy Outline</a>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="#">Primary</a>
+        <a class="btn btn-secondary-soft" href="#">B: Soft Navy Fill</a>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="#">Primary</a>
+        <a class="btn btn-secondary-red" href="#">C: Red Outline</a>
+      </div>
+
+      <p class="eyebrow" style="margin-bottom: var(--space-3); margin-top: var(--space-6);">Sizes</p>
       <div class="btn-row">
         <a class="btn btn-primary btn-sm" href="#">Small Primary</a>
-        <a class="btn btn-secondary btn-sm" href="#">Small Secondary</a>
+        <a class="btn btn-secondary-outline btn-sm" href="#">Small Secondary</a>
         <a class="btn btn-ghost btn-sm" href="#">Small Ghost</a>
       </div>
       <div class="btn-row">
         <a class="btn btn-primary btn-lg" href="#">Large Primary</a>
-        <a class="btn btn-secondary btn-lg" href="#">Large Secondary</a>
+        <a class="btn btn-secondary-outline btn-lg" href="#">Large Secondary</a>
       </div>
     </div>
 
@@ -1393,7 +1422,7 @@ function toggleTheme() {
   document.getElementById('theme-label').textContent = next === 'dark' ? 'Dark mode' : 'Light mode';
 }
 </script>
-<a href="natca-header-variants.html" style="position:fixed;bottom:24px;right:24px;z-index:99999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#CB092F,#97061F);color:white;text-decoration:none;font-family:'Outfit','Barlow',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.5px;padding:12px 20px;border-radius:50px;box-shadow:0 4px 20px rgba(203,9,47,0.5),0 0 0 2px rgba(255,255,255,0.1);transition:all 0.2s;cursor:pointer;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 28px rgba(203,9,47,0.6),0 0 0 2px rgba(255,255,255,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 20px rgba(203,9,47,0.5),0 0 0 2px rgba(255,255,255,0.1)'"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>Nav Variants</a>
+<a href="natca-header-variants.html" style="position:fixed;bottom:24px;right:24px;z-index:99999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#CE0E2D,#A30B24);color:white;text-decoration:none;font-family:'Outfit','Barlow',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.5px;padding:12px 20px;border-radius:50px;box-shadow:0 4px 20px rgba(206,14,45,0.5),0 0 0 2px rgba(255,255,255,0.1);transition:all 0.2s;cursor:pointer;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 28px rgba(206,14,45,0.6),0 0 0 2px rgba(255,255,255,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 20px rgba(206,14,45,0.5),0 0 0 2px rgba(255,255,255,0.1)'"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>Nav Variants</a>
 
 </body>
 </html>

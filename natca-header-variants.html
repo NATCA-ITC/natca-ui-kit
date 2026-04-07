@@ -10,13 +10,13 @@
 <style>
 /* ── UPDATED BRAND TOKENS (corrected from actual logo) ── */
 :root {
-  --natca-red:       #CB092F;
-  --natca-red-dark:  #97061F;
-  --natca-red-light: #F9E5E9;
-  --natca-navy:      #032449;
-  --natca-navy-mid:  #0A3D70;
+  --natca-red:       #CE0E2D;
+  --natca-red-dark:  #A30B24;
+  --natca-red-light: #FDE8EC;
+  --natca-navy:      #003366;
+  --natca-navy-mid:  #0A4D80;
   --natca-navy-light:#E6EDF5;
-  --natca-blue:      #1490D7;
+  --natca-blue:      #003366;
   --natca-sky:       #6AC9FF;
   --natca-gold:      #D4A017;
 
@@ -85,7 +85,7 @@ body {
 }
 
 .fake-hero {
-  background: linear-gradient(135deg, #032449 0%, #0A3D70 40%, #1a6da8 100%);
+  background: linear-gradient(135deg, #003366 0%, #0A4D80 40%, #1a6d9e 100%);
   height: 200px;
   display: flex;
   align-items: flex-end;
@@ -220,7 +220,7 @@ body {
 .ve-actions { display: flex; align-items: center; gap: 10px; }
 .ve-search { width: 30px; height: 30px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: rgba(255,255,255,0.5); transition: all var(--transition); }
 .ve-search:hover { background: rgba(255,255,255,0.1); color: white; }
-.ve-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--natca-red); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: white; cursor: pointer; border: 2px solid rgba(203,9,47,0.4); }
+.ve-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--natca-red); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: white; cursor: pointer; border: 2px solid rgba(206,14,45,0.4); }
 .ve-notif { position: relative; }
 .ve-notif-dot { position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; background: var(--natca-red); border-radius: 50%; border: 2px solid #091929; }
 .ve-sub { background: #040f1e; height: 36px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; border-bottom: 1px solid rgba(255,255,255,0.04); }
@@ -235,8 +235,8 @@ body {
 .notes { margin-top: 16px; padding: 14px 18px; background: rgba(255,255,255,0.04); border-left: 3px solid var(--natca-red); border-radius: 0 6px 6px 0; font-size: 12.5px; color: rgba(255,255,255,0.5); line-height: 1.7; }
 .notes strong { color: rgba(255,255,255,0.75); font-weight: 600; }
 
-.badge-pill { display: inline-block; background: rgba(203,9,47,0.2); color: #ff6b84; border: 1px solid rgba(203,9,47,0.3); border-radius: 20px; font-size: 10px; font-weight: 700; padding: 1px 8px; letter-spacing: 0.5px; text-transform: uppercase; margin-left: 6px; }
-.badge-pill.blue { background: rgba(20,144,215,0.2); color: var(--natca-sky); border-color: rgba(20,144,215,0.3); }
+.badge-pill { display: inline-block; background: rgba(206,14,45,0.2); color: #ff6b84; border: 1px solid rgba(206,14,45,0.3); border-radius: 20px; font-size: 10px; font-weight: 700; padding: 1px 8px; letter-spacing: 0.5px; text-transform: uppercase; margin-left: 6px; }
+.badge-pill.blue { background: rgba(0,51,102,0.2); color: var(--natca-sky); border-color: rgba(0,51,102,0.3); }
 .badge-pill.green { background: rgba(46,125,50,0.25); color: #81c784; border-color: rgba(46,125,50,0.3); }
 
 .compare-strip { margin: 0 40px 0; padding: 20px 24px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; text-align: center; }
@@ -245,7 +245,7 @@ body {
 
 /* OPTION 5 FLOATING GLASS */
 .vf2-stage { position: relative; background: linear-gradient(160deg, #021830 0%, var(--natca-navy) 45%, #0d4a8a 100%); height: 340px; overflow: hidden; font-family: var(--font-body); }
-.vf2-stage::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 80% at 15% 110%, rgba(203,9,47,0.12) 0%, transparent 60%), radial-gradient(ellipse 50% 60% at 85% -10%, rgba(20,144,215,0.15) 0%, transparent 55%); pointer-events: none; }
+.vf2-stage::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 80% at 15% 110%, rgba(206,14,45,0.12) 0%, transparent 60%), radial-gradient(ellipse 50% 60% at 85% -10%, rgba(0,51,102,0.15) 0%, transparent 55%); pointer-events: none; }
 .vf2-stage::after { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px); background-size: 48px 48px; pointer-events: none; }
 .vf2-header { position: absolute; top: 18px; left: 24px; right: 24px; z-index: 20; display: flex; flex-direction: column; gap: 8px; }
 .vf2-util { display: flex; justify-content: flex-end; }
@@ -307,7 +307,7 @@ body {
 .g-context { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.35); display: flex; align-items: center; gap: 6px; }
 .g-context strong { color: rgba(255,255,255,0.7); font-weight: 600; }
 .g-topbar-right { margin-left: auto; display: flex; align-items: center; gap: 6px; }
-.g-facility { display: flex; align-items: center; gap: 5px; background: rgba(20,144,215,0.1); border: 1px solid rgba(20,144,215,0.2); border-radius: 6px; padding: 4px 10px; font-size: 11px; font-weight: 600; color: var(--natca-sky); white-space: nowrap; }
+.g-facility { display: flex; align-items: center; gap: 5px; background: rgba(0,51,102,0.1); border: 1px solid rgba(0,51,102,0.2); border-radius: 6px; padding: 4px 10px; font-size: 11px; font-weight: 600; color: var(--natca-sky); white-space: nowrap; }
 .g-icon-btn { width: 32px; height: 32px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 7px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: rgba(255,255,255,0.4); transition: all 150ms; position: relative; }
 .g-icon-btn:hover { background: rgba(255,255,255,0.09); color: white; border-color: rgba(255,255,255,0.14); }
 .g-badge-dot { position: absolute; top: -3px; right: -3px; width: 8px; height: 8px; background: var(--natca-red); border-radius: 50%; border: 2px solid #0d1420; }
@@ -318,7 +318,7 @@ body {
 .g-sec-title { font-size: 9.5px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(255,255,255,0.2); padding: 10px 10px 4px; white-space: nowrap; overflow: hidden; transition: opacity 250ms; }
 .g-nav-link { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 7px; text-decoration: none; color: rgba(255,255,255,0.5); font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; transition: all 150ms; position: relative; }
 .g-nav-link:hover { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.9); }
-.g-nav-link.g-active { background: rgba(203,9,47,0.15); color: white; }
+.g-nav-link.g-active { background: rgba(206,14,45,0.15); color: white; }
 .g-nav-link.g-active .g-nav-icon { color: var(--natca-red); }
 .g-nav-icon { width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: inherit; opacity: 0.7; }
 .g-nav-link:hover .g-nav-icon, .g-nav-link.g-active .g-nav-icon { opacity: 1; }
@@ -355,7 +355,7 @@ body {
 .b-logo-zone { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
 .b-logo-zone img { height: 26px; width: auto; }
 .b-wordmark { font-family: var(--font-display); font-size: 13px; font-weight: 800; letter-spacing: 3px; color: white; text-transform: uppercase; }
-.b-portal-tag { margin-left: 12px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; background: rgba(203,9,47,0.25); border: 1px solid rgba(203,9,47,0.4); color: #ff8a9a; border-radius: 3px; padding: 2px 8px; }
+.b-portal-tag { margin-left: 12px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; background: rgba(206,14,45,0.25); border: 1px solid rgba(206,14,45,0.4); color: #ff8a9a; border-radius: 3px; padding: 2px 8px; }
 .b-topbar-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
 .b-facility-tag { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.45); letter-spacing: 0.3px; }
 .b-facility-tag strong { color: rgba(255,255,255,0.8); }
@@ -369,7 +369,7 @@ body {
 .b-nav-link.b-active { color: white; border-bottom-color: var(--natca-red); }
 .b-nav-icon { width: 14px; height: 14px; opacity: 0.6; flex-shrink: 0; }
 .b-nav-link:hover .b-nav-icon, .b-nav-link.b-active .b-nav-icon { opacity: 1; }
-.b-nav-count { background: rgba(203,9,47,0.2); color: #ff8a9a; border: 1px solid rgba(203,9,47,0.3); font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 20px; }
+.b-nav-count { background: rgba(206,14,45,0.2); color: #ff8a9a; border: 1px solid rgba(206,14,45,0.3); font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 20px; }
 .b-navbar-right { margin-left: auto; display: flex; align-items: center; }
 .b-search-inline { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 4px 10px; font-size: 12px; color: rgba(255,255,255,0.3); cursor: pointer; transition: all 150ms; }
 .b-search-inline:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.15); }
@@ -428,7 +428,7 @@ body {
 
 <div class="page-header">
   <h1>NATCA Navigation Design Proposal</h1>
-  <p>5 public nav concepts + 2 authenticated shell options — Brand colors: Red #CB092F · Navy #032449</p>
+  <p>5 public nav concepts + 2 authenticated shell options — Brand colors: Red #CE0E2D · Navy #003366</p>
 </div>
 
 <div style="padding: 24px 40px 0;">
@@ -484,7 +484,7 @@ body {
       <div class="fake-hero-text"><h2>Discover NATCA</h2><p>National Air Traffic Controllers Association</p></div>
     </div>
   </div>
-  <div class="notes"><strong>Design rationale:</strong> Keeps the familiar two-tier structure but uses the correct navy <code>#032449</code> utility bar. Red border-bottom ties it to the logo. Barlow headings modernize the nav labels. <strong>Best for:</strong> Lowest transition risk.</div>
+  <div class="notes"><strong>Design rationale:</strong> Keeps the familiar two-tier structure but uses the correct navy <code>#003366</code> utility bar. Red border-bottom ties it to the logo. Barlow headings modernize the nav labels. <strong>Best for:</strong> Lowest transition risk.</div>
 </div>
 
 <!-- OPTION 2 -->
@@ -526,7 +526,7 @@ body {
         </ul>
       </nav>
     </div>
-    <div class="fake-hero" style="background:linear-gradient(135deg,#020e1c 0%,var(--natca-navy) 60%,#0A3D70 100%);">
+    <div class="fake-hero" style="background:linear-gradient(135deg,#020e1c 0%,var(--natca-navy) 60%,#0A4D80 100%);">
       <div class="fake-hero-text"><h2>Discover NATCA</h2><p>National Air Traffic Controllers Association</p></div>
     </div>
   </div>
@@ -577,7 +577,7 @@ body {
         </div>
       </nav>
     </div>
-    <div class="fake-hero" style="background:linear-gradient(135deg,var(--natca-navy) 0%,#1a6da8 100%);">
+    <div class="fake-hero" style="background:linear-gradient(135deg,var(--natca-navy) 0%,#1a6d9e 100%);">
       <div class="fake-hero-text"><h2>Discover NATCA</h2><p>National Air Traffic Controllers Association</p></div>
     </div>
   </div>
@@ -625,7 +625,7 @@ body {
         </div>
       </nav>
     </div>
-    <div class="fake-hero" style="background:linear-gradient(135deg,var(--natca-navy) 0%,#1a6da8 100%);">
+    <div class="fake-hero" style="background:linear-gradient(135deg,var(--natca-navy) 0%,#1a6d9e 100%);">
       <div class="fake-hero-text"><h2>Discover NATCA</h2><p>National Air Traffic Controllers Association</p></div>
     </div>
   </div>
@@ -638,7 +638,7 @@ body {
     <div class="variant-num" style="background:linear-gradient(135deg,#0d2a4a,var(--natca-navy));">5</div>
     <span class="variant-name">Option 5 — Floating Glass</span>
     <span class="variant-desc">— The nav floats above the hero with blur + depth.</span>
-    <span class="badge-pill" style="background:rgba(20,144,215,0.2);color:#6AC9FF;border-color:rgba(20,144,215,0.3);">Modern</span>
+    <span class="badge-pill" style="background:rgba(0,51,102,0.2);color:#6AC9FF;border-color:rgba(0,51,102,0.3);">Modern</span>
   </div>
   <div class="variant-frame">
     <div class="vf2-stage">
@@ -739,7 +739,7 @@ body {
         <a href="#" class="g-nav-link" data-label="GATS"><span class="g-nav-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span><span class="g-nav-label">GATS</span></a>
       </div>
       <div class="g-sidebar-foot">
-        <a href="#" class="g-nav-link" data-label="Sign Out" style="color:rgba(203,9,47,0.6);"><span class="g-nav-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span><span class="g-nav-label">Sign Out</span></a>
+        <a href="#" class="g-nav-link" data-label="Sign Out" style="color:rgba(206,14,45,0.6);"><span class="g-nav-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span><span class="g-nav-label">Sign Out</span></a>
       </div>
     </aside>
     <div class="g-content">
@@ -799,7 +799,7 @@ body {
       <div class="g-stat-grid">
         <div class="g-stat-card"><div class="g-stat-label">Base Pay</div><div class="g-stat-val">$4,218</div><div class="g-stat-change" style="color:rgba(255,255,255,0.3);">CPC · FPL 12</div></div>
         <div class="g-stat-card"><div class="g-stat-label">Premium Pay</div><div class="g-stat-val">$1,847</div><div class="g-stat-change">↑ $312 vs PP06</div></div>
-        <div class="g-stat-card" style="border-color:rgba(203,9,47,0.3);"><div class="g-stat-label">Discrepancies</div><div class="g-stat-val" style="color:var(--natca-red);">2</div><div class="g-stat-change" style="color:var(--natca-red);opacity:0.8;">Sunday premium missing</div></div>
+        <div class="g-stat-card" style="border-color:rgba(206,14,45,0.3);"><div class="g-stat-label">Discrepancies</div><div class="g-stat-val" style="color:var(--natca-red);">2</div><div class="g-stat-change" style="color:var(--natca-red);opacity:0.8;">Sunday premium missing</div></div>
         <div class="g-stat-card"><div class="g-stat-label">Net Pay</div><div class="g-stat-val">$3,692</div><div class="g-stat-change" style="color:rgba(255,255,255,0.3);">After deductions</div></div>
       </div>
     </div>
@@ -936,7 +936,7 @@ body {
         <img src="assets/natca-logo.png" alt="NATCA" style="height:30px;width:auto;">
         <button class="m-hamburger"><svg viewBox="0 0 24 24" fill="none" stroke="var(--natca-navy)" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
       </div>
-      <div style="background:linear-gradient(135deg,#032449 0%,#0A3D70 40%,#1a6da8 100%);height:120px;display:flex;align-items:flex-end;padding:16px 20px;">
+      <div style="background:linear-gradient(135deg,#003366 0%,#0A4D80 40%,#1a6d9e 100%);height:120px;display:flex;align-items:flex-end;padding:16px 20px;">
         <div><div style="font-family:var(--font-display);font-size:20px;font-weight:800;color:white;">Discover NATCA</div><div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:2px;">National Air Traffic Controllers Association</div></div>
       </div>
     </div>
@@ -992,7 +992,7 @@ body {
         <button class="m-hamburger"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
         <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--natca-red) 0%,#ff4560 50%,var(--natca-red) 100%);"></div>
       </div>
-      <div style="background:linear-gradient(135deg,#020e1c 0%,var(--natca-navy) 60%,#0A3D70 100%);height:120px;display:flex;align-items:flex-end;padding:16px 20px;">
+      <div style="background:linear-gradient(135deg,#020e1c 0%,var(--natca-navy) 60%,#0A4D80 100%);height:120px;display:flex;align-items:flex-end;padding:16px 20px;">
         <div><div style="font-family:var(--font-display);font-size:20px;font-weight:800;color:white;">Discover NATCA</div><div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:2px;">National Air Traffic Controllers Association</div></div>
       </div>
     </div>
@@ -1054,7 +1054,7 @@ body {
           <button class="m-hamburger"><svg viewBox="0 0 24 24" fill="none" stroke="var(--natca-navy)" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
         </div>
       </div>
-      <div style="background:linear-gradient(135deg,var(--natca-navy) 0%,#1a6da8 100%);height:120px;display:flex;align-items:flex-end;padding:16px 20px;">
+      <div style="background:linear-gradient(135deg,var(--natca-navy) 0%,#1a6d9e 100%);height:120px;display:flex;align-items:flex-end;padding:16px 20px;">
         <div><div style="font-family:var(--font-display);font-size:20px;font-weight:800;color:white;">Discover NATCA</div><div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:2px;">National Air Traffic Controllers Association</div></div>
       </div>
     </div>
@@ -1114,7 +1114,7 @@ body {
           <button class="m-hamburger"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gray-600)" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
         </div>
       </div>
-      <div style="background:linear-gradient(135deg,var(--natca-navy) 0%,#1a6da8 100%);height:120px;display:flex;align-items:flex-end;padding:16px 20px;">
+      <div style="background:linear-gradient(135deg,var(--natca-navy) 0%,#1a6d9e 100%);height:120px;display:flex;align-items:flex-end;padding:16px 20px;">
         <div><div style="font-family:var(--font-display);font-size:20px;font-weight:800;color:white;">Discover NATCA</div><div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:2px;">National Air Traffic Controllers Association</div></div>
       </div>
     </div>
@@ -1158,7 +1158,7 @@ body {
     <div class="variant-num" style="background:linear-gradient(135deg,#0d2a4a,var(--natca-navy));">5</div>
     <span class="variant-name">Option 5 — Floating Glass Mobile</span>
     <span class="variant-desc">— Dark gradient bg, frosted glass bar. Full-screen dark overlay on open.</span>
-    <span class="badge-pill" style="background:rgba(20,144,215,0.2);color:#6AC9FF;border-color:rgba(20,144,215,0.3);">Modern</span>
+    <span class="badge-pill" style="background:rgba(0,51,102,0.2);color:#6AC9FF;border-color:rgba(0,51,102,0.3);">Modern</span>
   </div>
 </div>
 <div class="mobile-grid">
@@ -1234,7 +1234,7 @@ body {
       </div>
       <div style="background:#0a0f1a;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.06);">
         <div style="font-size:12px;color:rgba(255,255,255,0.35);"><strong style="color:rgba(255,255,255,0.7);">MyNATCA</strong> <span style="color:rgba(255,255,255,0.15);">&middot;</span> Member Portal</div>
-        <div style="display:flex;align-items:center;gap:5px;background:rgba(20,144,215,0.1);border:1px solid rgba(20,144,215,0.2);border-radius:5px;padding:3px 8px;font-size:10px;font-weight:600;color:var(--natca-sky);">ZJX</div>
+        <div style="display:flex;align-items:center;gap:5px;background:rgba(0,51,102,0.1);border:1px solid rgba(0,51,102,0.2);border-radius:5px;padding:3px 8px;font-size:10px;font-weight:600;color:var(--natca-sky);">ZJX</div>
       </div>
       <div style="background:#111825;padding:12px 16px;">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
@@ -1259,7 +1259,7 @@ body {
       </div>
       <div style="background:#0d1420;padding:16px 20px;min-height:320px;display:flex;flex-direction:column;">
         <div style="font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,0.2);padding:0 0 8px;">Navigation</div>
-        <a href="#" style="display:flex;align-items:center;gap:10px;padding:10px 8px;border-radius:7px;text-decoration:none;color:white;font-size:14px;font-weight:600;background:rgba(203,9,47,0.15);">
+        <a href="#" style="display:flex;align-items:center;gap:10px;padding:10px 8px;border-radius:7px;text-decoration:none;color:white;font-size:14px;font-weight:600;background:rgba(206,14,45,0.15);">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--natca-red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard</a>
         <a href="#" style="display:flex;align-items:center;gap:10px;padding:10px 8px;border-radius:7px;text-decoration:none;color:rgba(255,255,255,0.5);font-size:14px;font-weight:500;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>My Profile</a>
@@ -1275,7 +1275,7 @@ body {
         <a href="#" style="display:flex;align-items:center;gap:10px;padding:10px 8px;border-radius:7px;text-decoration:none;color:rgba(255,255,255,0.5);font-size:14px;font-weight:500;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>GATS</a>
         <div style="flex:1;"></div>
-        <a href="#" style="display:flex;align-items:center;gap:10px;padding:10px 8px;border-radius:7px;text-decoration:none;color:rgba(203,9,47,0.6);font-size:14px;font-weight:500;margin-top:8px;border-top:1px solid rgba(255,255,255,0.06);padding-top:16px;">
+        <a href="#" style="display:flex;align-items:center;gap:10px;padding:10px 8px;border-radius:7px;text-decoration:none;color:rgba(206,14,45,0.6);font-size:14px;font-weight:500;margin-top:8px;border-top:1px solid rgba(255,255,255,0.06);padding-top:16px;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Sign Out</a>
       </div>
     </div>
@@ -1362,7 +1362,7 @@ body {
   NATCA UI Kit · Navigation Design Proposal · April 2026
 </div>
 
-<a href="natca-design-system.html" style="position:fixed;bottom:24px;right:24px;z-index:99999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#CB092F,#97061F);color:white;text-decoration:none;font-family:'Outfit','Barlow',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.5px;padding:12px 20px;border-radius:50px;box-shadow:0 4px 20px rgba(203,9,47,0.5),0 0 0 2px rgba(255,255,255,0.1);transition:all 0.2s;cursor:pointer;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 28px rgba(203,9,47,0.6),0 0 0 2px rgba(255,255,255,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 20px rgba(203,9,47,0.5),0 0 0 2px rgba(255,255,255,0.1)'"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Design System</a>
+<a href="natca-design-system.html" style="position:fixed;bottom:24px;right:24px;z-index:99999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#CE0E2D,#A30B24);color:white;text-decoration:none;font-family:'Outfit','Barlow',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.5px;padding:12px 20px;border-radius:50px;box-shadow:0 4px 20px rgba(206,14,45,0.5),0 0 0 2px rgba(255,255,255,0.1);transition:all 0.2s;cursor:pointer;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 28px rgba(206,14,45,0.6),0 0 0 2px rgba(255,255,255,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 20px rgba(206,14,45,0.5),0 0 0 2px rgba(255,255,255,0.1)'"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Design System</a>
 
 </body>
 </html>
