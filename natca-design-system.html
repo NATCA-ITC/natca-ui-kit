@@ -50,8 +50,8 @@
   /* --- Semantic --- */
   --color-success:      #2E7D32;
   --color-success-bg:   #E8F5E9;
-  --color-warning:      #E65100;
-  --color-warning-bg:   #FFF3E0;
+  --color-warning:      #A65D00;
+  --color-warning-bg:   #FDE6C4;
   --color-danger:       #CE0E2D;
   --color-danger-bg:    #FDE8EC;
   --color-info:         #003366;
@@ -364,7 +364,7 @@ p.lead { font-size: var(--text-lg); line-height: 1.7; }
 .btn-secondary-outline:hover { background: var(--natca-blue); color: #FFFFFF; text-decoration: none; }
 
 /* Secondary Option B: soft navy fill */
-.btn-secondary-soft { background: var(--natca-blue-subtle); color: var(--natca-blue); border-color: var(--natca-blue-subtle); }
+.btn-secondary-soft { background: #CEDAE8; color: var(--natca-blue); border-color: #CEDAE8; }
 .btn-secondary-soft:hover { background: var(--natca-blue); color: #FFFFFF; border-color: var(--natca-blue); text-decoration: none; }
 
 /* Secondary Option C: red outline (pairs with navy primary) */
@@ -381,6 +381,19 @@ p.lead { font-size: var(--text-lg); line-height: 1.7; }
 .btn-ghost  { background: transparent; color: var(--color-text-muted); border-color: var(--color-border); }
 .btn-ghost:hover { background: var(--color-bg-subtle); color: var(--color-text-primary); text-decoration: none; }
 
+/* Accent Option A: Sky blue */
+.btn-accent-sky { background: #1A8FD1; color: #FFFFFF; border-color: #1A8FD1; }
+.btn-accent-sky:hover { background: #1478B0; border-color: #1478B0; text-decoration: none; color: #fff; }
+
+/* Accent Option B: Teal */
+.btn-accent-teal { background: #00796B; color: #FFFFFF; border-color: #00796B; }
+.btn-accent-teal:hover { background: #00695C; border-color: #00695C; text-decoration: none; color: #fff; }
+
+/* Accent Option C: Gold */
+.btn-accent-gold { background: #8D6E00; color: #FFFFFF; border-color: #8D6E00; }
+.btn-accent-gold:hover { background: #755C00; border-color: #755C00; text-decoration: none; color: #fff; }
+
+/* Legacy — will be removed once accent is chosen */
 .btn-accent { background: var(--natca-red); color: #FFFFFF; border-color: var(--natca-red); }
 .btn-accent:hover { background: var(--natca-red-dark); border-color: var(--natca-red-dark); text-decoration: none; color: #fff; }
 
@@ -997,37 +1010,38 @@ footer a:hover { color: #FFFFFF; }
     <!-- BUTTONS -->
     <div class="ds-section">
       <div class="ds-section-title">Buttons</div>
-      <p class="eyebrow" style="margin-bottom: var(--space-3);">Primary + Accent</p>
+      <p class="eyebrow" style="margin-bottom: var(--space-3);">Button System</p>
       <div class="btn-row">
         <a class="btn btn-primary" href="#">Primary (Navy)</a>
-        <a class="btn btn-accent" href="#">Accent (Red)</a>
+        <a class="btn btn-secondary-soft" href="#">Secondary</a>
         <a class="btn btn-danger" href="#">Danger</a>
-        <a class="btn btn-ghost" href="#">Ghost</a>
+        <a class="btn btn-ghost" href="#">Cancel</a>
       </div>
 
-      <p class="eyebrow" style="margin-bottom: var(--space-3); margin-top: var(--space-6);">Secondary Options — pick one</p>
+      <p class="eyebrow" style="margin-bottom: var(--space-3); margin-top: var(--space-6);">In context</p>
       <div class="btn-row">
-        <a class="btn btn-primary" href="#">Primary</a>
-        <a class="btn btn-secondary-outline" href="#">A: Navy Outline</a>
+        <a class="btn btn-primary" href="#">Save Changes</a>
+        <a class="btn btn-ghost" href="#">Cancel</a>
       </div>
       <div class="btn-row">
-        <a class="btn btn-primary" href="#">Primary</a>
-        <a class="btn btn-secondary-soft" href="#">B: Soft Navy Fill</a>
+        <a class="btn btn-secondary-soft" href="#">Export</a>
+        <a class="btn btn-secondary-soft" href="#">Edit</a>
+        <a class="btn btn-ghost" href="#">Back</a>
       </div>
       <div class="btn-row">
-        <a class="btn btn-primary" href="#">Primary</a>
-        <a class="btn btn-secondary-red" href="#">C: Red Outline</a>
+        <a class="btn btn-danger" href="#">Delete Record</a>
+        <a class="btn btn-ghost" href="#">Cancel</a>
       </div>
 
       <p class="eyebrow" style="margin-bottom: var(--space-3); margin-top: var(--space-6);">Sizes</p>
       <div class="btn-row">
         <a class="btn btn-primary btn-sm" href="#">Small Primary</a>
-        <a class="btn btn-secondary-outline btn-sm" href="#">Small Secondary</a>
-        <a class="btn btn-ghost btn-sm" href="#">Small Ghost</a>
+        <a class="btn btn-secondary-soft btn-sm" href="#">Small Secondary</a>
+        <a class="btn btn-ghost btn-sm" href="#">Small Cancel</a>
       </div>
       <div class="btn-row">
         <a class="btn btn-primary btn-lg" href="#">Large Primary</a>
-        <a class="btn btn-secondary-outline btn-lg" href="#">Large Secondary</a>
+        <a class="btn btn-secondary-soft btn-lg" href="#">Large Secondary</a>
       </div>
     </div>
 
