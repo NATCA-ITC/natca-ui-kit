@@ -64,6 +64,33 @@ This UI kit will evolve into a **`@natca/admin-shell`** Vue + Vuetify component 
 - **Future: Module Federation (Option 3).** The long-term path is for Hub to become a true unified portal that loads app admin modules at runtime via Module Federation. The shared shell package is a prerequisite — once apps share a common shell contract, they can be loaded as federated modules without visual seams.
 - **Design proposals inform Vue components.** The static HTML files in this repo are the design source that directly drives the Vue components to be built in the `@natca/admin-shell` package.
 
+### Shell Contract (Tentative)
+
+The shell provides layout and platform context. Each app provides its own nav config and route metadata. Active states are automatic via Vue Router.
+
+**Shell provides:**
+| Concern | Details |
+|---------|---------|
+| Topbar | Logo, app switcher, notifications, avatar |
+| Sidebar / horizontal nav | Renders from app-provided `navItems[]` |
+| Contextual second row | Reads route `meta.subNav` or `meta.breadcrumb` |
+| Auth context | User, facility, permissions (from Platform) |
+| Theme tokens | CSS custom properties, light/dark switching |
+
+**App provides:**
+| Concern | Details |
+|---------|---------|
+| `appId` / `appName` | Identifies the app in the switcher |
+| `navItems[]` | Array of `{ label, icon, to }` objects |
+| Route `meta.subNav` | Array of sub-links for section roots |
+| Route `meta.breadcrumb` | Function returning breadcrumb trail for deep pages |
+
+**How active state works:** Vue Router's `router-link-active` class handles sidebar/tab highlighting automatically — no custom event bus or postMessage needed. The shell renders `<router-link>` elements from the app's `navItems`, and Vue Router manages the rest.
+
+**How the contextual second row works:** Each route declares either `meta.subNav` (array of tab links) or `meta.breadcrumb` (function that returns trail from route params). The shell checks which is present and renders the appropriate component. If neither exists, the second row is hidden.
+
+This contract carries forward into Module Federation — the shape of what apps provide doesn't change, only the loading mechanism.
+
 ## Where This Fits
 
 This repo sits alongside the other MyNATCA ecosystem projects:

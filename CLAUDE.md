@@ -33,6 +33,7 @@ Key patterns documented in header variants:
 - **Auth B = Member app shell** — horizontal nav for all BUEs, app switcher in system chip
 - **App switcher** — cross-app navigation within the ecosystem, lives in the system chip area
 - **Contextual second row** — sub-links at section roots, breadcrumbs when deep in a record
+- **Shell contract (tentative)** — apps provide `appId`, `navItems[]`, and route `meta.subNav` or `meta.breadcrumb`; shell provides layout, auth context, and theme; active states driven by Vue Router automatically
 
 ## Key Design Decisions
 
