@@ -667,14 +667,14 @@ body {
 <!-- AUTH SECTION -->
 <div class="auth-section-header">
   <h2>Authenticated Member &amp; Admin Views</h2>
-  <p>Two design options for the MyNATCA portal, bidding system, GATS, and admin panels. Both use <code>data-theme="dark"</code>. The sidebar toggle on Option A is live — click ☰ to collapse.</p>
+  <p>Two shell designs split by audience: Auth A is the admin portal (facility reps, national staff, officers — anyone with elevated permissions), Auth B is the member/BUE shell. Auth A Full Admin is the future unified admin portal; Auth A Light and Auth B serve regular members. Both use <code>data-theme="dark"</code>. The sidebar toggle on Option A is live — click ☰ to collapse.</p>
 </div>
 
 <!-- AUTH OPTION A -->
 <div class="auth-option-label">
   <span class="auth-option-num">Auth Option A</span>
   <span class="auth-option-title">Command Shell</span>
-  <span class="auth-option-desc">— Deep navy top bar, icon-rail collapsible sidebar. Dense, data-forward.</span>
+  <span class="auth-option-desc">— Admin portal shell for facility reps, national staff, officers, and anyone with elevated permissions. Deep navy top bar, icon-rail collapsible sidebar. Dense, data-forward.</span>
 </div>
 
 <div class="auth-variant-label">Full Admin — with sidebar (click ☰ to collapse)</div>
@@ -705,7 +705,7 @@ body {
         <a href="#" class="g-nav-link" data-label="Bidding"><span class="g-nav-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span><span class="g-nav-label">Bidding</span><span class="g-nav-badge">3</span></a>
         <a href="#" class="g-nav-link" data-label="Grievances"><span class="g-nav-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span class="g-nav-label">Grievances</span></a>
         <a href="#" class="g-nav-link" data-label="Documents"><span class="g-nav-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg></span><span class="g-nav-label">Documents</span></a>
-        <div class="g-sec-title" style="margin-top:8px;">ITC Admin</div>
+        <div class="g-sec-title" style="margin-top:8px;">Admin</div>
         <a href="#" class="g-nav-link" data-label="Members"><span class="g-nav-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span><span class="g-nav-label">Members</span></a>
         <a href="#" class="g-nav-link" data-label="GATS"><span class="g-nav-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span><span class="g-nav-label">GATS</span></a>
       </div>
@@ -715,7 +715,7 @@ body {
     </aside>
     <div class="g-content">
       <div class="g-content-head">
-        <div><div class="g-content-title">Dashboard</div><div class="g-content-sub">Welcome back, Jason · ZJX · ITC Chair</div></div>
+        <div><div class="g-content-title">Dashboard</div><div class="g-content-sub">Welcome back, Jason · ZJX · Facility Admin</div></div>
         <div style="font-size:11px;color:rgba(255,255,255,0.2);">Last login: Today 09:42 AM</div>
       </div>
       <div class="g-stat-grid">
@@ -729,7 +729,7 @@ body {
 </div>
 
 <div class="auth-notes">
-  <strong>Auth Option A — Full Admin:</strong> Deep navy top bar with sidebar that collapses to icon-rail. ZJX facility badge provides location context. Best for: Hub, MyNATCA admin, anywhere ITC officers need full nav.
+  <strong>Auth Option A — Full Admin:</strong> Deep navy top bar with sidebar that collapses to icon-rail. ZJX facility badge provides location context. Full Admin is the future unified admin portal shell — all admin tools (Hub, MyNATCA admin, GATS management, etc.) converge here. The Light variant strips the sidebar for single-purpose or member-facing apps. <strong>Best for:</strong> Admins with elevated permissions — facility reps, national staff, officers. This is the Option 2 → Option 3 path: start with Full Admin as the primary admin shell, then evolve it into the unified portal.
 </div>
 
 <div class="auth-variant-label">Light — no sidebar (member-facing &amp; single-purpose apps)</div>
@@ -778,14 +778,14 @@ body {
 </div>
 
 <div class="auth-notes">
-  <strong>Auth Option A — Light:</strong> Same identity topbar but no sidebar — just a breadcrumb sub-bar for context. App switcher grid icon (⊞) lets members jump between MyNATCA apps. <strong>Best for:</strong> PayChecker, DMS, member-facing views, any single-purpose app that doesn't need admin nav.
+  <strong>Auth Option A — Light:</strong> Same identity topbar but no sidebar — just a breadcrumb sub-bar for context. The app switcher lives inside the system name chip (e.g., [⊞ PayChecker ▾]) so members can jump between apps from the top bar. <strong>Best for:</strong> All BUEs and members — PayChecker, DMS, member-facing views, any single-purpose app that doesn't need admin nav.
 </div>
 
 <!-- AUTH OPTION B -->
 <div class="auth-option-label" style="margin-top:32px;">
   <span class="auth-option-num">Auth Option B</span>
   <span class="auth-option-title">Horizontal Nav Shell</span>
-  <span class="auth-option-desc">— No sidebar. Two-bar authenticated shell: slim identity strip + full-width horizontal nav. Like GitHub/Notion/Stripe.</span>
+  <span class="auth-option-desc">— Member-facing shell for all BUEs. No sidebar. Two-bar authenticated shell: slim identity strip + full-width horizontal nav. App switcher in the system name chip. Like GitHub/Notion/Stripe.</span>
 </div>
 
 <div class="auth-variant-label">With Sub-Nav (section context)</div>
@@ -795,7 +795,7 @@ body {
       <img src="assets/natca-logo.png" alt="NATCA" style="height:26px;width:auto;">
       <span class="b-wordmark">NATCA</span>
     </a>
-    <span class="b-portal-tag">MyNATCA</span>
+    <span class="b-portal-tag" style="cursor:pointer;display:inline-flex;align-items:center;gap:4px;" title="Switch app"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.6;"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>MyNATCA <span style="font-size:8px;opacity:0.5;">&#9662;</span></span>
     <div class="b-topbar-right">
       <span class="b-facility-tag">Signed in as <strong>Jason D.</strong> &nbsp;·&nbsp; <strong>ZJX</strong></span>
       <div class="b-top-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><div class="b-top-badge"></div></div>
@@ -820,7 +820,7 @@ body {
   </div>
   <div class="b-content" style="height:220px;">
     <div class="b-content-head">
-      <div><div class="b-content-title">Dashboard — Overview</div><div class="b-content-sub">ZJX · Jacksonville ARTCC · ITC Chair view</div></div>
+      <div><div class="b-content-title">Dashboard — Overview</div><div class="b-content-sub">ZJX · Jacksonville ARTCC · Admin view</div></div>
     </div>
     <div class="b-stat-row">
       <div class="b-stat-cell"><div class="b-stat-label">Facility Members</div><div class="b-stat-val">247</div><div class="b-stat-delta" style="color:#4caf50;">↑ 3 this month</div></div>
@@ -838,7 +838,7 @@ body {
       <img src="assets/natca-logo.png" alt="NATCA" style="height:26px;width:auto;">
       <span class="b-wordmark">NATCA</span>
     </a>
-    <span class="b-portal-tag">GATS</span>
+    <span class="b-portal-tag" style="cursor:pointer;display:inline-flex;align-items:center;gap:4px;" title="Switch app"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.6;"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>GATS <span style="font-size:8px;opacity:0.5;">&#9662;</span></span>
     <div class="b-topbar-right">
       <span class="b-facility-tag">Jason D. &nbsp;·&nbsp; <strong>ZJX</strong></span>
       <div class="b-top-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></div>
@@ -865,7 +865,7 @@ body {
   </div>
   <div class="b-content" style="height:180px;">
     <div class="b-content-head">
-      <div><div class="b-content-title">Case #2026-041 — Article 9 Violation</div><div class="b-content-sub">Step 2 · Open · Assigned to ITC Chair · Filed by M. Torres</div></div>
+      <div><div class="b-content-title">Case #2026-041 — Article 9 Violation</div><div class="b-content-sub">Step 2 · Open · Assigned to Facility Rep · Filed by M. Torres</div></div>
       <button class="b-action-btn">Update Case</button>
     </div>
     <div class="b-stat-row">
@@ -878,7 +878,7 @@ body {
 </div>
 
 <div class="auth-notes">
-  <strong>Auth Option B — Horizontal Nav Shell:</strong> All navigation in a full-width tab bar. Contextual sub-nav shows section tabs or breadcrumb trail when deep inside a record. Maximizes horizontal content width — ideal for data tables, GATS case files, and bidding grids.
+  <strong>Auth Option B — Horizontal Nav Shell:</strong> Member-facing shell for all BUEs. App switcher lives in the system name chip ([⊞ AppName ▾]) — click to switch between MyNATCA apps. All navigation in a full-width tab bar. The contextual second row has two modes: <strong>Sub-links mode</strong> shows top-level sections within the app (used at section roots, e.g., Overview / Facility Stats / Recent Activity). <strong>Breadcrumb mode</strong> shows a path trail when deep in a record (e.g., GATS / ZJX Grievances / Case #2026-041). The app controls which mode renders based on route depth. Maximizes horizontal content width — ideal for data tables, GATS case files, and bidding grids.
 </div>
 
 <div style="padding:30px 40px;font-size:12px;color:rgba(255,255,255,0.2);text-align:center;">

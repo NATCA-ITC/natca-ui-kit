@@ -22,8 +22,8 @@ Navigation design proposals for team review:
 - **Option 3 — Red Impact** — Red utility bar, white primary, strong CTA focus
 - **Option 4 — Compact Modern** — Single-bar minimal layout with sub-nav
 - **Option 5 — Floating Glass** — Glassmorphism nav over hero, modern/editorial feel
-- **Auth Option A — Command Shell** — Deep navy, icon-rail collapsible sidebar (data-dense)
-- **Auth Option B — Horizontal Nav Shell** — No sidebar, two-bar strip like GitHub/Stripe
+- **Auth Option A — Admin Portal Shell** — Full sidebar for admins, light variant for focused admin tasks
+- **Auth Option B — Member App Shell** — Horizontal nav for all BUEs, app switcher in system chip
 
 ## How to View
 
@@ -54,6 +54,16 @@ Open either HTML file in a browser. No build step or dependencies required.
 
 All NATCA apps should consume these tokens. The design system CSS can be dropped into any project and themed via the `data-theme` attribute.
 
+## Architecture Direction
+
+This UI kit will evolve into a **`@natca/admin-shell`** Vue + Vuetify component package (Option 2 from the architecture discussion):
+
+- **Shared shell, not duplicated chrome.** Each app imports the shared shell package — header, sidebar, app switcher, and layout are owned in one place.
+- **App switcher** provides cross-app navigation within the MyNATCA ecosystem. Apps register themselves in a central app registry with routes and metadata.
+- **Contextual second row pattern:** Sub-links appear at section roots (e.g., BID > Facilities, BID > Reports). When the user navigates deep into a record, the second row switches to breadcrumbs.
+- **Future: Module Federation (Option 3).** The long-term path is for Hub to become a true unified portal that loads app admin modules at runtime via Module Federation. The shared shell package is a prerequisite — once apps share a common shell contract, they can be loaded as federated modules without visual seams.
+- **Design proposals inform Vue components.** The static HTML files in this repo are the design source that directly drives the Vue components to be built in the `@natca/admin-shell` package.
+
 ## Where This Fits
 
 This repo sits alongside the other MyNATCA ecosystem projects:
@@ -74,5 +84,8 @@ This repo sits alongside the other MyNATCA ecosystem projects:
 1. Team reviews nav options (1–5) and picks public navigation direction
 2. Team reviews auth shell (Option A vs B) for authenticated apps
 3. Finalize token values and extract CSS into standalone `natca-tokens.css`
-4. Build as importable package for Vue/Vuetify apps (Hub, BID, DMS, Pay, GATS)
-5. Enable GitHub Pages for shareable review link
+4. Extract shared shell into `@natca/admin-shell` Vue + Vuetify component package
+5. Define app switcher app registry and routing
+6. Build as importable package for Vue/Vuetify apps (Hub, BID, DMS, Pay, GATS)
+7. Enable GitHub Pages for shareable review link
+8. Design shell contract with Module Federation migration in mind — keep layout components decoupled so they can be loaded as federated modules later
