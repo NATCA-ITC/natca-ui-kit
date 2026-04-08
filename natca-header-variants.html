@@ -7,17 +7,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Barlow:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- NATCA Design System — consuming extracted CSS -->
+<link rel="stylesheet" href="src/natca-tokens.css">
 <style>
-/* ── UPDATED BRAND TOKENS (corrected from actual logo) ── */
+/* ── EXTRA TOKENS for nav variant demos (extend natca-tokens.css) ── */
 :root {
-  --natca-red:       #CE0E2D;
-  --natca-red-dark:  #A30B24;
   --natca-red-light: #FDE8EC;
   --natca-navy:      #003366;
   --natca-navy-mid:  #0A4D80;
   --natca-navy-light:#E6EDF5;
-  --natca-blue:      #003366;
-  --natca-sky:       #6AC9FF;
   --natca-gold:      #D4A017;
 
   --white: #FFFFFF;
@@ -29,13 +27,14 @@
   --gray-800: #2C2C2C;
   --dark-900: #0F1117;
 
+  /* Override font stacks — variants page uses Outfit/DM Sans as primary */
   --font-display: 'Outfit', 'Barlow', sans-serif;
   --font-body:    'DM Sans', 'Inter', sans-serif;
 
   --transition: 180ms ease;
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* Gallery page overrides — dark showcase background */
 html { font-size: 16px; }
 body {
   font-family: var(--font-body);

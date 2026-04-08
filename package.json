@@ -1,0 +1,35 @@
+{
+  "name": "@natca-itc/ui-shell",
+  "version": "0.1.0-beta.1",
+  "description": "NATCA Design System — tokens, components, and shared styles for all NATCA web properties (BETA)",
+  "license": "UNLICENSED",
+  "private": false,
+  "files": [
+    "dist/"
+  ],
+  "main": "dist/natca-components.css",
+  "exports": {
+    "./tokens": "./dist/natca-tokens.css",
+    "./components": "./dist/natca-components.css",
+    "./theme.json": "./dist/theme.json",
+    ".": "./dist/natca-components.css"
+  },
+  "scripts": {
+    "build": "node build.js",
+    "prepublishOnly": "npm run build"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NATCA-ITC/natca-ui-shell.git"
+  },
+  "keywords": [
+    "natca",
+    "design-system",
+    "tokens",
+    "css",
+    "ui"
+  ]
+}

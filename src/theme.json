@@ -1,0 +1,77 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "color": {
+      "custom": false,
+      "defaultPalette": false,
+      "palette": [
+        { "slug": "natca-red", "color": "#CE0E2D", "name": "NATCA Red" },
+        { "slug": "natca-red-dark", "color": "#A30B24", "name": "NATCA Red Dark" },
+        { "slug": "natca-red-subtle", "color": "#FDE8EC", "name": "NATCA Red Subtle" },
+        { "slug": "natca-blue", "color": "#003366", "name": "NATCA Navy/Blue" },
+        { "slug": "natca-blue-deep", "color": "#002952", "name": "NATCA Blue Deep" },
+        { "slug": "natca-blue-subtle", "color": "#E6EDF5", "name": "NATCA Blue Subtle" },
+        { "slug": "natca-sky", "color": "#6AC9FF", "name": "NATCA Sky" },
+        { "slug": "bg-page", "color": "#FAF9F5", "name": "Page Background" },
+        { "slug": "bg-surface", "color": "#FFFFFF", "name": "Surface" },
+        { "slug": "bg-subtle", "color": "#EFEFEF", "name": "Subtle Background" },
+        { "slug": "text-primary", "color": "#333333", "name": "Text Primary" },
+        { "slug": "text-body", "color": "#4D4D4D", "name": "Text Body" },
+        { "slug": "text-muted", "color": "#666666", "name": "Text Muted" },
+        { "slug": "success", "color": "#2E7D32", "name": "Success" },
+        { "slug": "warning", "color": "#A65D00", "name": "Warning" },
+        { "slug": "danger", "color": "#CE0E2D", "name": "Danger" },
+        { "slug": "info", "color": "#003366", "name": "Info" },
+        { "slug": "footer-bg", "color": "#414141", "name": "Footer Background" },
+        { "slug": "footer-text", "color": "#CCCCCC", "name": "Footer Text" }
+      ]
+    },
+    "typography": {
+      "customFontSize": false,
+      "fontFamilies": [
+        {
+          "slug": "display",
+          "fontFamily": "'Barlow', 'Open Sans', sans-serif",
+          "name": "Display"
+        },
+        {
+          "slug": "body",
+          "fontFamily": "'Inter', 'Open Sans', sans-serif",
+          "name": "Body"
+        },
+        {
+          "slug": "mono",
+          "fontFamily": "'Courier New', monospace",
+          "name": "Monospace"
+        }
+      ],
+      "fontSizes": [
+        { "slug": "xs", "size": "12px", "name": "Extra Small" },
+        { "slug": "sm", "size": "13px", "name": "Small" },
+        { "slug": "base", "size": "15px", "name": "Base" },
+        { "slug": "md", "size": "17px", "name": "Medium" },
+        { "slug": "lg", "size": "20px", "name": "Large" },
+        { "slug": "xl", "size": "24px", "name": "Extra Large" },
+        { "slug": "2xl", "size": "30px", "name": "2X Large" },
+        { "slug": "3xl", "size": "38px", "name": "3X Large" },
+        { "slug": "4xl", "size": "48px", "name": "4X Large" }
+      ]
+    },
+    "spacing": {
+      "customSpacingSize": false,
+      "spacingSizes": [
+        { "slug": "1", "size": "4px", "name": "4px" },
+        { "slug": "2", "size": "8px", "name": "8px" },
+        { "slug": "3", "size": "12px", "name": "12px" },
+        { "slug": "4", "size": "16px", "name": "16px" },
+        { "slug": "5", "size": "20px", "name": "20px" },
+        { "slug": "6", "size": "24px", "name": "24px" },
+        { "slug": "8", "size": "32px", "name": "32px" },
+        { "slug": "10", "size": "40px", "name": "40px" },
+        { "slug": "12", "size": "48px", "name": "48px" },
+        { "slug": "16", "size": "64px", "name": "64px" }
+      ]
+    }
+  }
+}
