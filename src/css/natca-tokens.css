@@ -10,6 +10,7 @@
   --natca-red-dark:     #A30B24;
   --natca-red-subtle:   #FDE8EC;
 
+  --natca-navy:         #003366;
   --natca-blue:         #003366;
   --natca-blue-deep:    #002952;
   --natca-blue-dark:    #00254D;
@@ -94,6 +95,17 @@
   /* --- Nav Heights --- */
   --nav-utility-height: 36px;
   --nav-primary-height: 64px;
+
+  /* --- Brand RGB (for alpha usage) --- */
+  --natca-red-rgb:  206, 14, 45;
+  --natca-blue-rgb: 0, 51, 102;
+
+  /* --- Shell Surfaces (light theme — for future use) --- */
+  --color-shell-base:     var(--color-bg-page);
+  --color-shell-surface:  var(--color-bg-surface);
+  --color-shell-elevated: var(--color-bg-elevated);
+  --color-shell-subtle:   var(--color-bg-subtle);
+  --color-shell-content:  var(--color-bg-page);
 }
 
 /* ============================================================
@@ -139,4 +151,15 @@
   --shadow:    0 2px 8px rgba(0,0,0,0.40);
   --shadow-md: 0 4px 16px rgba(0,0,0,0.50);
   --shadow-lg: 0 8px 32px rgba(0,0,0,0.60);
+
+  /* --- Brand RGB (for alpha usage) --- */
+  --natca-red-rgb:  206, 14, 45;
+  --natca-blue-rgb: 0, 51, 102;
+
+  /* --- Shell Surfaces (dark theme hierarchy) --- */
+  --color-shell-base:     #0a0f1a;
+  --color-shell-surface:  #0d1420;
+  --color-shell-elevated: #0f1520;
+  --color-shell-subtle:   #0c1119;
+  --color-shell-content:  #111825;
 }
