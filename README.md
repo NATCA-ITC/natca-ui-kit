@@ -1,180 +1,153 @@
 # NATCA UI Shell
 
-> **Status: BETA / DRAFT** — CSS tokens and components are extracted and published as `@natca-itc/ui-shell`. Design direction still under team review. Vue shell components coming in Phase 2.
+> **Status: Phase 2 BETA** — Vuetify theme preset, Vue shell components, and shared business components published as `@natca-itc/ui-shell@0.2.0-beta.2`.
 
-Unified design system and style guide for all NATCA web properties (natca.org, MyNATCA portal, Hub, BID, DMS, Pay, GATS, Discord). This repo is the single source of truth for visual direction, design tokens, component patterns, and navigation architecture across the ecosystem.
+Design system, shared Vuetify theme, and component library for all NATCA web properties. Single source of truth for visual direction, design tokens, shell layout, and cross-app components.
 
-## Package: `@natca-itc/ui-shell`
-
-Published to GitHub Packages as `@natca-itc/ui-shell@0.1.0-beta.1`.
-
-### What Ships
-
-| File | What it is | Consumers |
-|------|-----------|-----------|
-| `dist/natca-tokens.css` | CSS custom properties — colors, typography, spacing, radii, shadows, light/dark themes | Everything — WordPress, Vue apps, email templates |
-| `dist/natca-components.css` | Buttons, cards, badges, alerts, forms, tables, nav, loading/empty/error/toast states | WordPress theme + Vue apps |
-| `dist/theme.json` | WordPress block editor token mapping (colors, fonts, spacing) | WordPress theme only |
-
-### Install (Vue Apps)
+## Install
 
 ```bash
-# Add to .npmrc in your project root:
+# .npmrc (one-time)
 echo "@natca-itc:registry=https://npm.pkg.github.com" >> .npmrc
 
-# Install:
+# Install
 npm install @natca-itc/ui-shell@beta
 ```
 
-```js
-// main.js or main.ts — import BEFORE Vuetify/app styles
+## Setup (Vuetify Apps)
+
+```ts
+// main.ts
+import { createVuetify } from 'vuetify'
+import { natcaVuetifyTheme, natcaDefaults } from '@natca-itc/ui-shell'
 import '@natca-itc/ui-shell/tokens'
-import '@natca-itc/ui-shell/components'
+
+const vuetify = createVuetify({
+  theme: natcaVuetifyTheme,
+  defaults: natcaDefaults,
+})
 ```
 
-```html
-<!-- Set theme on root element -->
-<html data-theme="dark">  <!-- authenticated apps -->
-<html data-theme="light"> <!-- public/WordPress -->
+```vue
+<!-- App.vue -->
+<script setup>
+import { NatcaShell } from '@natca-itc/ui-shell'
+</script>
+
+<template>
+  <NatcaShell
+    app-id="hub"
+    app-name="Hub"
+    :tabs="tabs"
+    :user="user"
+    :apps="apps"
+  >
+    <router-view />
+  </NatcaShell>
+</template>
 ```
 
-### Install (WordPress)
+## What Ships
 
-Copy `dist/natca-tokens.css` and `dist/natca-components.css` into your theme's `assets/css/` directory:
+### For Vuetify Apps (Hub, BID, DMS, Pay, GATS)
 
-```php
-// functions.php
-function natca_enqueue_design_system() {
-    wp_enqueue_style('natca-tokens', get_template_directory_uri() . '/assets/css/natca-tokens.css', [], '0.1.0-beta.1');
-    wp_enqueue_style('natca-components', get_template_directory_uri() . '/assets/css/natca-components.css', ['natca-tokens'], '0.1.0-beta.1');
-}
-add_action('wp_enqueue_scripts', 'natca_enqueue_design_system');
+| Export | Import | Purpose |
+|--------|--------|---------|
+| Theme preset | `import { natcaVuetifyTheme, natcaDefaults }` | Shared Vuetify theme config — drop into `createVuetify()` |
+| Color palette | `import { natcaColors }` | Brand colors as JS object (for charts, canvas, dynamic styles) |
+| Shell components | `import { NatcaShell, NatcaTopBar, ... }` | App shell layout — topbar, tabs, sidebar, breadcrumbs, app switcher |
+| Shared components | `import { NatcaTabs, NatcaMemberCard }` | Cross-app Vuetify-wrapped components |
+| Composable | `import { useShellState }` | Reactive shell UI state (sidebar, search, etc.) |
+| Types | `import type { NatcaTab, NatcaUser, ... }` | TypeScript interfaces |
+| Tokens CSS | `import '@natca-itc/ui-shell/tokens'` | CSS custom properties |
+
+### For WordPress / Static Pages
+
+| Export | Import | Purpose |
+|--------|--------|---------|
+| Tokens CSS | `@natca-itc/ui-shell/tokens` | CSS custom properties (colors, type, spacing) |
+| Components CSS | `@natca-itc/ui-shell/components` | Standalone component styles (buttons, cards, tabs, etc.) |
+| theme.json | `@natca-itc/ui-shell/theme.json` | WordPress block editor token mapping |
+
+**Important:** Vuetify apps should NOT import `components` CSS — it conflicts with Vuetify's own styles.
+
+## Shell Components
+
+| Component | Purpose |
+|-----------|---------|
+| `NatcaShell` | Main orchestrator — composes all shell elements |
+| `NatcaTopBar` | Logo, wordmark, app chip, facility badge, search, notifications, user avatar/menu |
+| `NatcaTabNav` | Shell-level tab navigation (router-linked) |
+| `NatcaSidebar` | Collapsible left sidebar with sections and nav items |
+| `NatcaBreadcrumbRow` | Breadcrumb trail with hamburger toggle |
+| `NatcaSearchDrawer` | Slide-in search panel |
+| `NatcaAppSwitcher` | Cross-app navigation dropdown |
+
+## Shared Components
+
+| Component | Wraps | Purpose |
+|-----------|-------|---------|
+| `NatcaTabs` | `v-tabs` / `v-tab` / `v-window` | Tabs with router or v-model mode, default + pills variants |
+| `NatcaMemberCard` | `v-card` / `v-avatar` / `v-chip` | Member display card — default, compact, detailed variants |
+
+## Theme
+
+| Theme | Use | Default? |
+|-------|-----|----------|
+| `natcaDark` | Authenticated/member views | Yes |
+| `natcaLight` | Public-facing pages, WordPress | No |
+
+Both themes map the same brand tokens:
+- **Red:** #CE0E2D
+- **Navy:** #003366
+- **Sky:** #6AC9FF
+- **Fonts:** Barlow 600 (display) + Public Sans (body)
+
+`natcaDefaults` enforces compact density globally for all components.
+
+## Development
+
+```bash
+npm run dev            # Playground at http://localhost:1310
+npm run build          # Build CSS + Vue library
+npm publish --tag beta # Publish to GitHub Packages
 ```
 
-Copy `dist/theme.json` into your theme root to register tokens in the block editor.
+Playground demos:
+- `/admin` — Hub admin shell (sidebar + tabs + breadcrumbs)
+- `/member` — BID member shell (tabs only)
+- `/minimal` — PayChecker minimal shell
+- `/admin/components` — NatcaTabs + NatcaMemberCard demos
 
-## Design Previews
+## Design Previews (Static HTML)
 
-Open these HTML files in a browser — they consume the same `src/` CSS files that the package ships:
+- `natca-design-system.html` — Full token reference + standalone component library
+- `natca-header-variants.html` — Public nav options + auth shell options
 
-### `natca-design-system.html`
-Full design token reference and component library covering:
-- **Color tokens** — Brand palette (red, navy, blue, sky), neutrals, semantic colors
-- **Light + Dark themes** — `data-theme="light"` for public pages, `data-theme="dark"` for authenticated views
-- **Typography** — Barlow 600 (display/headings), Public Sans (body), type scale from 12px-48px
-- **Spacing** — 4px base grid system
-- **Components** — Buttons (primary, secondary, danger, ghost, accent), cards, badges, alerts, form elements, data tables
-- **Loading states** — Skeletons, spinners, progress bars
-- **Feedback** — Toasts, empty states, error pages, inline errors
-- **Navigation** — Two-tier pattern (utility bar + primary nav) with dropdowns
+## Architecture
 
-### `natca-header-variants.html`
-Navigation design proposals for team review:
-- **Option 1 - Classic Refined** — White primary bar, navy utility, red accent border
-- **Option 2 - Navy Command** — Full navy primary bar, bold brand presence
-- **Option 3 - Red Impact** — Red utility bar, white primary, strong CTA focus
-- **Option 4 - Compact Modern** — Single-bar minimal layout with sub-nav
-- **Option 5 - Floating Glass** — Glassmorphism nav over hero, modern/editorial feel
-- **Auth Option A - Admin Portal Shell** — Full sidebar for admins, light variant for focused admin tasks
-- **Auth Option B - Member App Shell** — Horizontal nav for all BUEs, app switcher in system chip
+See [docs/agent_docs/architecture.md](docs/agent_docs/architecture.md) for full details.
 
-## Brand Tokens (Quick Reference)
-
-| Token | Value | Use |
-|-------|-------|-----|
-| `--natca-red` | `#CE0E2D` | Primary brand red |
-| `--natca-blue` | `#003366` | Primary brand navy/blue |
-| `--natca-sky` | `#6AC9FF` | Accent / dark surfaces |
-
-## Theme Architecture
-
-- **Public pages** (`data-theme="light"`) — Light backgrounds, dark text, warm off-white (#FAF9F5)
-- **Authenticated views** (`data-theme="dark"`) — Dark navy backgrounds, light text, elevated surfaces
-
-## Architecture Direction
-
-This repo evolves through three phases:
-
-- **Phase 1 (current - BETA):** Extracted CSS tokens + components published as `@natca-itc/ui-shell`. HTML design previews for team review.
-- **Phase 2:** `@natca-itc/ui-shell` Vue + Vuetify layout components — shared shell (Auth A admin, Auth B member), app switcher, contextual nav
-- **Phase 3:** Module Federation — Hub becomes a unified portal that loads app admin modules at runtime
-
-### Shell Contract (Tentative)
-
-**Shell provides:**
-| Concern | Details |
-|---------|---------|
-| Topbar | Logo, app switcher, notifications, avatar |
-| Sidebar / horizontal nav | Renders from app-provided `navItems[]` |
-| Contextual second row | Reads route `meta.subNav` or `meta.breadcrumb` |
-| Auth context | User, facility, permissions (from Platform) |
-| Theme tokens | CSS custom properties, light/dark switching |
-
-**App provides:**
-| Concern | Details |
-|---------|---------|
-| `appId` / `appName` | Identifies the app in the switcher |
-| `navItems[]` | Array of `{ label, icon, to }` objects |
-| Route `meta.subNav` | Array of sub-links for section roots |
-| Route `meta.breadcrumb` | Function returning breadcrumb trail for deep pages |
-
-### WordPress Integration
-
-The NATCA public site (natca.org) consumes the design system through CSS, not Vue components:
-- **Tokens:** WordPress theme enqueues `natca-tokens.css` as the first stylesheet
-- **Components:** `natca-components.css` provides `.btn`, `.card`, `.alert`, `.badge`, etc.
-- **`theme.json`:** Colors appear in the block editor palette, fonts in the typography picker
-- **Theme:** WordPress is always `data-theme="light"`. Dark theme is for authenticated Vue apps only
-
-WordPress does NOT use the Vue shell components, app switcher, or auth context.
+See [ADR-001: Wrap Vuetify Rather Than Replace It](docs/architecture/decisions/ADR-001-vuetify-wrapping.md).
 
 ## Repo Structure
 
 ```
 natca-ui-shell/
-├── src/                         # Source CSS + WordPress theme.json
-│   ├── natca-tokens.css         # Design tokens (custom properties)
-│   ├── natca-components.css     # Component styles
-│   └── theme.json               # WordPress block editor mapping
-├── dist/                        # Built output (gitignored, built via npm run build)
-├── natca-design-system.html     # Design preview (consumes src/ CSS)
-├── natca-header-variants.html   # Nav variant preview (consumes src/ tokens)
-├── assets/                      # Logo and static assets
-├── build.js                     # Build script (copies src → dist)
-├── package.json                 # @natca-itc/ui-shell package config
-└── .npmrc                       # GitHub Packages registry config
+├── src/
+│   ├── components/       # Vue shell + shared components
+│   ├── composables/      # useShellState
+│   ├── theme/            # Vuetify theme preset (light, dark, defaults)
+│   ├── css/              # Design tokens + standalone component CSS
+│   ├── styles/           # Shell layout CSS
+│   ├── types/            # TypeScript interfaces
+│   └── index.ts          # Package entry point
+├── playground/           # Dev environment (:1310)
+├── docs/
+│   ├── agent_docs/       # Architecture context
+│   └── architecture/
+│       └── decisions/    # ADRs
+├── dist/                 # Built output
+├── natca-design-system.html
+└── natca-header-variants.html
 ```
-
-## Updating the Design System
-
-1. Edit files in `src/` (tokens, components, or theme.json)
-2. Open HTML preview files in browser to verify changes
-3. Run `npm run build` to regenerate `dist/`
-4. Bump version in `package.json` (semver + beta tag)
-5. `npm publish --tag beta` to GitHub Packages
-6. Consuming apps run `npm update @natca-itc/ui-shell` to pull changes
-
-## Where This Fits
-
-| Project | Purpose |
-|---------|---------|
-| **natca-ui-shell** (this repo) | Design system, tokens, style guide |
-| **Platform** | Auth, Supabase, data sync, API services |
-| **Hub** | Admin dashboard (Vue 3 + Vuetify) — first consumer |
-| **BID** | Facility bid management (Laravel + Vue) |
-| **Discord** | Bot — verification, role sync |
-| **DMS** | Document management |
-| **Pay** | PayChecker — LES parsing |
-| **GATS** | Grievance tracking viewer |
-
-## Next Steps
-
-1. ~~Extract CSS into standalone files~~ Done
-2. ~~Publish as `@natca-itc/ui-shell` package~~ Done (beta)
-3. ~~Integrate into Hub as proof of concept~~ Done
-4. Team reviews nav options (1-5) and picks public navigation direction
-5. Team reviews auth shell (Option A vs B) for authenticated apps
-6. Finalize font decision (Barlow+Inter vs Public Sans vs Outfit+DM Sans)
-7. Build Vue layout components (Auth A, Auth B, app switcher) — Phase 2
-8. Roll out to remaining apps (BID, DMS, Pay, GATS)
-9. WordPress theme build with design system CSS + theme.json
