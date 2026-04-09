@@ -50,7 +50,7 @@ Key patterns documented in header variants:
 
 ## Key Design Decisions
 
-- **Fonts (under review):** Three options in design system — A: Barlow + Inter (current default in tokens), B: Public Sans (single-family), C: Outfit + DM Sans
+- **Fonts (finalized):** Barlow 600 (display/headings) + Public Sans (body)
 - **Light theme:** Public-facing pages (`data-theme="light"`)
 - **Dark theme:** Authenticated/member views (`data-theme="dark"`)
 - **Brand colors:** Red (#CE0E2D), Navy/Blue (#003366), Sky (#6AC9FF)

@@ -61,7 +61,7 @@ Open these HTML files in a browser — they consume the same `src/` CSS files th
 Full design token reference and component library covering:
 - **Color tokens** — Brand palette (red, navy, blue, sky), neutrals, semantic colors
 - **Light + Dark themes** — `data-theme="light"` for public pages, `data-theme="dark"` for authenticated views
-- **Typography** — Barlow (display/headings), Inter (body), type scale from 12px-48px
+- **Typography** — Barlow 600 (display/headings), Public Sans (body), type scale from 12px-48px
 - **Spacing** — 4px base grid system
 - **Components** — Buttons (primary, secondary, danger, ghost, accent), cards, badges, alerts, form elements, data tables
 - **Loading states** — Skeletons, spinners, progress bars

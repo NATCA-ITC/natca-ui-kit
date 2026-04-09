@@ -32,12 +32,12 @@
       "fontFamilies": [
         {
           "slug": "display",
-          "fontFamily": "'Barlow', 'Open Sans', sans-serif",
+          "fontFamily": "'Barlow', sans-serif",
           "name": "Display"
         },
         {
           "slug": "body",
-          "fontFamily": "'Inter', 'Open Sans', sans-serif",
+          "fontFamily": "'Public Sans', sans-serif",
           "name": "Body"
         },
         {

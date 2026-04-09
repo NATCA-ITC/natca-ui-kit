@@ -49,8 +49,9 @@
   --color-info-bg:      #E6EDF5;
 
   /* --- Typography --- */
-  --font-display: 'Barlow', 'Open Sans', sans-serif;
-  --font-body:    'Inter', 'Open Sans', sans-serif;
+  --font-display: 'Barlow', sans-serif;
+  --font-display-weight: 600;
+  --font-body:    'Public Sans', sans-serif;
   --font-mono:    'Courier New', monospace;
 
   /* --- Type Scale --- */
