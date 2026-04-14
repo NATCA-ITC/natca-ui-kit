@@ -42,11 +42,24 @@ Apps should use Vuetify components directly for standard UI (buttons, forms, dia
 
 ## Theme Architecture
 
-- **Light theme (`natcaLight`):** Public-facing pages, WordPress
-- **Dark theme (`natcaDark`):** All authenticated/member views (default)
-- Compact density enforced globally for auth'd pages
+Two Vuetify themes are registered: `natcaLight` and `natcaDark`. Both have matching `[data-theme]` CSS token blocks in `natca-tokens.css`.
+
+**Theme selection (ADR-002):** Apps control which theme is active via `useNatcaTheme()`. The composable manages a `preference` (`'light' | 'dark' | 'system' | …`), resolves `'system'` via `prefers-color-scheme`, and syncs the result to Vuetify's active theme. `NatcaShell` reads the resolved value and sets its `data-theme` attribute accordingly — nothing is hardcoded.
+
+**App boot pattern:**
+```ts
+import { useNatcaTheme } from '@natca-itc/ui-shell'
+const { setTheme } = useNatcaTheme()
+setTheme(localStorage.getItem('natca-theme') ?? 'dark')  // restore saved or default to dark
+```
+
+**User-facing toggle:** `NatcaThemeToggle` is a standalone `VSelect` component. Apps drop it wherever they want (settings page, profile view). It emits `'change'` with the new preference string so the app can persist it. The `themes` prop accepts `(string | NatcaThemeOption)[]` for custom theme lists and icons.
+
+**Extensibility:** Theme names are open strings. Adding a new theme (e.g. `'glass'`) requires only a Vuetify theme definition (`natcaGlass`) + a `[data-theme="glass"]` CSS block — no type changes.
+
 - Brand: Red #CE0E2D, Navy #003366, Sky #6AC9FF
 - Fonts: Barlow 600 (display), Public Sans (body)
+- Compact density enforced globally for authenticated views
 
 ## Build Pipeline
 
@@ -75,7 +88,9 @@ const vuetify = createVuetify({
 | `src/components/NatcaShell.vue` | Main shell orchestrator |
 | `src/components/NatcaTabs.vue` | Shared tabs (wraps v-tabs) |
 | `src/components/NatcaMemberCard.vue` | Member display card (wraps v-card) |
-| `src/composables/useShellState.ts` | Reactive shell UI state |
+| `src/composables/useShellState.ts` | Reactive shell UI state (sidebar, search, app switcher) |
+| `src/composables/useNatcaTheme.ts` | Theme preference composable — singleton, syncs to Vuetify |
+| `src/components/NatcaThemeToggle.vue` | Standalone theme select dropdown |
 | `src/types/index.ts` | All TypeScript interfaces |
 | `src/css/natca-tokens.css` | Design token definitions |
 | `src/css/natca-components.css` | Standalone component CSS (non-Vuetify) |
