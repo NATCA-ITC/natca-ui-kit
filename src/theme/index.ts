@@ -111,11 +111,12 @@ export const natcaDarkTheme: ThemeDefinition = {
 /**
  * Complete Vuetify theme config — drop into createVuetify().
  *
- * Dark theme is default because authenticated NATCA apps use dark.
- * Public-facing pages (WordPress, marketing) use light.
+ * Light is the Vuetify default. Active theme is controlled at runtime
+ * by useNatcaTheme() — NatcaShell syncs it on mount via a watch.
+ * Apps call setTheme(savedPreference ?? 'dark') on boot to restore preference.
  */
 export const natcaVuetifyTheme = {
-  defaultTheme: 'natcaDark',
+  defaultTheme: 'natcaLight',
   themes: {
     natcaLight: natcaLightTheme,
     natcaDark: natcaDarkTheme,
