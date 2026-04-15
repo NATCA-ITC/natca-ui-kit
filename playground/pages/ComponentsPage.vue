@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { NatcaTabs, NatcaMemberCard } from '@/index'
+import { NatcaTabs, NatcaMemberCard, NatcaThemeToggle } from '@/index'
 import type { NatcaTabItem } from '@/components/NatcaTabs.vue'
 import type { MemberCardData } from '@/components/NatcaMemberCard.vue'
 import { VBtn, VDivider } from 'vuetify/components'
@@ -60,6 +60,35 @@ function handleMemberClick(member: MemberCardData) {
 
 <template>
   <div class="components-page">
+    <!-- Theme Toggle -->
+    <section class="demo-section">
+      <h2 class="demo-heading">Theme Toggle</h2>
+      <p class="demo-desc">
+        Drop <code>NatcaThemeToggle</code> anywhere. The <code>@change</code> event carries the
+        preference string — persist it however your app wants (localStorage, API, etc.).
+      </p>
+
+      <div style="display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-start;">
+        <div style="width: 200px;">
+          <NatcaThemeToggle
+            @change="pref => console.log('theme changed to:', pref)"
+          />
+        </div>
+
+        <div style="width: 220px;">
+          <NatcaThemeToggle
+            label="Appearance"
+            :themes="[
+              'light',
+              'dark',
+              { value: 'system', label: 'Match OS', icon: '💻' },
+            ]"
+            @change="pref => console.log('theme changed to:', pref)"
+          />
+        </div>
+      </div>
+    </section>
+
     <h2 class="page-title">Shared Components</h2>
     <p class="page-desc">
       Vuetify-wrapped components from <code>@natca-itc/ui-shell</code>.
