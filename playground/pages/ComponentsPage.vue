@@ -61,9 +61,9 @@ function handleMemberClick(member: MemberCardData) {
 <template>
   <div class="components-page">
     <!-- Theme Toggle -->
-    <section class="demo-section">
-      <h2 class="demo-heading">Theme Toggle</h2>
-      <p class="demo-desc">
+    <section>
+      <h2 class="page-title">Theme Toggle</h2>
+      <p class="page-desc">
         Drop <code>NatcaThemeToggle</code> anywhere. The <code>@change</code> event carries the
         preference string — persist it however your app wants (localStorage, API, etc.).
       </p>
