@@ -16,6 +16,13 @@ import NatcaAppSwitcher from './components/NatcaAppSwitcher.vue'
 import NatcaTabs from './components/NatcaTabs.vue'
 import NatcaMemberCard from './components/NatcaMemberCard.vue'
 
+// Native primitives (no Vuetify — exact design-system visual fidelity)
+import NatcaButton from './components/NatcaButton.vue'
+import NatcaAlert from './components/NatcaAlert.vue'
+import NatcaChip from './components/NatcaChip.vue'
+import NatcaProgressBar from './components/NatcaProgressBar.vue'
+import NatcaPillNav from './components/NatcaPillNav.vue'
+
 // Composite pattern components
 import NatcaHeaderCard from './components/NatcaHeaderCard.vue'
 import NatcaStatCard from './components/NatcaStatCard.vue'
@@ -44,6 +51,15 @@ export {
   NatcaMemberCard,
 }
 
+// Native primitives
+export {
+  NatcaButton,
+  NatcaAlert,
+  NatcaChip,
+  NatcaProgressBar,
+  NatcaPillNav,
+}
+
 // Composite pattern components
 export {
   NatcaHeaderCard,
@@ -53,6 +69,8 @@ export {
   NatcaPageHeader,
   NatcaAnnotation,
 }
+
+export type { NatcaPillItem } from './components/NatcaPillNav.vue'
 
 // Theme components
 export { NatcaThemeToggle }
@@ -89,6 +107,12 @@ export const NatcaUiShell = {
     // Shared components
     app.component('NatcaTabs', NatcaTabs)
     app.component('NatcaMemberCard', NatcaMemberCard)
+    // Native primitives
+    app.component('NatcaButton', NatcaButton)
+    app.component('NatcaAlert', NatcaAlert)
+    app.component('NatcaChip', NatcaChip)
+    app.component('NatcaProgressBar', NatcaProgressBar)
+    app.component('NatcaPillNav', NatcaPillNav)
     // Composite pattern components
     app.component('NatcaHeaderCard', NatcaHeaderCard)
     app.component('NatcaStatCard', NatcaStatCard)

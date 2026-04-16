@@ -14,7 +14,8 @@
  *   @action="resetFilters"
  * />
  */
-import { VIcon, VBtn } from 'vuetify/components'
+import { VIcon } from 'vuetify/components'
+import NatcaButton from './NatcaButton.vue'
 
 withDefaults(defineProps<{
   icon?: string
@@ -37,14 +38,14 @@ const emit = defineEmits<{
     </div>
     <div class="natca-empty-state__title">{{ title }}</div>
     <div v-if="description" class="natca-empty-state__desc">{{ description }}</div>
-    <VBtn
+    <NatcaButton
       v-if="actionLabel"
-      variant="text"
-      size="small"
+      variant="ghost"
+      size="sm"
       @click="emit('action')"
     >
       {{ actionLabel }}
-    </VBtn>
+    </NatcaButton>
   </div>
 </template>
 

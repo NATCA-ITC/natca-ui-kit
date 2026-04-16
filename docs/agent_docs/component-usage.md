@@ -61,6 +61,73 @@ For faster initial load, apps can optionally add a preconnect hint to `index.htm
 
 ---
 
+## Native primitives — USE THESE, NOT Vuetify equivalents
+
+For buttons, alerts, chips, progress bars, and pill toggles, **use the Natca native primitives — they match the design system exactly with zero config.** Only fall back to Vuetify for complex interactive widgets (forms, tables, dialogs, autocomplete, date pickers).
+
+| Use this | Instead of | Why |
+|----------|-----------|-----|
+| `<NatcaButton variant="primary">` | `<v-btn color="primary">` | Vuetify uppercases text, wrong fonts, wrong fills |
+| `<NatcaAlert type="info">` | `<v-alert type="info">` | Vuetify forces icons, different padding |
+| `<NatcaChip type="success">` | `<v-chip color="success">` | Exact color/padding match |
+| `<NatcaProgressBar :value="65">` | `<v-progress-linear>` | Correct blue color, correct 4px height |
+| `<NatcaPillNav v-model="f" :items>` | `<v-btn-toggle>` | Correct pill container + raised active state |
+
+### NatcaButton — the 5 variants
+
+```vue
+<NatcaButton variant="primary">Save</NatcaButton>
+<NatcaButton variant="secondary">Export</NatcaButton>
+<NatcaButton variant="danger">Delete</NatcaButton>
+<NatcaButton variant="ghost">Cancel</NatcaButton>
+<NatcaButton variant="link">View Details</NatcaButton>
+
+<!-- Sizes: sm (default, 28px) for toolbars, md (36px) for card/dialog actions -->
+<NatcaButton variant="primary" size="md">Submit Request</NatcaButton>
+```
+
+Primary auto-switches: navy in light, red in dark. No theme prop needed.
+
+### NatcaAlert — no icons, just colored strong + border
+
+```vue
+<NatcaAlert type="info"><strong>Info:</strong> Migration scheduled.</NatcaAlert>
+<NatcaAlert type="success"><strong>Success:</strong> 47 accounts migrated.</NatcaAlert>
+<NatcaAlert type="warning"><strong>Warning:</strong> 3 accounts over quota.</NatcaAlert>
+<NatcaAlert type="danger"><strong>Error:</strong> API connection failed.</NatcaAlert>
+```
+
+### NatcaChip — status badges
+
+```vue
+<NatcaChip type="success">Active</NatcaChip>
+<NatcaChip type="warning">Pending</NatcaChip>
+<NatcaChip type="danger">Disabled</NatcaChip>
+<NatcaChip type="info">Migrating</NatcaChip>
+<NatcaChip>Archived</NatcaChip>
+```
+
+### NatcaProgressBar — thin blue bar
+
+```vue
+<NatcaProgressBar :value="65" />
+<NatcaProgressBar indeterminate />
+<NatcaProgressBar :value="80" color="success" />
+```
+
+### NatcaPillNav — segmented filter toggles
+
+```vue
+<NatcaPillNav
+  v-model="filter"
+  :items="[
+    { value: 'all', label: 'All' },
+    { value: 'active', label: 'Active' },
+    { value: 'pending', label: 'Pending' },
+  ]"
+/>
+```
+
 ## What natcaDefaults Handles (DO NOT set these props manually)
 
 | Component | Auto-set Props |
@@ -357,18 +424,20 @@ Wrap in a `<v-card>` if you want a bordered container.
 
 | I want... | Use |
 |-----------|-----|
+| Button (any variant) | `<NatcaButton variant="...">` — 5 variants, 2 sizes |
+| Feedback message | `<NatcaAlert type="info/success/warning/danger">` |
+| Status indicator / badge | `<NatcaChip type="success/warning/danger/info">` |
+| Progress bar | `<NatcaProgressBar :value="65">` |
+| Pill toggle filters | `<NatcaPillNav v-model :items>` |
+| Underline tabs (router or local) | `<NatcaTabs>` |
 | Page title + subtitle + action button | `<NatcaPageHeader>` |
 | Card with navy header and icon | `<NatcaHeaderCard>` |
 | Grid of KPI/metric numbers | `<NatcaStatGrid>` + `<NatcaStatCard>` |
 | "No results" placeholder | `<NatcaEmptyState>` |
 | Info/tip/warning callout box | `<NatcaAnnotation>` |
-| Underline tabs (router or local) | `<NatcaTabs>` |
-| Pill toggle filters | `<NatcaTabs variant="pills">` or `<v-btn-toggle>` |
 | Member display card | `<NatcaMemberCard>` |
-| Status indicator | `<v-chip color="success/warning/error/info">` |
-| Feedback message | `<v-alert type="info/success/warning/error">` |
-| Confirmation modal | `<v-dialog>` with `<v-card>` |
-| Data table with filters | `<v-btn-toggle>` + `<v-data-table>` |
+| Confirmation modal | `<v-dialog>` + `<v-card>` + `<NatcaButton>` for actions |
+| Data table with filters | `<NatcaPillNav>` + `<v-data-table>` |
 | Form | `<v-text-field>`, `<v-select>`, etc. (no extra props needed) |
 | Light/dark toggle | Built into topbar via `NatcaShell` (automatic) |
 
