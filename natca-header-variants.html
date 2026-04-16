@@ -41,6 +41,74 @@ body {
   background: #1a1a2e;
   color: #e0e0e0;
   padding-bottom: 80px;
+  padding-top: 52px;
+}
+/* Design System control bar — identical across all pages */
+.ds-control-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: #003366;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  font-family: 'Public Sans', sans-serif;
+}
+.ds-control-bar a {
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  font-size: 12px;
+  transition: color 150ms;
+}
+.ds-control-bar a:hover { color: #FFFFFF; }
+.ds-control-bar .ds-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: auto;
+}
+.ds-control-bar .ds-logo-text {
+  font-family: 'Barlow', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+.ds-control-bar .ds-sep {
+  width: 1px;
+  height: 24px;
+  background: rgba(255,255,255,0.12);
+}
+.ds-control-bar .ds-nav-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 9999px;
+  padding: 5px 14px;
+  font-family: 'Public Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 150ms;
+}
+.ds-control-bar .ds-nav-btn:hover { background: rgba(255,255,255,0.14); color: white; }
+.ds-control-bar .ds-nav-btn.active { background: #CE0E2D; color: white; border-color: #CE0E2D; }
+.ds-archive-badge {
+  background: rgba(255,165,0,0.2);
+  color: #FFA726;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .page-header {
@@ -500,9 +568,22 @@ body {
 </head>
 <body>
 
+<div class="ds-control-bar">
+  <div class="ds-logo">
+    <img src="assets/natca-logo.png" alt="NATCA" style="height:28px;width:auto;">
+    <span class="ds-logo-text">Design System</span>
+  </div>
+  <span class="ds-sep"></span>
+  <a href="natca-design-system.html" class="ds-nav-btn">Design Standards</a>
+  <a href="http://localhost:1310" class="ds-nav-btn">Playground</a>
+  <span class="ds-nav-btn active" style="cursor:default;">Nav Design Ideas</span>
+  <span class="ds-archive-badge">Archived</span>
+</div>
+
 <div class="page-header">
-  <h1>NATCA Navigation Design Proposal</h1>
+  <h1>NATCA Navigation Design Ideas</h1>
   <p>5 public nav concepts + 3 authenticated shell options — Brand colors: Red #CE0E2D · Navy #003366</p>
+  <p style="margin-top: 8px; color: #FFA726; font-size: 12px; font-weight: 600;">ARCHIVED — Selected designs are documented in the <a href="natca-design-system.html" style="color: #6AC9FF;">Design System</a>. This page preserved for reference.</p>
 </div>
 
 <div style="padding: 24px 40px 0;">
@@ -1969,7 +2050,6 @@ body {
   NATCA UI Kit · Navigation Design Proposal · April 2026
 </div>
 
-<a href="natca-design-system.html" style="position:fixed;bottom:24px;right:24px;z-index:99999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#CE0E2D,#A30B24);color:white;text-decoration:none;font-family:'Outfit','Barlow',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.5px;padding:12px 20px;border-radius:50px;box-shadow:0 4px 20px rgba(206,14,45,0.5),0 0 0 2px rgba(255,255,255,0.1);transition:all 0.2s;cursor:pointer;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 28px rgba(206,14,45,0.6),0 0 0 2px rgba(255,255,255,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 20px rgba(206,14,45,0.5),0 0 0 2px rgba(255,255,255,0.1)'"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Design System</a>
 
 </body>
 </html>

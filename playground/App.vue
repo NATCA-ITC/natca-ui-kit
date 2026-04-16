@@ -149,6 +149,6 @@ html, body, #app {
   margin: 0 !important;
   border-radius: 0 !important;
   border: none !important;
-  height: 100vh !important;
+  height: calc(100vh - 52px) !important;
 }
 </style>

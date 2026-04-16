@@ -100,13 +100,13 @@
   --natca-red-rgb:  206, 14, 45;
   --natca-blue-rgb: 0, 51, 102;
 
-  /* --- Shell Surfaces (light theme) --- */
-  --color-shell-base:     var(--color-bg-page);
-  --color-shell-surface:  var(--color-bg-surface);
-  --color-shell-elevated: var(--color-bg-elevated);
-  --color-shell-subtle:   var(--color-bg-subtle);
-  --color-shell-content:  var(--color-bg-page);
-  --color-shell-sidebar:  #D6E2F0;
+  /* --- Shell Surfaces (light theme — hierarchy for visual depth) --- */
+  --color-shell-base:     #F0F2F5;
+  --color-shell-surface:  #FFFFFF;
+  --color-shell-elevated: #F8F9FB;
+  --color-shell-subtle:   #ECEEF2;
+  --color-shell-content:  #F5F6F8;
+  --color-shell-sidebar:  #FFFFFF;
 
   /* --- Interactive Overlays (light theme — black alpha on light backgrounds) --- */
   --overlay-subtle:       rgba(0,0,0,0.04);

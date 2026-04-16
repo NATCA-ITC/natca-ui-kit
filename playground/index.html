@@ -8,7 +8,28 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div id="app"></div>
+  <!-- Design System control bar — identical across design system, playground, nav ideas -->
+  <style>
+    #ds-bar { position:fixed;top:0;left:0;right:0;z-index:99999;background:#003366;height:52px;display:flex;align-items:center;padding:0 20px;gap:12px;box-shadow:0 4px 16px rgba(0,0,0,0.3);font-family:'Public Sans',sans-serif; }
+    #ds-bar .ds-logo { display:flex;align-items:center;gap:8px;margin-right:auto; }
+    #ds-bar .ds-logo img { height:28px;width:auto; }
+    #ds-bar .ds-logo span { font-family:'Barlow',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:white; }
+    #ds-bar .ds-sep { width:1px;height:24px;background:rgba(255,255,255,0.12); }
+    #ds-bar .ds-nav-btn { background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:9999px;padding:5px 14px;font-family:'Public Sans',sans-serif;font-size:12px;font-weight:600;color:rgba(255,255,255,0.6);cursor:pointer;text-decoration:none;transition:all 150ms; }
+    #ds-bar .ds-nav-btn:hover { background:rgba(255,255,255,0.14);color:white; }
+    #ds-bar .ds-nav-btn.active { background:#CE0E2D;color:white;border-color:#CE0E2D; }
+  </style>
+  <div id="ds-bar">
+    <div class="ds-logo">
+      <img src="/natca-logo.png" alt="NATCA">
+      <span>Design System</span>
+    </div>
+    <div class="ds-sep"></div>
+    <a href="/natca-design-system.html" class="ds-nav-btn">Design Standards</a>
+    <span class="ds-nav-btn active">Playground</span>
+    <a href="/natca-header-variants.html" class="ds-nav-btn">Nav Design Ideas</a>
+  </div>
+  <div id="app" style="padding-top:52px;"></div>
   <script type="module" src="./main.ts"></script>
 </body>
 </html>

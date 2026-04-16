@@ -60,6 +60,12 @@ function handleMemberClick(member: MemberCardData) {
 
 <template>
   <div class="components-page">
+    <div class="ds-link-bar">
+      <a href="/natca-design-system.html" target="_blank" class="ds-link">
+        Open Design System Reference (static HTML)
+      </a>
+    </div>
+
     <!-- Theme Toggle -->
     <section>
       <h2 class="page-title">Theme Toggle</h2>
@@ -274,5 +280,24 @@ function handleMemberClick(member: MemberCardData) {
 
 .member-list--tight {
   gap: 3px;
+}
+
+.ds-link-bar {
+  margin-bottom: 20px;
+  padding: 8px 12px;
+  background: var(--overlay-subtle);
+  border: 1px solid var(--overlay-border);
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.ds-link {
+  color: var(--natca-blue);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.ds-link:hover {
+  text-decoration: underline;
 }
 </style>

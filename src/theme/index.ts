@@ -141,18 +141,28 @@ export const natcaDefaults = {
     ripple: true,
     density: 'compact' as const,
   },
+  // ── Buttons ──
   VBtn: {
     variant: 'flat' as const,
     rounded: 'md',
     density: 'compact' as const,
     size: 'small',
   },
+  // NAT-281: Action buttons in card/dialog footers get proper sizing
+  VCardActions: {
+    VBtn: {
+      size: 'default' as const,
+      density: 'default' as const,
+    },
+  },
+  // ── Cards ──
   VCard: {
     rounded: 'lg',
     elevation: 0,
     border: true,
     density: 'compact' as const,
   },
+  // ── Form Inputs ──
   VTextField: {
     variant: 'outlined' as const,
     density: 'compact' as const,
@@ -164,11 +174,37 @@ export const natcaDefaults = {
     color: 'primary',
     bgColor: 'surface',
   },
+  VAutocomplete: {
+    variant: 'outlined' as const,
+    density: 'compact' as const,
+    color: 'primary',
+  },
   VTextarea: {
     variant: 'outlined' as const,
     density: 'compact' as const,
     color: 'primary',
   },
+  VCheckbox: {
+    density: 'compact' as const,
+    color: 'primary',
+    hideDetails: 'auto' as const,
+  },
+  VRadio: {
+    density: 'compact' as const,
+    color: 'primary',
+  },
+  VRadioGroup: {
+    density: 'compact' as const,
+    color: 'primary',
+    hideDetails: 'auto' as const,
+  },
+  VSwitch: {
+    density: 'compact' as const,
+    color: 'primary',
+    hideDetails: 'auto' as const,
+    inset: true,
+  },
+  // ── Tabs ──
   VTabs: {
     color: 'primary',
     sliderColor: 'primary',
@@ -179,6 +215,7 @@ export const natcaDefaults = {
     density: 'compact' as const,
     size: 'small',
   },
+  // ── Chips & Badges ──
   VChip: {
     rounded: 'pill',
     size: 'small',
@@ -187,6 +224,7 @@ export const natcaDefaults = {
   VBadge: {
     density: 'compact' as const,
   },
+  // ── Data Display ──
   VDataTable: {
     hover: true,
     density: 'compact' as const,
@@ -196,5 +234,45 @@ export const natcaDefaults = {
   },
   VListItem: {
     density: 'compact' as const,
+  },
+  // ── Feedback ──
+  VAlert: {
+    variant: 'tonal' as const,
+    density: 'compact' as const,
+    rounded: 'md',
+    border: 'start' as const,
+  },
+  VSnackbar: {
+    rounded: 'md',
+    timeout: 5000,
+  },
+  // ── Overlays ──
+  VDialog: {
+    maxWidth: 600,
+    VCard: {
+      rounded: 'lg',
+      elevation: 8,
+      border: false,
+    },
+  },
+  VMenu: {
+    rounded: 'md',
+  },
+  VTooltip: {
+    location: 'top' as const,
+  },
+  // ── Toolbar ──
+  VToolbar: {
+    density: 'compact' as const,
+    color: 'transparent',
+  },
+  // ── Progress ──
+  VProgressLinear: {
+    color: 'primary',
+    rounded: true,
+    height: 4,
+  },
+  VProgressCircular: {
+    color: 'primary',
   },
 } as const

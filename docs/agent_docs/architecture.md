@@ -94,3 +94,9 @@ const vuetify = createVuetify({
 | `src/types/index.ts` | All TypeScript interfaces |
 | `src/css/natca-tokens.css` | Design token definitions |
 | `src/css/natca-components.css` | Standalone component CSS (non-Vuetify) |
+
+## Related Docs
+
+- **[Component Usage Guide](./component-usage.md)** — patterns, anti-patterns, and examples for building pages in consuming apps. **Read this before writing UI code.**
+- **`natca-design-system.html`** — visual reference with Public/Authenticated toggle (open in browser)
+- **Playground** — interactive Vue component demos at http://localhost:1310 (`npm run dev`)
