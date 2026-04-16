@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { NatcaTabs, NatcaMemberCard } from '@/index'
+import { NatcaTabs, NatcaMemberCard, NatcaThemeToggle } from '@/index'
 import type { NatcaTabItem } from '@/components/NatcaTabs.vue'
 import type { MemberCardData } from '@/components/NatcaMemberCard.vue'
 import { VBtn, VDivider } from 'vuetify/components'
@@ -60,6 +60,41 @@ function handleMemberClick(member: MemberCardData) {
 
 <template>
   <div class="components-page">
+    <div class="ds-link-bar">
+      <a href="/natca-design-system.html" target="_blank" class="ds-link">
+        Open Design System Reference (static HTML)
+      </a>
+    </div>
+
+    <!-- Theme Toggle -->
+    <section>
+      <h2 class="page-title">Theme Toggle</h2>
+      <p class="page-desc">
+        Drop <code>NatcaThemeToggle</code> anywhere. The <code>@change</code> event carries the
+        preference string — persist it however your app wants (localStorage, API, etc.).
+      </p>
+
+      <div style="display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-start;">
+        <div style="width: 200px;">
+          <NatcaThemeToggle
+            @change="pref => console.log('theme changed to:', pref)"
+          />
+        </div>
+
+        <div style="width: 220px;">
+          <NatcaThemeToggle
+            label="Appearance"
+            :themes="[
+              'light',
+              'dark',
+              { value: 'system', label: 'Match OS', icon: '💻' },
+            ]"
+            @change="pref => console.log('theme changed to:', pref)"
+          />
+        </div>
+      </div>
+    </section>
+
     <h2 class="page-title">Shared Components</h2>
     <p class="page-desc">
       Vuetify-wrapped components from <code>@natca-itc/ui-shell</code>.
@@ -110,7 +145,7 @@ function handleMemberClick(member: MemberCardData) {
     <p class="eyebrow">Router Tabs</p>
     <div class="demo-card">
       <NatcaTabs :items="routerTabItems" />
-      <p class="demo-text-muted" style="margin-top: 8px;">
+      <p class="demo-text-muted" style="margin: 10px 12px 4px;">
         These navigate via Vue Router. Click one to change the active shell route.
       </p>
     </div>
@@ -175,7 +210,7 @@ function handleMemberClick(member: MemberCardData) {
 
 .page-desc code {
   font-size: 11px;
-  background: rgba(255,255,255,0.06);
+  background: var(--overlay-hover);
   padding: 1px 4px;
   border-radius: 3px;
 }
@@ -199,8 +234,8 @@ function handleMemberClick(member: MemberCardData) {
 }
 
 .demo-card {
-  background: rgba(255,255,255,0.025);
-  border: 1px solid rgba(255,255,255,0.06);
+  background: var(--color-shell-elevated);
+  border: 1px solid var(--overlay-border);
   border-radius: 6px;
   padding: 0;
   margin-bottom: 20px;
@@ -245,5 +280,24 @@ function handleMemberClick(member: MemberCardData) {
 
 .member-list--tight {
   gap: 3px;
+}
+
+.ds-link-bar {
+  margin-bottom: 20px;
+  padding: 8px 12px;
+  background: var(--overlay-subtle);
+  border: 1px solid var(--overlay-border);
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.ds-link {
+  color: var(--natca-blue);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.ds-link:hover {
+  text-decoration: underline;
 }
 </style>

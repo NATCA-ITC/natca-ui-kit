@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, watch } from 'vue'
+import { useTheme } from 'vuetify'
 import { useShellState } from '../composables/useShellState'
+import { useNatcaTheme } from '../composables/useNatcaTheme'
 import type { NatcaShellProps } from '../types'
 import NatcaTopBar from './NatcaTopBar.vue'
 import NatcaTabNav from './NatcaTabNav.vue'
@@ -31,11 +33,30 @@ defineSlots<{
 
 const { state, closeSearch, closeAppSwitcher } = useShellState()
 
+const vuetifyTheme = useTheme()
+const { resolved: resolvedTheme } = useNatcaTheme()
+
+// Sync resolved NATCA theme → Vuetify active theme
+// 'light' → 'natcaLight', 'dark' → 'natcaDark', 'glass' → 'natcaGlass', etc.
+watch(
+  resolvedTheme,
+  (theme) => {
+    vuetifyTheme.global.name.value = `natca${theme.charAt(0).toUpperCase()}${theme.slice(1)}`
+  },
+  { immediate: true }
+)
+
 const hasSidebar = computed(() => !!props.sidebarSections && props.sidebarSections.length > 0)
 const hasBreadcrumbs = computed(() => !!props.breadcrumbs && props.breadcrumbs.length > 0)
 
+// Apply Vuetify theme class to shell root so --v-theme-* CSS variables propagate
+// to all Vuetify components inside the shell (same role as <v-app> but without
+// its layout/background interference).
+const vuetifyThemeClass = computed(() => vuetifyTheme.global.name.value ? `v-theme--${vuetifyTheme.global.name.value}` : '')
+
 const shellClasses = computed(() => ({
   'natca-shell': true,
+  [vuetifyThemeClass.value]: true,
   'natca-shell-collapsed': state.sidebarCollapsed,
   'natca-shell-no-sidebar': !hasSidebar.value,
   'natca-shell-no-breadcrumb': !hasBreadcrumbs.value,
@@ -70,7 +91,7 @@ function handleShellClick(e: MouseEvent) {
 <template>
   <div
     :class="shellClasses"
-    data-theme="dark"
+    :data-theme="resolvedTheme"
     @click="handleShellClick"
   >
     <NatcaTopBar

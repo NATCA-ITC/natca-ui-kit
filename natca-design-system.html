@@ -46,101 +46,544 @@
 .btn-row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; margin-bottom: var(--space-4); }
 .badge-row { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
 
-/* Theme Toggle */
-.theme-toggle {
+/* ============================================================
+   CONTROL BAR — fixed top with context + theme toggles
+   ============================================================ */
+.ds-control-bar {
   position: fixed;
-  top: var(--space-4);
-  right: var(--space-4);
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 9999;
-  background: var(--color-bg-elevated);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-full);
-  padding: var(--space-2) var(--space-4);
+  background: var(--natca-navy);
+  border-bottom: none;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding: 0 var(--space-6);
+  height: 52px;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+}
+.ds-control-logo {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  cursor: pointer;
-  box-shadow: var(--shadow-md);
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  color: var(--color-text-primary);
+  margin-right: auto;
 }
-.theme-toggle:hover { background: var(--color-bg-subtle); }
+.ds-control-logo img { height: 28px; width: auto; }
+.ds-control-logo-text {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+.ds-control-logo-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  margin-left: var(--space-1);
+}
+.ds-control-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.ds-control-label {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--color-text-muted);
+  margin-right: var(--space-1);
+}
+.ds-control-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius-full);
+  padding: 5px 14px;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+  transition: all 150ms;
+}
+.ds-control-btn:hover { background: rgba(255,255,255,0.14); color: #FFFFFF; }
+.ds-control-btn.active {
+  background: var(--natca-red);
+  color: #FFFFFF;
+  border-color: var(--natca-red);
+}
+.ds-control-sep {
+  width: 1px;
+  height: 24px;
+  background: rgba(255,255,255,0.12);
+}
+
+/* Push content below fixed bar */
+body { padding-top: 52px; }
+
+/* ============================================================
+   CONTEXT VISIBILITY
+   ============================================================ */
+.public-only { display: block; }
+.auth-only { display: none; }
+body.ctx-auth .public-only { display: none; }
+body.ctx-auth .auth-only { display: block; }
+
+/* ============================================================
+   AUTH DEMO STYLES — simulate Vuetify compact density output
+   These are for the design system reference page ONLY.
+   Apps use Vuetify components directly — never import these.
+   ============================================================ */
+
+/* Shell chrome mockup */
+.auth-shell-preview {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  margin-bottom: var(--space-8);
+}
+.auth-shell-topbar {
+  background: var(--natca-navy);
+  height: 42px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 10px;
+}
+.auth-shell-topbar-logo { font-family: var(--font-display); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #FFFFFF; }
+.auth-shell-topbar-chip { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 5px; padding: 3px 8px; font-size: 10px; font-weight: 700; color: #FFFFFF; font-family: var(--font-display); }
+.auth-shell-topbar-right { margin-left: auto; display: flex; gap: 6px; align-items: center; }
+.auth-shell-topbar-icon { width: 28px; height: 28px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 5px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5); font-size: 12px; }
+.auth-shell-topbar-avatar { width: 28px; height: 28px; border-radius: 6px; background: var(--natca-red); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #FFFFFF; }
+.auth-shell-tabs {
+  background: var(--color-shell-elevated);
+  height: 36px;
+  display: flex;
+  align-items: stretch;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--color-border-light);
+  gap: 0;
+}
+.auth-shell-tab { display: flex; align-items: center; padding: 0 14px; font-family: var(--font-display); font-size: 11px; font-weight: 600; color: var(--color-text-muted); letter-spacing: 0.3px; border-bottom: 2px solid transparent; }
+.auth-shell-tab.active { color: var(--color-text-primary); border-bottom-color: var(--natca-red); }
+.auth-shell-breadcrumb {
+  background: var(--color-shell-subtle);
+  height: 32px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-size: 10px;
+  color: var(--color-text-faint);
+  border-bottom: 1px solid var(--color-sep);
+}
+.auth-shell-breadcrumb span { margin: 0 5px; color: var(--overlay-divider); }
+.auth-shell-breadcrumb .current { color: var(--color-text-body); }
+.auth-shell-content-area {
+  background: var(--color-shell-content);
+  padding: 16px;
+  min-height: 60px;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* Auth buttons — matches VBtn with natcaDefaults */
+.auth-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 150ms;
+  text-decoration: none;
+  white-space: nowrap;
+  letter-spacing: 0.2px;
+}
+/* Toolbar tier — compact/small (default VBtn) */
+.auth-btn-sm {
+  font-size: 12px;
+  padding: 4px 12px;
+  height: 28px;
+}
+/* Action tier — default size (VCardActions, dialogs) */
+.auth-btn-md {
+  font-size: 13px;
+  padding: 6px 18px;
+  height: 36px;
+}
+/* Variants */
+.auth-btn-primary { background: var(--natca-navy); color: #FFFFFF; }
+.auth-btn-primary:hover { opacity: 0.9; }
+[data-theme="dark"] .auth-btn-primary { background: var(--natca-red); }
+.auth-btn-secondary { background: var(--color-bg-subtle); color: var(--color-text-primary); border: 1px solid var(--color-border); }
+.auth-btn-secondary:hover { background: var(--overlay-hover); }
+.auth-btn-danger { background: transparent; color: var(--color-danger); border: 1px solid var(--color-danger); }
+.auth-btn-danger:hover { background: var(--color-danger); color: #FFFFFF; }
+.auth-btn-ghost { background: transparent; color: var(--color-text-muted); }
+.auth-btn-ghost:hover { background: var(--overlay-hover); color: var(--color-text-primary); }
+.auth-btn-text { background: transparent; color: var(--natca-blue); border: none; }
+.auth-btn-text:hover { background: var(--overlay-hover); }
+
+/* Auth cards — matches VCard with natcaDefaults */
+.auth-card {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.auth-card-title {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  padding: 12px 16px 4px;
+}
+.auth-card-subtitle {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  padding: 0 16px 8px;
+}
+.auth-card-text {
+  padding: 12px 16px;
+  font-size: var(--text-sm);
+  color: var(--color-text-body);
+}
+.auth-card-actions {
+  padding: 8px 16px 12px;
+  display: flex;
+  gap: var(--space-2);
+  justify-content: flex-end;
+}
+
+/* Auth data table — matches VDataTable compact */
+.auth-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-family: var(--font-body);
+}
+.auth-table thead th {
+  background: var(--color-bg-subtle);
+  padding: 6px 12px;
+  text-align: left;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
+}
+.auth-table tbody td {
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--color-border-light);
+  color: var(--color-text-body);
+}
+.auth-table tbody tr:hover td { background: var(--overlay-hover); }
+
+/* Auth form fields — matches VTextField outlined compact */
+.auth-field {
+  margin-bottom: 12px;
+}
+.auth-field-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-body);
+  margin-bottom: 4px;
+}
+.auth-input {
+  width: 100%;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-family: var(--font-body);
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-text-primary);
+  outline: none;
+  transition: border-color 150ms;
+  box-sizing: border-box;
+}
+.auth-input:focus { border-color: var(--color-border-focus); }
+.auth-input::placeholder { color: var(--color-text-faint); }
+.auth-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; padding-right: 28px; }
+
+/* Auth chips — matches VChip pill/small/compact */
+.auth-chip {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 10px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+.auth-chip-success { background: var(--color-success-bg); color: var(--color-success); }
+.auth-chip-warning { background: var(--color-warning-bg); color: var(--color-warning); }
+.auth-chip-danger { background: var(--color-danger-bg); color: var(--color-danger); }
+.auth-chip-info { background: var(--color-info-bg); color: var(--color-info); }
+.auth-chip-default { background: var(--color-bg-subtle); color: var(--color-text-muted); }
+
+/* Auth alerts — matches VAlert tonal compact border-start */
+.auth-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  border-left: 3px solid;
+  margin-bottom: var(--space-3);
+}
+.auth-alert-info { background: var(--color-info-bg); border-color: var(--color-info); color: var(--color-text-body); }
+.auth-alert-success { background: var(--color-success-bg); border-color: var(--color-success); color: var(--color-text-body); }
+.auth-alert-warning { background: var(--color-warning-bg); border-color: var(--color-warning); color: var(--color-text-body); }
+.auth-alert-danger { background: var(--color-danger-bg); border-color: var(--color-danger); color: var(--color-text-body); }
+.auth-alert strong { font-weight: 700; }
+.auth-alert-info strong { color: var(--color-info); }
+.auth-alert-success strong { color: var(--color-success); }
+.auth-alert-warning strong { color: var(--color-warning); }
+.auth-alert-danger strong { color: var(--color-danger); }
+
+/* Auth tabs — matches VTabs compact 36px */
+.auth-tabs {
+  display: flex;
+  align-items: stretch;
+  height: 36px;
+  border-bottom: 1px solid var(--color-border-light);
+  gap: 0;
+}
+.auth-tab {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 150ms;
+  white-space: nowrap;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+.auth-tab:hover { color: var(--color-text-primary); }
+.auth-tab.active { color: var(--color-text-primary); border-bottom-color: var(--natca-red); }
+.auth-tab-badge { font-size: 10px; background: var(--color-bg-subtle); color: var(--color-text-muted); padding: 1px 6px; border-radius: var(--radius-full); margin-left: 6px; }
+.auth-tab.active .auth-tab-badge { background: var(--natca-red); color: #FFFFFF; }
+
+/* Auth pills — matches NatcaTabs pills variant */
+.auth-pills {
+  display: inline-flex;
+  gap: 2px;
+  background: var(--overlay-subtle);
+  border-radius: var(--radius-full);
+  padding: 2px;
+}
+.auth-pill {
+  display: flex;
+  align-items: center;
+  padding: 3px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 150ms;
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+}
+.auth-pill:hover { color: var(--color-text-primary); }
+.auth-pill.active { background: var(--color-bg-surface); color: var(--color-text-primary); box-shadow: var(--shadow-sm); }
+
+/* Auth dialog mockup */
+.auth-dialog-backdrop {
+  background: rgba(0,0,0,0.3);
+  border-radius: var(--radius-lg);
+  padding: 40px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.auth-dialog-card {
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 420px;
+  overflow: hidden;
+}
+.auth-dialog-title {
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  padding: 16px 20px 4px;
+}
+.auth-dialog-text {
+  padding: 8px 20px 16px;
+  font-size: var(--text-sm);
+  color: var(--color-text-body);
+}
+.auth-dialog-actions {
+  padding: 8px 16px 16px;
+  display: flex;
+  gap: var(--space-2);
+  justify-content: flex-end;
+}
+
+/* Auth header card — navy header with icon */
+.auth-card-header {
+  background: var(--natca-navy);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.auth-card-header-icon {
+  width: 36px;
+  height: 36px;
+  background: rgba(255,255,255,0.12);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.auth-card-header-text h3 {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.2;
+}
+.auth-card-header-text p {
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 1px;
+}
+
+/* Auth stat cards */
+.auth-stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.auth-stat-card {
+  background: var(--overlay-subtle);
+  border: 1px solid var(--overlay-border);
+  border-radius: var(--radius-md);
+  padding: 12px;
+}
+.auth-stat-label { font-size: 9px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--color-text-faint); margin-bottom: 4px; }
+.auth-stat-val { font-family: var(--font-display); font-size: 18px; font-weight: 800; color: var(--color-text-primary); line-height: 1; }
+.auth-stat-change { font-size: 10px; color: var(--color-success); margin-top: 3px; }
+
+/* Auth empty state */
+.auth-empty {
+  text-align: center;
+  padding: var(--space-10) var(--space-6);
+}
+.auth-empty-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto var(--space-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--overlay-subtle);
+  border-radius: var(--radius-lg);
+  color: var(--color-text-faint);
+}
+.auth-empty-title { font-family: var(--font-display); font-size: var(--text-base); font-weight: 700; color: var(--color-text-primary); margin-bottom: var(--space-1); }
+.auth-empty-desc { font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-4); max-width: 320px; margin-left: auto; margin-right: auto; }
+
+/* Auth progress */
+.auth-progress {
+  height: 4px;
+  background: var(--overlay-subtle);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.auth-progress-fill {
+  height: 100%;
+  background: var(--natca-blue);
+  border-radius: 2px;
+  transition: width 300ms;
+}
+
+/* Auth annotation callout */
+.auth-annotation {
+  background: var(--color-info-bg);
+  border-left: 3px solid var(--color-info);
+  padding: 10px 14px;
+  font-size: 11px;
+  color: var(--color-text-body);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  margin: var(--space-4) 0;
+}
+.auth-annotation code { font-size: 10px; background: var(--overlay-subtle); padding: 1px 4px; border-radius: 3px; }
+
+/* Comparison wrapper */
+.auth-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+.auth-compare-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--color-text-faint);
+  margin-bottom: var(--space-2);
+}
 </style>
 </head>
 <body>
 
-<button class="theme-toggle" onclick="toggleTheme()">
-  <span id="theme-icon">☀</span>
-  <span id="theme-label">Light mode</span>
-</button>
-
-<!-- NAV DEMO -->
-<div class="nav-utility">
-  <div class="nav-utility__inner">
-    <div class="nav-utility__links">
-      <a href="#">Members</a>
-      <a href="#">Locals</a>
-      <a href="#">News</a>
-      <a href="#">Contact</a>
-    </div>
-    <div class="nav-utility__links">
-      <a href="#" class="nav-utility__cta">Member Login</a>
-    </div>
+<!-- ═══════════════════════════════════════════════════════════
+     CONTROL BAR — Context + Theme toggles
+     ═══════════════════════════════════════════════════════════ -->
+<div class="ds-control-bar">
+  <div class="ds-control-logo">
+    <img src="assets/natca-logo.png" alt="NATCA">
+    <span class="ds-control-logo-text">Design System</span>
   </div>
+  <div class="ds-control-group">
+    <span class="ds-control-label" style="color: rgba(255,255,255,0.4);">Context</span>
+    <button class="ds-control-btn active" id="ctx-public" onclick="setContext('public')">Public</button>
+    <button class="ds-control-btn" id="ctx-auth" onclick="setContext('auth')">Authenticated</button>
+  </div>
+  <div class="ds-control-sep"></div>
+  <div class="ds-control-group">
+    <span class="ds-control-label" style="color: rgba(255,255,255,0.4);">Theme</span>
+    <button class="ds-control-btn active" id="theme-light" onclick="setTheme('light')">Light</button>
+    <button class="ds-control-btn" id="theme-dark" onclick="setTheme('dark')">Dark</button>
+  </div>
+  <div class="ds-control-sep"></div>
+  <span class="ds-control-btn active" style="cursor: default;">Design Standards</span>
+  <a href="http://localhost:1310" class="ds-control-btn" title="Requires: npm run dev">Playground</a>
+  <a href="natca-header-variants.html" class="ds-control-btn">Nav Design Ideas</a>
 </div>
 
-<nav class="nav-primary">
-  <div class="nav-primary__inner">
-    <a href="#" class="nav-primary__logo">
-      <img src="assets/natca-logo.png" alt="NATCA" style="height:44px;width:auto;">
-      <span class="nav-primary__logo-text">NATCA</span>
-    </a>
-    <ul class="nav-primary__menu">
-      <li class="nav-primary__item">
-        <a href="#" class="nav-primary__link">About NATCA ▾</a>
-        <ul class="nav-primary__dropdown">
-          <li><a href="#" class="nav-primary__dropdown-link">Mission, Values &amp; Vision</a></li>
-          <li><a href="#" class="nav-primary__dropdown-link">NATCA Leadership</a></li>
-          <li><a href="#" class="nav-primary__dropdown-link">NATCA Staff</a></li>
-          <li><a href="#" class="nav-primary__dropdown-link">Who We Represent</a></li>
-          <li><a href="#" class="nav-primary__dropdown-link">Foundations of Professionalism</a></li>
-          <li><a href="#" class="nav-primary__dropdown-link">NATCA Through the Years</a></li>
-        </ul>
-      </li>
-      <li class="nav-primary__item">
-        <a href="#" class="nav-primary__link">Events ▾</a>
-        <ul class="nav-primary__dropdown">
-          <li><a href="#" class="nav-primary__dropdown-link">Activism &amp; Training Expo (ATX)</a></li>
-          <li><a href="#" class="nav-primary__dropdown-link">Communicating for Safety</a></li>
-          <li><a href="#" class="nav-primary__dropdown-link">Convention</a></li>
-          <li><a href="#" class="nav-primary__dropdown-link">NATCA in Washington</a></li>
-        </ul>
-      </li>
-      <li class="nav-primary__item">
-        <a href="#" class="nav-primary__link">Community ▾</a>
-        <ul class="nav-primary__dropdown">
-          <li><a href="#" class="nav-primary__dropdown-link">Scholarships</a></li>
-          <li><a href="#" class="nav-primary__dropdown-link">NATCA Charitable Foundation</a></li>
-          <li><a href="#" class="nav-primary__dropdown-link">Awards</a></li>
-          <li><a href="#" class="nav-primary__dropdown-link">Corporate Members</a></li>
-          <li><a href="#" class="nav-primary__dropdown-link">Critical Incident Stress Mgmt.</a></li>
-        </ul>
-      </li>
-      <li class="nav-primary__item"><a href="#" class="nav-primary__link">Education ▾</a></li>
-      <li class="nav-primary__item"><a href="#" class="nav-primary__link">Issues ▾</a></li>
-      <li class="nav-primary__item">
-        <button class="nav-primary__search" aria-label="Search">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-          </svg>
-        </button>
-      </li>
-    </ul>
-  </div>
-</nav>
+<!-- ═══════════════════════════════════════════════════════════
+     PUBLIC CONTEXT — Original design system content
+     ═══════════════════════════════════════════════════════════ -->
+<div class="public-only">
 
-<!-- DESIGN SYSTEM CONTENT -->
 <main style="padding: var(--space-10) 0;">
   <div class="ds-page">
 
@@ -148,8 +591,93 @@
       <p class="eyebrow">NATCA ITC</p>
       <h1 style="margin-top: var(--space-2);">Design System <span style="color: var(--natca-blue);">v1.0</span></h1>
       <p class="lead" style="margin-top: var(--space-4); max-width: 640px; color: var(--color-text-muted);">
-        The single source of truth for all NATCA web properties. Toggle between light (public) and dark (member/admin) themes using the button at top right.
+        Public-facing components for WordPress and static HTML pages. Uses standalone CSS from <code>@natca-itc/ui-shell/components</code>. Switch to "Authenticated" above for Vuetify app patterns.
       </p>
+    </div>
+
+    <!-- NAVIGATION — Selected Design: Navy Command -->
+    <div class="ds-section">
+      <div class="ds-section-title">Navigation</div>
+      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-4);">Selected pattern: <strong>Navy Command</strong>. Full navy primary bar with inverted logo, red active accent. Strong institutional authority. <a href="natca-header-variants.html" style="color: var(--natca-blue);">See all explored options &rarr;</a></p>
+
+      <p class="eyebrow" style="margin-bottom: var(--space-3);">Desktop</p>
+      <div style="border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--color-border); margin-bottom: var(--space-6);">
+        <!-- Navy utility bar -->
+        <div style="background: #1a1a2e; height: 32px; display: flex; align-items: center; justify-content: flex-end; padding: 0 24px; gap: 16px; font-size: 11px;">
+          <a href="#" style="color: rgba(255,255,255,0.5); text-decoration: none;">Newsroom</a>
+          <a href="#" style="color: rgba(255,255,255,0.5); text-decoration: none;">Benefits</a>
+          <a href="#" style="color: rgba(255,255,255,0.5); text-decoration: none;">NATCA Store</a>
+          <a href="#" style="color: rgba(255,255,255,0.5); text-decoration: none;">Contact Us</a>
+          <a href="#" style="background: var(--natca-red); color: white; padding: 2px 10px; border-radius: 3px; text-decoration: none; font-weight: 700; font-size: 10px;">Join NATCA</a>
+          <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-weight: 600;">Members Home</a>
+        </div>
+        <!-- Navy primary nav -->
+        <div style="background: var(--natca-navy); height: 64px; display: flex; align-items: center; padding: 0 24px; border-bottom: 3px solid var(--natca-red);">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <img src="assets/natca-logo.png" alt="NATCA" style="height: 42px; width: auto;">
+            <div style="font-size: 10px; color: rgba(255,255,255,0.4); line-height: 1.3; font-style: italic;">We Guide<br>You Home</div>
+          </div>
+          <div style="margin-left: auto; display: flex; align-items: center; gap: 24px;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 13px; font-weight: 600; font-family: var(--font-display); border-bottom: 2px solid var(--natca-red); padding-bottom: 2px;">Home</a>
+            <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; font-weight: 500; font-family: var(--font-display);">About NATCA</a>
+            <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; font-weight: 500; font-family: var(--font-display);">Events</a>
+            <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; font-weight: 500; font-family: var(--font-display);">Community</a>
+            <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; font-weight: 500; font-family: var(--font-display);">Issues</a>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+        </div>
+        <!-- Hero preview -->
+        <div style="background: linear-gradient(135deg, #020e1c 0%, var(--natca-navy) 60%, #0A4D80 100%); height: 100px; display: flex; align-items: flex-end; padding: 16px 24px;">
+          <div>
+            <div style="font-family: var(--font-display); font-size: 22px; font-weight: 800; color: white;">Discover NATCA</div>
+            <div style="font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 2px;">National Air Traffic Controllers Association</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="eyebrow" style="margin-bottom: var(--space-3);">Mobile (closed / open)</p>
+      <div style="display: grid; grid-template-columns: 320px 320px; gap: var(--space-6);">
+        <!-- Mobile closed -->
+        <div style="border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--color-border);">
+          <div style="background: var(--natca-navy); height: 56px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; position: relative;">
+            <img src="assets/natca-logo.png" alt="NATCA" style="height: 30px; width: auto;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--natca-red);"></div>
+          </div>
+          <div style="background:linear-gradient(135deg,#020e1c,var(--natca-navy),#0A4D80);height:140px;display:flex;align-items:flex-end;padding:20px;">
+            <div>
+              <div style="font-family:var(--font-display);font-size:22px;font-weight:800;color:white;">Discover NATCA</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:4px;">National Air Traffic Controllers Association</div>
+            </div>
+          </div>
+        </div>
+        <!-- Mobile open -->
+        <div style="border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--color-border);">
+          <div style="background: var(--natca-navy); height: 56px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; position: relative;">
+            <img src="assets/natca-logo.png" alt="NATCA" style="height: 30px; width: auto;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--natca-red);"></div>
+          </div>
+          <div style="background: var(--natca-navy); padding: 20px; display: flex; flex-direction: column; gap: 14px;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 16px; font-weight: 600; font-family: var(--font-display);">Home</a>
+            <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 16px; font-family: var(--font-display);">About NATCA</a>
+            <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 16px; font-family: var(--font-display);">Events</a>
+            <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 16px; font-family: var(--font-display);">Community</a>
+            <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 16px; font-family: var(--font-display);">Education</a>
+            <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 16px; font-family: var(--font-display);">Issues</a>
+            <div style="display:flex;gap:10px;margin-top:8px;">
+              <span style="background:var(--natca-red);color:white;padding:8px 16px;border-radius:6px;font-size:13px;font-weight:700;">Join NATCA</span>
+              <span style="border:1px solid rgba(255,255,255,0.3);color:white;padding:8px 16px;border-radius:6px;font-size:13px;">Members Home</span>
+            </div>
+            <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:12px;margin-top:4px;display:flex;gap:16px;font-size:11px;">
+              <a href="#" style="color:rgba(255,255,255,0.4);text-decoration:none;">Newsroom</a>
+              <a href="#" style="color:rgba(255,255,255,0.4);text-decoration:none;">Benefits</a>
+              <a href="#" style="color:rgba(255,255,255,0.4);text-decoration:none;">NATCA Store</a>
+              <a href="#" style="color:rgba(255,255,255,0.4);text-decoration:none;">Contact</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- COLOR TOKENS -->
@@ -159,148 +687,50 @@
 
       <h4 style="margin-bottom: var(--space-4); font-size: var(--text-base);">Brand Colors</h4>
       <div class="swatch-grid" style="margin-bottom: var(--space-8);">
-        <div class="swatch"><div class="swatch__color" style="background:#CE0E2D;"></div><div class="swatch__info"><div class="swatch__name">NATCA Red</div><div class="swatch__hex">--natca-red · #CE0E2D</div></div></div>
-        <div class="swatch"><div class="swatch__color" style="background:#A30B24;"></div><div class="swatch__info"><div class="swatch__name">Red Dark</div><div class="swatch__hex">--natca-red-dark · #A30B24</div></div></div>
-        <div class="swatch"><div class="swatch__color" style="background:#003366;"></div><div class="swatch__info"><div class="swatch__name">NATCA Blue</div><div class="swatch__hex">--natca-blue · #003366</div></div></div>
-        <div class="swatch"><div class="swatch__color" style="background:#002952;"></div><div class="swatch__info"><div class="swatch__name">Blue Deep</div><div class="swatch__hex">--natca-blue-deep · #002952</div></div></div>
-        <div class="swatch"><div class="swatch__color" style="background:#6AC9FF;"></div><div class="swatch__info"><div class="swatch__name">Sky / Accent</div><div class="swatch__hex">--natca-sky · #6AC9FF</div></div></div>
-        <div class="swatch"><div class="swatch__color" style="background:#E6EDF5; border: 1px solid #ccd6e3;"></div><div class="swatch__info"><div class="swatch__name">Blue Subtle</div><div class="swatch__hex">--natca-blue-subtle · #E6EDF5</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#CE0E2D;"></div><div class="swatch__info"><div class="swatch__name">NATCA Red</div><div class="swatch__hex">--natca-red &middot; #CE0E2D</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#A30B24;"></div><div class="swatch__info"><div class="swatch__name">Red Dark</div><div class="swatch__hex">--natca-red-dark &middot; #A30B24</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#003366;"></div><div class="swatch__info"><div class="swatch__name">NATCA Blue</div><div class="swatch__hex">--natca-blue &middot; #003366</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#002952;"></div><div class="swatch__info"><div class="swatch__name">Blue Deep</div><div class="swatch__hex">--natca-blue-deep &middot; #002952</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#6AC9FF;"></div><div class="swatch__info"><div class="swatch__name">Sky / Accent</div><div class="swatch__hex">--natca-sky &middot; #6AC9FF</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#E6EDF5; border: 1px solid #ccd6e3;"></div><div class="swatch__info"><div class="swatch__name">Blue Subtle</div><div class="swatch__hex">--natca-blue-subtle &middot; #E6EDF5</div></div></div>
       </div>
 
       <h4 style="margin-bottom: var(--space-4); font-size: var(--text-base);">Semantic Colors</h4>
       <div class="swatch-grid">
-        <div class="swatch"><div class="swatch__color" style="background:#2E7D32;"></div><div class="swatch__info"><div class="swatch__name">Success</div><div class="swatch__hex">--color-success · #2E7D32</div></div></div>
-        <div class="swatch"><div class="swatch__color" style="background:#E65100;"></div><div class="swatch__info"><div class="swatch__name">Warning</div><div class="swatch__hex">--color-warning · #E65100</div></div></div>
-        <div class="swatch"><div class="swatch__color" style="background:#CE0E2D;"></div><div class="swatch__info"><div class="swatch__name">Danger</div><div class="swatch__hex">--color-danger · #CE0E2D</div></div></div>
-        <div class="swatch"><div class="swatch__color" style="background:#003366;"></div><div class="swatch__info"><div class="swatch__name">Info</div><div class="swatch__hex">--color-info · #003366</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#2E7D32;"></div><div class="swatch__info"><div class="swatch__name">Success</div><div class="swatch__hex">--color-success &middot; #2E7D32</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#E65100;"></div><div class="swatch__info"><div class="swatch__name">Warning</div><div class="swatch__hex">--color-warning &middot; #E65100</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#CE0E2D;"></div><div class="swatch__info"><div class="swatch__name">Danger</div><div class="swatch__hex">--color-danger &middot; #CE0E2D</div></div></div>
+        <div class="swatch"><div class="swatch__color" style="background:#003366;"></div><div class="swatch__info"><div class="swatch__name">Info</div><div class="swatch__hex">--color-info &middot; #003366</div></div></div>
       </div>
     </div>
 
     <!-- TYPOGRAPHY -->
     <div class="ds-section">
       <div class="ds-section-title">Typography</div>
-      <p style="color: var(--color-text-muted); margin-bottom: var(--space-6);">Three options under consideration. Each card shows the display/heading face paired with the body/UI face.</p>
-
-      <!-- Stacked full-width cards -->
-      <div style="display: flex; flex-direction: column; gap: var(--space-6); margin-bottom: var(--space-8);">
-
-        <!-- Option A: Barlow + Inter (current) -->
-        <div style="border: 2px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-6); background: var(--color-surface);">
-          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-4);">
-            <p class="eyebrow">Option A — Current</p>
-            <div style="font-size: var(--text-xs); font-family: var(--font-mono); color: var(--color-text-muted); text-align: right;">
-              Geometric display + humanist body · Strong heading/body contrast · Barlow: Google Fonts top 100
-            </div>
-          </div>
-          <div style="display: grid; grid-template-columns: 200px 1fr; gap: var(--space-6); align-items: start;">
-            <div>
-              <p style="font-size: var(--text-3xl); font-family: 'Barlow', sans-serif; font-weight: 800; line-height: 1.1;">Barlow 800</p>
-              <p style="font-size: var(--text-base); font-family: 'Inter', sans-serif; font-weight: 400; color: var(--color-text-muted); margin-top: var(--space-1);">Inter 400</p>
-            </div>
-            <div>
-              <p style="font-size: 32px; font-family: 'Barlow', sans-serif; font-weight: 800; line-height: 1.2;">Member Portal</p>
-              <p style="font-size: 24px; font-family: 'Barlow', sans-serif; font-weight: 700; margin-top: var(--space-2);">Facility Dashboard</p>
-              <p style="font-size: 18px; font-family: 'Barlow', sans-serif; font-weight: 600; margin-top: var(--space-2);">Section Header</p>
-              <p style="font-size: 15px; font-family: 'Inter', sans-serif; font-weight: 400; margin-top: var(--space-3); line-height: 1.6; color: var(--color-text-body);">Body text in Inter. Clean and highly legible at small sizes. One of the most widely used UI typefaces — proven in dashboards and data-heavy interfaces.</p>
-              <p style="font-size: 12px; font-family: 'Inter', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-top: var(--space-3); color: var(--color-text-muted);">Eyebrow Label</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Option B: Public Sans + Public Sans -->
-        <div style="border: 2px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-6); background: var(--color-surface);">
-          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-4);">
-            <p class="eyebrow">Option B — Public Sans</p>
-            <div style="font-size: var(--text-xs); font-family: var(--font-mono); color: var(--color-text-muted); text-align: right;">
-              Single-family system (one font to load) · USWDS official — federal gov standard · Natural fit for federal employee union
-            </div>
-          </div>
-          <div style="display: grid; grid-template-columns: 200px 1fr; gap: var(--space-6); align-items: start;">
-            <div>
-              <p style="font-size: var(--text-3xl); font-family: 'Public Sans', sans-serif; font-weight: 800; line-height: 1.1;">Public Sans 800</p>
-              <p style="font-size: var(--text-base); font-family: 'Public Sans', sans-serif; font-weight: 400; color: var(--color-text-muted); margin-top: var(--space-1);">Public Sans 400</p>
-            </div>
-            <div>
-              <p style="font-size: 32px; font-family: 'Public Sans', sans-serif; font-weight: 800; line-height: 1.2;">Member Portal</p>
-              <p style="font-size: 24px; font-family: 'Public Sans', sans-serif; font-weight: 700; margin-top: var(--space-2);">Facility Dashboard</p>
-              <p style="font-size: 18px; font-family: 'Public Sans', sans-serif; font-weight: 600; margin-top: var(--space-2);">Section Header</p>
-              <p style="font-size: 15px; font-family: 'Public Sans', sans-serif; font-weight: 400; margin-top: var(--space-3); line-height: 1.6; color: var(--color-text-body);">Body text in Public Sans. Official typeface of the US Web Design System, used across federal agency sites. Neutral, professional, excellent legibility.</p>
-              <p style="font-size: 12px; font-family: 'Public Sans', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-top: var(--space-3); color: var(--color-text-muted);">Eyebrow Label</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Option C: Outfit + DM Sans -->
-        <div style="border: 2px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-6); background: var(--color-surface);">
-          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-4);">
-            <p class="eyebrow">Option C — Outfit + DM Sans</p>
-            <div style="font-size: var(--text-xs); font-family: var(--font-mono); color: var(--color-text-muted); text-align: right;">
-              Geometric display + geometric body · More modern/rounded aesthetic · Outfit: friendlier than Barlow · DM Sans: softer than Inter
-            </div>
-          </div>
-          <div style="display: grid; grid-template-columns: 200px 1fr; gap: var(--space-6); align-items: start;">
-            <div>
-              <p style="font-size: var(--text-3xl); font-family: 'Outfit', sans-serif; font-weight: 800; line-height: 1.1;">Outfit 800</p>
-              <p style="font-size: var(--text-base); font-family: 'DM Sans', sans-serif; font-weight: 400; color: var(--color-text-muted); margin-top: var(--space-1);">DM Sans 400</p>
-            </div>
-            <div>
-              <p style="font-size: 32px; font-family: 'Outfit', sans-serif; font-weight: 800; line-height: 1.2;">Member Portal</p>
-              <p style="font-size: 24px; font-family: 'Outfit', sans-serif; font-weight: 700; margin-top: var(--space-2);">Facility Dashboard</p>
-              <p style="font-size: 18px; font-family: 'Outfit', sans-serif; font-weight: 600; margin-top: var(--space-2);">Section Header</p>
-              <p style="font-size: 15px; font-family: 'DM Sans', sans-serif; font-weight: 400; margin-top: var(--space-3); line-height: 1.6; color: var(--color-text-body);">Body text in DM Sans. Low-contrast geometric typeface with slightly softer letterforms than Inter. Modern feel without being trendy.</p>
-              <p style="font-size: 12px; font-family: 'DM Sans', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-top: var(--space-3); color: var(--color-text-muted);">Eyebrow Label</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Type scale reference (still uses current tokens) -->
       <p class="eyebrow" style="margin-bottom: var(--space-4);">Type Scale Reference</p>
-      <div class="type-row"><h1>Heading 1</h1><div class="type-meta">var(--text-4xl)<br>48px · 800</div></div>
-      <div class="type-row"><h2>Heading 2</h2><div class="type-meta">var(--text-3xl)<br>38px · 700</div></div>
-      <div class="type-row"><h3>Heading 3</h3><div class="type-meta">var(--text-2xl)<br>30px · 600</div></div>
-      <div class="type-row"><h4>Heading 4</h4><div class="type-meta">var(--text-xl)<br>24px · 600</div></div>
-      <div class="type-row"><p class="lead">Lead paragraph — slightly larger body text for intros and hero sections.</p><div class="type-meta">var(--text-lg)<br>20px · 400</div></div>
-      <div class="type-row"><p>Body copy — used for all prose content across the site.</p><div class="type-meta">var(--text-base)<br>15px · 400</div></div>
-      <div class="type-row"><p class="eyebrow">Eyebrow Label</p><div class="type-meta">var(--text-xs)<br>12px · 700 caps</div></div>
+      <div class="type-row"><h1>Heading 1</h1><div class="type-meta">var(--text-4xl)<br>48px &middot; Barlow 700</div></div>
+      <div class="type-row"><h2>Heading 2</h2><div class="type-meta">var(--text-3xl)<br>38px &middot; Barlow 700</div></div>
+      <div class="type-row"><h3>Heading 3</h3><div class="type-meta">var(--text-2xl)<br>30px &middot; Barlow 600</div></div>
+      <div class="type-row"><h4>Heading 4</h4><div class="type-meta">var(--text-xl)<br>24px &middot; Barlow 600</div></div>
+      <div class="type-row"><p class="lead">Lead paragraph for intros and hero sections.</p><div class="type-meta">var(--text-lg)<br>20px &middot; Public Sans 400</div></div>
+      <div class="type-row"><p>Body copy for all prose content.</p><div class="type-meta">var(--text-base)<br>15px &middot; Public Sans 400</div></div>
+      <div class="type-row"><p class="eyebrow">Eyebrow Label</p><div class="type-meta">var(--text-xs)<br>12px &middot; 700 caps</div></div>
     </div>
 
     <!-- BUTTONS -->
     <div class="ds-section">
       <div class="ds-section-title">Buttons</div>
-      <p class="eyebrow" style="margin-bottom: var(--space-3);">Button System</p>
       <div class="btn-row">
         <a class="btn btn-primary" href="#">Primary (Navy)</a>
         <a class="btn btn-secondary-soft" href="#">Secondary</a>
         <a class="btn btn-danger" href="#">Danger</a>
         <a class="btn btn-ghost" href="#">Cancel</a>
       </div>
-
-      <p class="eyebrow" style="margin-bottom: var(--space-3); margin-top: var(--space-6);">In context</p>
-      <div class="btn-row">
-        <a class="btn btn-primary" href="#">Save Changes</a>
-        <a class="btn btn-ghost" href="#">Cancel</a>
-      </div>
-      <div class="btn-row">
-        <a class="btn btn-secondary-soft" href="#">Export</a>
-        <a class="btn btn-secondary-soft" href="#">Edit</a>
-        <a class="btn btn-ghost" href="#">Back</a>
-      </div>
-      <div class="btn-row">
-        <a class="btn btn-danger" href="#">Delete Record</a>
-        <a class="btn btn-ghost" href="#">Cancel</a>
-      </div>
-
       <p class="eyebrow" style="margin-bottom: var(--space-3); margin-top: var(--space-6);">Sizes</p>
       <div class="btn-row">
-        <a class="btn btn-primary btn-sm" href="#">Small Primary</a>
-        <a class="btn btn-secondary-soft btn-sm" href="#">Small Secondary</a>
-        <a class="btn btn-ghost btn-sm" href="#">Small Cancel</a>
-      </div>
-      <div class="btn-row">
-        <a class="btn btn-primary btn-lg" href="#">Large Primary</a>
-        <a class="btn btn-secondary-soft btn-lg" href="#">Large Secondary</a>
+        <a class="btn btn-primary btn-sm" href="#">Small</a>
+        <a class="btn btn-primary" href="#">Default</a>
+        <a class="btn btn-primary btn-lg" href="#">Large</a>
       </div>
     </div>
 
@@ -319,10 +749,10 @@
     <!-- ALERTS -->
     <div class="ds-section">
       <div class="ds-section-title">Alerts</div>
-      <div class="alert alert-info">ℹ️ <strong>Info:</strong> This is an informational message for users.</div>
-      <div class="alert alert-success">✅ <strong>Success:</strong> Your changes have been saved successfully.</div>
-      <div class="alert alert-warning">⚠️ <strong>Warning:</strong> Your session will expire in 10 minutes.</div>
-      <div class="alert alert-danger">🚨 <strong>Error:</strong> Failed to submit. Please check required fields.</div>
+      <div class="alert alert-info"><strong>Info:</strong> This is an informational message for users.</div>
+      <div class="alert alert-success"><strong>Success:</strong> Your changes have been saved successfully.</div>
+      <div class="alert alert-warning"><strong>Warning:</strong> Your session will expire in 10 minutes.</div>
+      <div class="alert alert-danger"><strong>Error:</strong> Failed to submit. Please check required fields.</div>
     </div>
 
     <!-- CARDS -->
@@ -331,17 +761,17 @@
       <div class="ds-row">
         <div class="ds-col">
           <div class="card card--accent">
-            <p class="card__meta">News · Apr 7, 2026</p>
+            <p class="card__meta">News &middot; Apr 7, 2026</p>
             <p class="card__title">NATCA Announces New Safety Initiative</p>
-            <p style="color: var(--color-text-muted); font-size: var(--text-sm); margin-top: var(--space-3);">A new joint task force will review current procedures across all major ARTCCs to improve controller workload distribution.</p>
+            <p style="color: var(--color-text-muted); font-size: var(--text-sm); margin-top: var(--space-3);">A new joint task force will review current procedures across all major ARTCCs.</p>
             <div style="margin-top: var(--space-5);"><a class="btn btn-primary btn-sm" href="#">Read More</a></div>
           </div>
         </div>
         <div class="ds-col">
           <div class="card card--alert">
-            <p class="card__meta">Alert · Urgent</p>
+            <p class="card__meta">Alert &middot; Urgent</p>
             <p class="card__title">System Maintenance Window</p>
-            <p style="color: var(--color-text-muted); font-size: var(--text-sm); margin-top: var(--space-3);">MyNATCA will be offline for maintenance Saturday April 12 from 0200–0600 ET. Plan accordingly.</p>
+            <p style="color: var(--color-text-muted); font-size: var(--text-sm); margin-top: var(--space-3);">MyNATCA will be offline Saturday April 12 from 0200-0600 ET.</p>
             <div style="margin-top: var(--space-5);"><span class="badge badge-danger">Urgent</span></div>
           </div>
         </div>
@@ -349,7 +779,7 @@
           <div class="card">
             <p class="card__meta">Default Card</p>
             <p class="card__title">Member Resource</p>
-            <p style="color: var(--color-text-muted); font-size: var(--text-sm); margin-top: var(--space-3);">Standard card without accent border. Used for general content blocks, dashboards, and utility panels.</p>
+            <p style="color: var(--color-text-muted); font-size: var(--text-sm); margin-top: var(--space-3);">Standard card for general content blocks and utility panels.</p>
           </div>
         </div>
       </div>
@@ -360,23 +790,9 @@
       <div class="ds-section-title">Forms</div>
       <div class="ds-row">
         <div class="ds-col">
-          <div style="margin-bottom: var(--space-4);">
-            <label class="form-label">Full Name</label>
-            <input class="form-input" type="text" placeholder="John Smith">
-          </div>
-          <div style="margin-bottom: var(--space-4);">
-            <label class="form-label">Facility / Local</label>
-            <select class="form-select">
-              <option>Select facility...</option>
-              <option>ZDC - Washington ARTCC</option>
-              <option>ZNY - New York ARTCC</option>
-              <option>ZLA - Los Angeles ARTCC</option>
-            </select>
-          </div>
-          <div style="margin-bottom: var(--space-4);">
-            <label class="form-label">Message</label>
-            <textarea class="form-textarea" placeholder="Enter your message..."></textarea>
-          </div>
+          <div style="margin-bottom: var(--space-4);"><label class="form-label">Full Name</label><input class="form-input" type="text" placeholder="John Smith"></div>
+          <div style="margin-bottom: var(--space-4);"><label class="form-label">Facility</label><select class="form-select"><option>Select facility...</option><option>ZDC - Washington ARTCC</option><option>ZNY - New York ARTCC</option></select></div>
+          <div style="margin-bottom: var(--space-4);"><label class="form-label">Message</label><textarea class="form-textarea" placeholder="Enter your message..."></textarea></div>
           <div><a class="btn btn-primary" href="#">Submit</a></div>
         </div>
       </div>
@@ -387,422 +803,862 @@
       <div class="ds-section-title">Data Table</div>
       <div style="overflow-x: auto;">
         <table class="ds-table">
-          <thead>
-            <tr>
-              <th>Facility</th>
-              <th>Region</th>
-              <th>Members</th>
-              <th>Status</th>
-              <th></th>
-            </tr>
-          </thead>
+          <thead><tr><th>Facility</th><th>Region</th><th>Members</th><th>Status</th><th></th></tr></thead>
           <tbody>
-            <tr><td>ZDC — Washington ARTCC</td><td>Eastern</td><td>312</td><td><span class="badge badge-success">Active</span></td><td><a class="btn btn-ghost btn-sm" href="#">View</a></td></tr>
-            <tr><td>ZNY — New York ARTCC</td><td>Eastern</td><td>287</td><td><span class="badge badge-success">Active</span></td><td><a class="btn btn-ghost btn-sm" href="#">View</a></td></tr>
-            <tr><td>ZLA — Los Angeles ARTCC</td><td>Western</td><td>241</td><td><span class="badge badge-warning">Pending</span></td><td><a class="btn btn-ghost btn-sm" href="#">View</a></td></tr>
-            <tr><td>ZAU — Chicago ARTCC</td><td>Central</td><td>198</td><td><span class="badge badge-success">Active</span></td><td><a class="btn btn-ghost btn-sm" href="#">View</a></td></tr>
+            <tr><td>ZDC</td><td>Eastern</td><td>312</td><td><span class="badge badge-success">Active</span></td><td><a class="btn btn-ghost btn-sm" href="#">View</a></td></tr>
+            <tr><td>ZNY</td><td>Eastern</td><td>287</td><td><span class="badge badge-success">Active</span></td><td><a class="btn btn-ghost btn-sm" href="#">View</a></td></tr>
+            <tr><td>ZLA</td><td>Western</td><td>241</td><td><span class="badge badge-warning">Pending</span></td><td><a class="btn btn-ghost btn-sm" href="#">View</a></td></tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- LOADING STATES -->
+    <!-- TABS (public) -->
     <div class="ds-section">
-      <div class="ds-section-title">Loading States</div>
+      <div class="ds-section-title">Tabs</div>
+      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-6);">Standalone tab styles for non-Vuetify pages. In Vuetify apps, use <code>NatcaTabs</code> from ui-shell.</p>
+      <div class="card" style="margin-bottom: var(--space-8);">
+        <div class="ds-tabs" role="tablist">
+          <button class="ds-tab ds-tab--active" role="tab" aria-selected="true" onclick="switchTab(event, 'overview')">Overview</button>
+          <button class="ds-tab" role="tab" aria-selected="false" onclick="switchTab(event, 'members')">Members <span class="ds-tab__count">312</span></button>
+          <button class="ds-tab" role="tab" aria-selected="false" onclick="switchTab(event, 'positions')">Positions</button>
+        </div>
+        <div class="ds-tab-panel" id="panel-overview" role="tabpanel"><p style="color: var(--color-text-muted); font-size: var(--text-sm);">Facility overview content.</p></div>
+        <div class="ds-tab-panel" id="panel-members" role="tabpanel" hidden><p style="color: var(--color-text-muted); font-size: var(--text-sm);">312 members listed here.</p></div>
+        <div class="ds-tab-panel" id="panel-positions" role="tabpanel" hidden><p style="color: var(--color-text-muted); font-size: var(--text-sm);">Position assignments.</p></div>
+      </div>
+    </div>
 
-      <h4 style="margin-bottom: var(--space-4);">Skeleton Screens</h4>
-      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-6);">Use skeleton placeholders that mirror the shape of the content being loaded. Preferred over spinners for content areas.</p>
+  </div>
+</main>
 
-      <div class="ds-row" style="margin-bottom: var(--space-8);">
-        <div class="ds-col">
-          <p class="eyebrow" style="margin-bottom: var(--space-3);">Card Skeleton</p>
-          <div class="card" style="width:100%;">
-            <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-4);">
-              <div class="skeleton skeleton-avatar"></div>
-              <div style="flex:1;">
-                <div class="skeleton skeleton-text" style="width:50%;"></div>
-                <div class="skeleton skeleton-text-sm"></div>
+<footer>
+  <div class="ds-page">
+    <div style="display: flex; justify-content: space-between; align-items: center; font-size: var(--text-xs); padding-top: var(--space-6); border-top: 1px solid rgba(255,255,255,0.08);">
+      <span>&copy; 2026 National Air Traffic Controllers Association. All rights reserved.</span>
+      <span><a href="#" style="margin-right: 16px;">Privacy Policy</a><a href="#">Accessibility</a></span>
+    </div>
+  </div>
+</footer>
+
+</div><!-- end .public-only -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     AUTHENTICATED CONTEXT — Vuetify-style components at compact density
+     ═══════════════════════════════════════════════════════════ -->
+<div class="auth-only">
+
+<main style="padding: var(--space-10) 0;">
+  <div class="ds-page">
+
+    <div style="margin-bottom: var(--space-8);">
+      <p class="eyebrow">NATCA ITC</p>
+      <h1 style="margin-top: var(--space-2);">Auth Design Standards <span style="color: var(--natca-blue);">v1.0</span></h1>
+      <p class="lead" style="margin-top: var(--space-4); max-width: 720px; color: var(--color-text-muted);">
+        Component patterns for authenticated NATCA apps (Hub, BID, DMS, Pay, Email, GATS). These apps use Vuetify with <code>natcaDefaults</code> (compact density). The patterns below show how components render with the ui-shell preset. Toggle Light/Dark above to see both themes.
+      </p>
+      <div class="auth-annotation" style="margin-top: var(--space-4); max-width: 720px;">
+        <strong>For interactive testing:</strong> Run the playground locally with <code>npm run dev</code> at <a href="http://localhost:1310" style="color: var(--color-info);">localhost:1310</a>. These are static HTML approximations of Vuetify output.
+      </div>
+    </div>
+
+    <!-- SHELL CHROME PREVIEW -->
+    <div class="ds-section">
+      <div class="ds-section-title">Shell Chrome</div>
+      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-6);">All auth'd apps wrap in <code>&lt;NatcaShell&gt;</code>. The shell provides the topbar (always navy), tab navigation, breadcrumbs, and optional sidebar. Apps provide content via props + the default slot.</p>
+
+      <div class="auth-shell-preview">
+        <div class="auth-shell-topbar">
+          <img src="assets/natca-logo.png" alt="NATCA" style="height:22px;width:auto;">
+          <span style="width:1px;height:20px;background:rgba(255,255,255,0.12);margin:0 6px;"></span>
+          <span class="auth-shell-topbar-logo">NATCA</span>
+          <span class="auth-shell-topbar-chip">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="opacity:0.5;"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Hub <span style="font-size:8px;opacity:0.4;">&#9662;</span>
+          </span>
+          <div class="auth-shell-topbar-right">
+            <div class="auth-shell-topbar-icon" style="padding:0 6px;font-size:10px;font-weight:600;width:auto;">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> ZJX
+            </div>
+            <div class="auth-shell-topbar-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+            <div class="auth-shell-topbar-icon" style="position:relative;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><div style="position:absolute;top:2px;right:2px;width:6px;height:6px;background:var(--natca-red);border-radius:50%;border:1.5px solid var(--natca-navy);"></div></div>
+            <div class="auth-shell-topbar-avatar">JD</div>
+          </div>
+        </div>
+        <div class="auth-shell-tabs">
+          <div class="auth-shell-tab active"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:0.7;"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Dashboard</div>
+          <div class="auth-shell-tab"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:0.5;"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> Members</div>
+          <div class="auth-shell-tab"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:0.5;"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg> Facilities</div>
+          <div class="auth-shell-tab"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:0.5;"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Reports</div>
+          <div class="auth-shell-tab"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:0.5;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33"/></svg> Config</div>
+        </div>
+        <div class="auth-shell-breadcrumb">
+          <div style="width:22px;height:22px;background:var(--overlay-subtle);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--color-text-muted);flex-shrink:0;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </div>
+          <a href="#" style="color: var(--color-text-faint);">Hub</a>
+          <span>/</span>
+          <a href="#" style="color: var(--color-text-faint);">Members</a>
+          <span>/</span>
+          <span class="current">ZJX Roster</span>
+          <span style="margin-left:auto;font-size:9px;color:var(--color-text-faint);">247 members</span>
+        </div>
+        <!-- Body: sidebar + content -->
+        <div style="display:flex;flex:1;min-height:220px;">
+          <!-- Sidebar -->
+          <div style="width:180px;background:var(--color-shell-sidebar);border-right:1px solid var(--color-border-light);padding:8px 6px;display:flex;flex-direction:column;gap:1px;overflow:hidden;flex-shrink:0;">
+            <div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--color-text-faint);padding:6px 8px 3px;">Overview</div>
+            <a href="#" style="display:flex;align-items:center;gap:7px;padding:6px 8px;border-radius:5px;text-decoration:none;color:var(--color-text-muted);font-size:11px;font-weight:500;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;opacity:0.6;"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard
+            </a>
+            <a href="#" style="display:flex;align-items:center;gap:7px;padding:6px 8px;border-radius:5px;text-decoration:none;color:var(--color-text-muted);font-size:11px;font-weight:500;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;opacity:0.6;"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Activity Feed
+            </a>
+            <div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--color-text-faint);padding:8px 8px 3px;">Management</div>
+            <a href="#" style="display:flex;align-items:center;gap:7px;padding:6px 8px;border-radius:5px;text-decoration:none;color:var(--color-text-primary);font-size:11px;font-weight:500;background:rgba(var(--natca-red-rgb),0.15);">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--natca-red)" stroke-width="2" style="flex-shrink:0;"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Members
+              <span style="margin-left:auto;background:var(--natca-red);color:white;font-size:8px;font-weight:700;padding:1px 5px;border-radius:10px;">12</span>
+            </a>
+            <a href="#" style="display:flex;align-items:center;gap:7px;padding:6px 8px;border-radius:5px;text-decoration:none;color:var(--color-text-muted);font-size:11px;font-weight:500;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;opacity:0.6;"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Facilities
+            </a>
+            <div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--color-text-faint);padding:8px 8px 3px;">Tools</div>
+            <a href="#" style="display:flex;align-items:center;gap:7px;padding:6px 8px;border-radius:5px;text-decoration:none;color:var(--color-text-muted);font-size:11px;font-weight:500;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;opacity:0.6;"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Reports
+            </a>
+            <a href="#" style="display:flex;align-items:center;gap:7px;padding:6px 8px;border-radius:5px;text-decoration:none;color:var(--color-text-muted);font-size:11px;font-weight:500;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;opacity:0.6;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33"/></svg>Config
+            </a>
+            <!-- Sign out at bottom -->
+            <div style="margin-top:auto;padding-top:6px;border-top:1px solid var(--color-border-light);">
+              <a href="#" style="display:flex;align-items:center;gap:7px;padding:6px 8px;border-radius:5px;text-decoration:none;color:rgba(var(--natca-red-rgb),0.6);font-size:11px;font-weight:500;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Sign Out
+              </a>
+            </div>
+          </div>
+          <!-- Content area -->
+          <div style="flex:1;background:var(--color-shell-content);padding:14px 18px;overflow:auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+              <div>
+                <div style="font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--color-text-primary);">ZJX Member Roster</div>
+                <div style="font-size:10px;color:var(--color-text-faint);margin-top:1px;">Jacksonville ARTCC &middot; 247 active members</div>
+              </div>
+              <div style="font-size:9px;color:var(--color-text-faint);">Last sync: Today 09:42</div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+              <div style="background:var(--overlay-subtle);border:1px solid var(--overlay-border);border-radius:6px;padding:10px;">
+                <div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--color-text-faint);margin-bottom:3px;">Total</div>
+                <div style="font-family:var(--font-display);font-size:16px;font-weight:800;color:var(--color-text-primary);">247</div>
+                <div style="font-size:9px;color:var(--color-success);margin-top:2px;">+3 this month</div>
+              </div>
+              <div style="background:var(--overlay-subtle);border:1px solid var(--overlay-border);border-radius:6px;padding:10px;">
+                <div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--color-text-faint);margin-bottom:3px;">CPCs</div>
+                <div style="font-family:var(--font-display);font-size:16px;font-weight:800;color:var(--color-text-primary);">182</div>
+              </div>
+              <div style="background:var(--overlay-subtle);border:1px solid var(--overlay-border);border-radius:6px;padding:10px;">
+                <div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--color-text-faint);margin-bottom:3px;">Devs</div>
+                <div style="font-family:var(--font-display);font-size:16px;font-weight:800;color:var(--color-text-primary);">41</div>
+              </div>
+              <div style="background:var(--overlay-subtle);border:1px solid var(--overlay-border);border-radius:6px;padding:10px;">
+                <div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--color-text-faint);margin-bottom:3px;">Open Bids</div>
+                <div style="font-family:var(--font-display);font-size:16px;font-weight:800;color:var(--color-text-primary);">24</div>
               </div>
             </div>
-            <div class="skeleton skeleton-text"></div>
-            <div class="skeleton skeleton-text"></div>
-            <div class="skeleton skeleton-text" style="width:75%;"></div>
           </div>
         </div>
-        <div class="ds-col">
-          <p class="eyebrow" style="margin-bottom: var(--space-3);">Table Skeleton</p>
-          <div style="border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;">
-            <div style="background:var(--color-bg-subtle);padding:var(--space-3) var(--space-4);">
-              <div class="skeleton skeleton-text-sm" style="width:30%;margin:0;"></div>
+      </div>
+
+      <p class="eyebrow" style="margin-top: var(--space-6); margin-bottom: var(--space-3);">Mobile (closed / drawer open)</p>
+      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-4);">Navy topbar with app chip, breadcrumb row with hamburger toggle, pinned bottom tab bar. Drawer replaces sidebar on mobile. <a href="natca-header-variants.html" style="color: var(--natca-blue);">See all explored options &rarr;</a></p>
+      <div style="display: grid; grid-template-columns: 320px 320px; gap: var(--space-6);">
+        <!-- Mobile closed -->
+        <div style="border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--color-border); display: flex; flex-direction: column; height: 420px;">
+          <!-- Topbar -->
+          <div style="background:var(--natca-navy);height:48px;display:flex;align-items:center;padding:0 12px;flex-shrink:0;gap:6px;">
+            <img src="assets/natca-logo.png" alt="NATCA" style="height:22px;width:auto;">
+            <div style="display:inline-flex;align-items:center;gap:4px;margin-left:6px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:5px;padding:3px 8px;font-family:var(--font-display);font-size:10px;font-weight:700;color:white;">Hub</div>
+            <div style="margin-left:auto;display:flex;gap:5px;align-items:center;">
+              <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:5px;padding:3px 6px;font-size:9px;font-weight:600;color:rgba(255,255,255,0.5);">ZJX</div>
+              <div style="width:24px;height:24px;border-radius:5px;background:var(--natca-red);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:white;">JD</div>
             </div>
-            <div class="skeleton-row"><div class="skeleton skeleton-avatar" style="width:28px;height:28px;"></div><div style="flex:1;"><div class="skeleton skeleton-text" style="margin:0;"></div></div><div class="skeleton skeleton-text-sm" style="width:60px;margin:0;"></div></div>
-            <div class="skeleton-row"><div class="skeleton skeleton-avatar" style="width:28px;height:28px;"></div><div style="flex:1;"><div class="skeleton skeleton-text" style="margin:0;"></div></div><div class="skeleton skeleton-text-sm" style="width:60px;margin:0;"></div></div>
-            <div class="skeleton-row"><div class="skeleton skeleton-avatar" style="width:28px;height:28px;"></div><div style="flex:1;"><div class="skeleton skeleton-text" style="margin:0;"></div></div><div class="skeleton skeleton-text-sm" style="width:60px;margin:0;"></div></div>
+          </div>
+          <!-- Breadcrumb -->
+          <div style="background:var(--color-shell-subtle);height:32px;display:flex;align-items:center;padding:0 12px;border-bottom:1px solid var(--color-sep);flex-shrink:0;gap:6px;font-size:10px;">
+            <div style="width:24px;height:24px;background:var(--overlay-subtle);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--color-text-muted);">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </div>
+            <span style="color:var(--color-text-faint);">Hub</span>
+            <span style="color:var(--overlay-divider);">/</span>
+            <span style="color:var(--color-text-body);">Dashboard</span>
+          </div>
+          <!-- Content -->
+          <div style="background:var(--color-shell-content);flex:1;padding:12px;overflow:auto;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <div style="background:var(--overlay-subtle);border:1px solid var(--overlay-border);border-radius:6px;padding:10px;">
+                <div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--color-text-faint);margin-bottom:3px;">Members</div>
+                <div style="font-family:var(--font-display);font-size:16px;font-weight:800;color:var(--color-text-primary);">247</div>
+              </div>
+              <div style="background:var(--overlay-subtle);border:1px solid var(--overlay-border);border-radius:6px;padding:10px;">
+                <div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--color-text-faint);margin-bottom:3px;">Open Bids</div>
+                <div style="font-family:var(--font-display);font-size:16px;font-weight:800;color:var(--color-text-primary);">3</div>
+              </div>
+            </div>
+          </div>
+          <!-- Bottom tabs -->
+          <div style="background:var(--color-shell-elevated);border-top:1px solid var(--color-border-light);height:48px;display:flex;align-items:center;justify-content:space-around;flex-shrink:0;padding:0 8px;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--color-text-primary);font-size:8px;font-weight:600;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--natca-red)" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--color-text-faint);font-size:8px;font-weight:600;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Bidding
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--color-text-faint);font-size:8px;font-weight:600;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>Docs
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--color-text-faint);font-size:8px;font-weight:600;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>More
+            </div>
           </div>
         </div>
-      </div>
-
-      <h4 style="margin-bottom: var(--space-4);">Spinners</h4>
-      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-6);">For actions (button clicks, form submits) where content shape isn't known. Use the size that fits the context.</p>
-      <div class="ds-row" style="margin-bottom: var(--space-8);">
-        <div style="display:flex;align-items:center;gap:var(--space-8);">
-          <div style="text-align:center;"><div class="spinner-sm spinner" style="margin:0 auto var(--space-2);"></div><span class="eyebrow">Small</span></div>
-          <div style="text-align:center;"><div class="spinner" style="margin:0 auto var(--space-2);"></div><span class="eyebrow">Default</span></div>
-          <div style="text-align:center;"><div class="spinner spinner-lg" style="margin:0 auto var(--space-2);"></div><span class="eyebrow">Large</span></div>
-          <div style="text-align:center;">
-            <button class="btn btn-primary" disabled style="opacity:0.7;display:inline-flex;align-items:center;gap:var(--space-2);"><div class="spinner-sm spinner" style="border-color:rgba(255,255,255,0.3);border-top-color:white;"></div> Saving…</button>
-            <div style="margin-top:var(--space-2);"><span class="eyebrow">In Button</span></div>
+        <!-- Mobile drawer open -->
+        <div style="border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--color-border); display: flex; flex-direction: column; height: 420px;">
+          <!-- Topbar (same) -->
+          <div style="background:var(--natca-navy);height:48px;display:flex;align-items:center;padding:0 12px;flex-shrink:0;gap:6px;">
+            <img src="assets/natca-logo.png" alt="NATCA" style="height:22px;width:auto;">
+            <div style="display:inline-flex;align-items:center;gap:4px;margin-left:6px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:5px;padding:3px 8px;font-family:var(--font-display);font-size:10px;font-weight:700;color:white;">Hub</div>
+            <div style="margin-left:auto;display:flex;gap:5px;align-items:center;">
+              <div style="width:24px;height:24px;border-radius:5px;background:var(--natca-red);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:white;">JD</div>
+            </div>
           </div>
-        </div>
-      </div>
-
-      <h4 style="margin-bottom: var(--space-4);">Progress Bar</h4>
-      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-6);">Determinate for known progress (file upload, sync). Indeterminate for unknown duration.</p>
-      <div style="max-width:400px;display:flex;flex-direction:column;gap:var(--space-4);margin-bottom:var(--space-4);">
-        <div>
-          <div style="display:flex;justify-content:space-between;margin-bottom:var(--space-1);"><span class="eyebrow">Determinate — 65%</span><span style="font-size:var(--text-xs);color:var(--color-text-muted);">65%</span></div>
-          <div class="progress-bar"><div class="progress-bar__fill" style="width:65%;"></div></div>
-        </div>
-        <div>
-          <div style="margin-bottom:var(--space-1);"><span class="eyebrow">Indeterminate</span></div>
-          <div class="progress-bar progress-bar--indeterminate"><div class="progress-bar__fill"></div></div>
-        </div>
-      </div>
-
-      <h4 style="margin-bottom: var(--space-4);">Full-Page Loading</h4>
-      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-6);">For initial app load or full page transitions. Center a spinner with optional message.</p>
-      <div class="card" style="max-width:500px;">
-        <div class="loading-overlay" style="padding:var(--space-10) var(--space-6);">
-          <div class="spinner spinner-lg"></div>
-          <span>Loading member data…</span>
+          <!-- Breadcrumb with X -->
+          <div style="background:var(--color-shell-subtle);height:32px;display:flex;align-items:center;padding:0 12px;border-bottom:1px solid var(--color-sep);flex-shrink:0;gap:6px;font-size:10px;">
+            <div style="width:24px;height:24px;background:var(--overlay-subtle);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--color-text-muted);">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </div>
+            <span style="color:var(--color-text-body);">Dashboard</span>
+          </div>
+          <!-- Drawer nav -->
+          <div style="background:var(--color-shell-sidebar);flex:1;padding:12px;overflow:auto;">
+            <div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--color-text-faint);padding:6px 8px 4px;">Overview</div>
+            <a href="#" style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:6px;text-decoration:none;color:var(--color-text-primary);font-size:12px;font-weight:500;background:rgba(var(--natca-red-rgb),0.15);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--natca-red)" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard
+            </a>
+            <a href="#" style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:6px;text-decoration:none;color:var(--color-text-muted);font-size:12px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Activity
+            </a>
+            <div style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--color-text-faint);padding:10px 8px 4px;">Management</div>
+            <a href="#" style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:6px;text-decoration:none;color:var(--color-text-muted);font-size:12px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Members
+            </a>
+            <a href="#" style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:6px;text-decoration:none;color:var(--color-text-muted);font-size:12px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Facilities
+            </a>
+          </div>
+          <!-- Bottom tabs -->
+          <div style="background:var(--color-shell-elevated);border-top:1px solid var(--color-border-light);height:48px;display:flex;align-items:center;justify-content:space-around;flex-shrink:0;padding:0 8px;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--color-text-primary);font-size:8px;font-weight:600;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--natca-red)" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--color-text-faint);font-size:8px;font-weight:600;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Bidding
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--color-text-faint);font-size:8px;font-weight:600;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>Docs
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--color-text-faint);font-size:8px;font-weight:600;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>More
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- EMPTY STATES -->
+    <!-- BUTTON TIERS -->
     <div class="ds-section">
-      <div class="ds-section-title">Empty States</div>
-      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-8);">Shown when a list, table, or view has no data. Always include a clear message and, when possible, an action to resolve it.</p>
+      <div class="ds-section-title">Button Tiers</div>
+      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-6);">Two button sizes driven by <code>natcaDefaults</code>. Toolbar buttons are compact/small by default. Action buttons in <code>&lt;v-card-actions&gt;</code> and dialogs automatically get default sizing (NAT-281 fix).</p>
 
-      <div class="ds-row">
+      <!-- Color legend -->
+      <p class="eyebrow" style="margin-bottom: var(--space-3);">Button Colors</p>
+      <table class="token-table" style="max-width: 600px; margin-bottom: var(--space-6);">
+        <thead><tr><th>Variant</th><th>Vuetify Usage</th><th>When to Use</th></tr></thead>
+        <tbody>
+          <tr><td><button class="auth-btn auth-btn-sm auth-btn-primary" style="pointer-events:none;">Primary</button></td><td><code>color="primary"</code></td><td>Main action (save, submit, confirm)</td></tr>
+          <tr><td><button class="auth-btn auth-btn-sm auth-btn-secondary" style="pointer-events:none;">Secondary</button></td><td><code>variant="outlined"</code></td><td>Secondary actions (export, edit)</td></tr>
+          <tr><td><button class="auth-btn auth-btn-sm auth-btn-danger" style="pointer-events:none;">Danger</button></td><td><code>variant="outlined" color="error"</code></td><td>Destructive (delete, remove). Outlined to distinguish from primary.</td></tr>
+          <tr><td><button class="auth-btn auth-btn-sm auth-btn-ghost" style="pointer-events:none;">Ghost</button></td><td><code>variant="text"</code></td><td>Cancel, dismiss, tertiary actions</td></tr>
+          <tr><td><button class="auth-btn auth-btn-sm auth-btn-text" style="pointer-events:none;">Link</button></td><td><code>variant="text" color="primary"</code></td><td>Inline navigation (view details, see more)</td></tr>
+        </tbody>
+      </table>
+
+      <div class="auth-annotation" style="margin-bottom: var(--space-6);">
+        <strong>Dark mode note:</strong> Primary is red (<code>#CE0E2D</code>) in dark mode. Danger buttons use <code>variant="outlined" color="error"</code> to be visually distinct from filled primary buttons. On hover, danger fills solid red for emphasis.
+      </div>
+
+      <div class="auth-compare" style="margin-bottom: var(--space-8);">
+        <div>
+          <div class="auth-compare-label">Toolbar Tier (default VBtn)</div>
+          <p style="font-size: 11px; color: var(--color-text-faint); margin-bottom: var(--space-3);">density: compact, size: small. Filters, table actions, toolbars.</p>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            <button class="auth-btn auth-btn-sm auth-btn-primary">Save</button>
+            <button class="auth-btn auth-btn-sm auth-btn-secondary">Export</button>
+            <button class="auth-btn auth-btn-sm auth-btn-danger">Delete</button>
+            <button class="auth-btn auth-btn-sm auth-btn-ghost">Cancel</button>
+            <button class="auth-btn auth-btn-sm auth-btn-text">View Details</button>
+          </div>
+        </div>
+        <div>
+          <div class="auth-compare-label">Action Tier (VCardActions / Dialogs)</div>
+          <p style="font-size: 11px; color: var(--color-text-faint); margin-bottom: var(--space-3);">density: default, size: default. Auto-applied inside v-card-actions.</p>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="auth-btn auth-btn-md auth-btn-primary">Submit Request</button>
+            <button class="auth-btn auth-btn-md auth-btn-danger">Delete Account</button>
+            <button class="auth-btn auth-btn-md auth-btn-ghost">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-annotation">
+        <strong>How it works:</strong> <code>natcaDefaults.VBtn</code> sets <code>size: 'small', density: 'compact'</code> globally. <code>natcaDefaults.VCardActions.VBtn</code> overrides to <code>size: 'default', density: 'default'</code>. No manual sizing needed.
+      </div>
+    </div>
+
+    <!-- CARDS -->
+    <div class="ds-section">
+      <div class="ds-section-title">Cards</div>
+
+      <p class="eyebrow" style="margin-bottom: var(--space-3);">Header Card</p>
+      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-4);">Navy header with icon + title. Use for profile sections, account details, feature cards. Header is always navy (brand identity).</p>
+      <div class="ds-row" style="margin-bottom: var(--space-8);">
         <div class="ds-col">
-          <p class="eyebrow" style="margin-bottom: var(--space-3);">No Data</p>
-          <div class="card">
-            <div class="empty-state" style="padding:var(--space-10) var(--space-4);">
-              <div class="empty-state__icon">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <div class="auth-card">
+            <div class="auth-card-header">
+              <div class="auth-card-header-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
               </div>
-              <div class="empty-state__title">No bids available</div>
-              <div class="empty-state__desc">There are no open bids at your facility right now. You'll be notified when new bids are posted.</div>
+              <div class="auth-card-header-text">
+                <h3>My Email Account</h3>
+                <p>jason.doss@natca.net &middot; ZJX</p>
+              </div>
+            </div>
+            <div class="auth-card-text">
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-4);">
+                <div><span style="font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:0.5px;">Provider</span><br><span style="font-weight:600;">Mailcow</span></div>
+                <div><span style="font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:0.5px;">Storage</span><br><span style="font-weight:600;">2.1 / 5 GB</span></div>
+                <div><span style="font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:0.5px;">Status</span><br><span class="auth-chip auth-chip-success">Active</span></div>
+              </div>
+            </div>
+            <div class="auth-card-actions">
+              <button class="auth-btn auth-btn-md auth-btn-ghost">Settings</button>
+              <button class="auth-btn auth-btn-md auth-btn-primary">Manage Account</button>
             </div>
           </div>
         </div>
         <div class="ds-col">
-          <p class="eyebrow" style="margin-bottom: var(--space-3);">With Action</p>
-          <div class="card">
-            <div class="empty-state" style="padding:var(--space-10) var(--space-4);">
-              <div class="empty-state__icon">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          <div class="auth-card">
+            <div class="auth-card-header">
+              <div class="auth-card-header-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
               </div>
-              <div class="empty-state__title">No documents uploaded</div>
-              <div class="empty-state__desc">Upload your first LES to start tracking pay discrepancies across pay periods.</div>
-              <button class="btn btn-primary">Upload LES</button>
+              <div class="auth-card-header-text">
+                <h3>Migration Status</h3>
+                <p>Batch #12 &middot; 34 accounts</p>
+              </div>
+            </div>
+            <div class="auth-card-text">
+              <div class="auth-progress" style="margin-bottom: 8px;"><div class="auth-progress-fill" style="width: 65%;"></div></div>
+              <div style="display: flex; justify-content: space-between; font-size: 11px;">
+                <span style="color: var(--color-text-muted);">22 of 34 migrated</span>
+                <span style="color: var(--color-success); font-weight: 600;">65%</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="ds-row" style="margin-top:var(--space-6);">
+      <div class="ds-row" style="margin-bottom: var(--space-8);">
         <div class="ds-col">
-          <p class="eyebrow" style="margin-bottom: var(--space-3);">Search — No Results</p>
-          <div class="card">
-            <div class="empty-state" style="padding:var(--space-10) var(--space-4);">
-              <div class="empty-state__icon">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <p class="eyebrow" style="margin-bottom: var(--space-3);">Card with Actions</p>
+          <div class="auth-card">
+            <div class="auth-card-title">Email Account</div>
+            <div class="auth-card-subtitle">jason@natca.net &middot; Active</div>
+            <div class="auth-card-text">
+              <div style="display: flex; gap: var(--space-4);">
+                <div><span style="font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:0.5px;">Provider</span><br><span style="font-weight:600;">Mailcow</span></div>
+                <div><span style="font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:0.5px;">Quota</span><br><span style="font-weight:600;">2.1 / 5 GB</span></div>
+                <div><span style="font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:0.5px;">Status</span><br><span class="auth-chip auth-chip-success">Active</span></div>
               </div>
-              <div class="empty-state__title">No results found</div>
-              <div class="empty-state__desc">No members match "Jansen." Check the spelling or try a broader search.</div>
-              <button class="btn btn-ghost">Clear Search</button>
+            </div>
+            <div class="auth-card-actions">
+              <button class="auth-btn auth-btn-md auth-btn-ghost">Cancel</button>
+              <button class="auth-btn auth-btn-md auth-btn-primary">Save Changes</button>
             </div>
           </div>
         </div>
         <div class="ds-col">
-          <p class="eyebrow" style="margin-bottom: var(--space-3);">Filtered — No Match</p>
-          <div class="card">
-            <div class="empty-state" style="padding:var(--space-10) var(--space-4);">
-              <div class="empty-state__icon">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-              </div>
-              <div class="empty-state__title">No grievances match filters</div>
-              <div class="empty-state__desc">Try adjusting the date range or status filter to see more results.</div>
-              <button class="btn btn-ghost">Reset Filters</button>
-            </div>
+          <p class="eyebrow" style="margin-bottom: var(--space-3);">Stat Cards</p>
+          <div class="auth-stat-grid" style="grid-template-columns: 1fr 1fr;">
+            <div class="auth-stat-card"><div class="auth-stat-label">Total Accounts</div><div class="auth-stat-val">1,247</div><div class="auth-stat-change">+12 this week</div></div>
+            <div class="auth-stat-card"><div class="auth-stat-label">Active</div><div class="auth-stat-val">1,198</div></div>
+            <div class="auth-stat-card"><div class="auth-stat-label">Pending Migration</div><div class="auth-stat-val">34</div></div>
+            <div class="auth-stat-card"><div class="auth-stat-label">Disabled</div><div class="auth-stat-val">15</div></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ERROR STATES -->
+    <!-- DATA TABLE -->
     <div class="ds-section">
-      <div class="ds-section-title">Error States</div>
-      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-8);">Consistent error handling across all apps. Full-page errors for navigation failures, inline errors for component-level issues.</p>
+      <div class="ds-section-title">Data Table</div>
+      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-4);">Compact density with hover. Uses <code>&lt;v-data-table&gt;</code> with <code>natcaDefaults</code> (density: compact, hover: true).</p>
 
-      <h4 style="margin-bottom: var(--space-4);">Full-Page Errors</h4>
-      <div class="ds-row" style="margin-bottom: var(--space-8);">
-        <div class="ds-col">
-          <p class="eyebrow" style="margin-bottom: var(--space-3);">403 — Forbidden</p>
-          <div class="card">
-            <div class="error-page" style="padding:var(--space-8) var(--space-4);">
-              <div class="error-page__code">403</div>
-              <div class="error-page__title">Access Denied</div>
-              <div class="error-page__desc">You don't have permission to view this page. If you believe this is an error, contact your facility admin.</div>
-              <div style="display:flex;gap:var(--space-3);">
-                <a class="btn btn-primary" href="#">Go to Dashboard</a>
-                <a class="btn btn-ghost" href="#">Contact Support</a>
-              </div>
-            </div>
-          </div>
+      <div style="display: flex; gap: var(--space-2); margin-bottom: var(--space-3); align-items: center;">
+        <div class="auth-pills">
+          <button class="auth-pill active">All</button>
+          <button class="auth-pill">Active</button>
+          <button class="auth-pill">Pending</button>
+          <button class="auth-pill">Disabled</button>
         </div>
-        <div class="ds-col">
-          <p class="eyebrow" style="margin-bottom: var(--space-3);">404 — Not Found</p>
-          <div class="card">
-            <div class="error-page" style="padding:var(--space-8) var(--space-4);">
-              <div class="error-page__code">404</div>
-              <div class="error-page__title">Page Not Found</div>
-              <div class="error-page__desc">The page you're looking for doesn't exist or has been moved.</div>
-              <div style="display:flex;gap:var(--space-3);">
-                <a class="btn btn-primary" href="#">Go to Dashboard</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="ds-row" style="margin-bottom: var(--space-8);">
-        <div class="ds-col" style="max-width:50%;">
-          <p class="eyebrow" style="margin-bottom: var(--space-3);">500 — Server Error</p>
-          <div class="card">
-            <div class="error-page" style="padding:var(--space-8) var(--space-4);">
-              <div class="error-page__code">500</div>
-              <div class="error-page__title">Something Went Wrong</div>
-              <div class="error-page__desc">An unexpected error occurred. Our team has been notified. Please try again in a few minutes.</div>
-              <div style="display:flex;gap:var(--space-3);">
-                <button class="btn btn-primary" onclick="location.reload()">Try Again</button>
-                <a class="btn btn-ghost" href="#">Go to Dashboard</a>
-              </div>
-            </div>
-          </div>
+        <div style="margin-left: auto;">
+          <input class="auth-input" style="width: 200px; height: 28px; font-size: 11px;" placeholder="Search accounts...">
         </div>
       </div>
 
-      <h4 style="margin-bottom: var(--space-4);">Inline Errors</h4>
-      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-6);">For component-level failures (API call failed, data couldn't load). Show within the component that failed, not as a page takeover.</p>
+      <div class="auth-card" style="overflow: hidden;">
+        <table class="auth-table">
+          <thead>
+            <tr><th>Member</th><th>Facility</th><th>Email</th><th>Provider</th><th>Status</th><th></th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Jason Doss</strong></td><td>ZJX</td><td>jason.doss@natca.net</td><td>Mailcow</td>
+              <td><span class="auth-chip auth-chip-success">Active</span></td>
+              <td><button class="auth-btn auth-btn-sm auth-btn-ghost">View</button></td>
+            </tr>
+            <tr>
+              <td><strong>Sarah Mitchell</strong></td><td>ZDC</td><td>s.mitchell@natca.net</td><td>O365</td>
+              <td><span class="auth-chip auth-chip-success">Active</span></td>
+              <td><button class="auth-btn auth-btn-sm auth-btn-ghost">View</button></td>
+            </tr>
+            <tr>
+              <td><strong>Marcus Chen</strong></td><td>ZLA</td><td>m.chen@natca.net</td><td>Mailcow</td>
+              <td><span class="auth-chip auth-chip-warning">Pending</span></td>
+              <td><button class="auth-btn auth-btn-sm auth-btn-ghost">View</button></td>
+            </tr>
+            <tr>
+              <td><strong>Emily Rodriguez</strong></td><td>ZAU</td><td>e.rodriguez@natca.net</td><td>Mailcow</td>
+              <td><span class="auth-chip auth-chip-danger">Disabled</span></td>
+              <td><button class="auth-btn auth-btn-sm auth-btn-ghost">View</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- FORMS -->
+    <div class="ds-section">
+      <div class="ds-section-title">Forms</div>
+      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-6);">All form fields use outlined variant, compact density, primary focus color via <code>natcaDefaults</code>.</p>
+
       <div class="ds-row">
         <div class="ds-col">
-          <p class="eyebrow" style="margin-bottom: var(--space-3);">API Error — With Retry</p>
-          <div class="error-inline">
-            <div class="error-inline__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
-            <div>
-              <strong style="color:var(--color-danger);">Failed to load member data</strong>
-              <div style="margin-top:var(--space-1);color:var(--color-text-muted);">The server returned an error. This might be temporary.</div>
-              <div class="error-inline__retry"><button class="btn btn-sm btn-danger">Retry</button></div>
+          <div class="auth-card">
+            <div class="auth-card-title">Create Email Account</div>
+            <div class="auth-card-text">
+              <div class="auth-field"><label class="auth-field-label">Member</label><input class="auth-input auth-select" type="text" placeholder="Search members..." value=""></div>
+              <div class="auth-field"><label class="auth-field-label">Email Address</label><input class="auth-input" type="email" placeholder="first.last@natca.net"></div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="auth-field"><label class="auth-field-label">Provider</label><select class="auth-input auth-select"><option>Mailcow</option><option>O365</option></select></div>
+                <div class="auth-field"><label class="auth-field-label">Quota (GB)</label><input class="auth-input" type="number" value="5"></div>
+              </div>
+              <div class="auth-field" style="margin-bottom: 0;">
+                <label class="auth-field-label">Options</label>
+                <div style="display: flex; gap: var(--space-4); align-items: center; font-size: 12px; color: var(--color-text-body);">
+                  <label style="display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="checkbox" checked style="accent-color: var(--natca-navy);"> Send welcome email</label>
+                  <label style="display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="checkbox" style="accent-color: var(--natca-navy);"> Enable forwarding</label>
+                </div>
+              </div>
+            </div>
+            <div class="auth-card-actions">
+              <button class="auth-btn auth-btn-md auth-btn-ghost">Cancel</button>
+              <button class="auth-btn auth-btn-md auth-btn-primary">Create Account</button>
             </div>
           </div>
         </div>
         <div class="ds-col">
-          <p class="eyebrow" style="margin-bottom: var(--space-3);">Validation Error</p>
-          <div style="max-width:320px;">
-            <label class="form-label">Email Address</label>
-            <input class="form-input" type="email" value="jason@" style="border-color:var(--color-danger);margin-bottom:var(--space-1);">
-            <div style="font-size:var(--text-xs);color:var(--color-danger);">Please enter a valid email address.</div>
+          <div class="auth-annotation" style="margin-bottom: var(--space-4);">
+            <strong>natcaDefaults handles:</strong><br>
+            <code>VTextField</code> &rarr; outlined, compact, primary focus<br>
+            <code>VSelect</code> &rarr; outlined, compact, primary focus<br>
+            <code>VAutocomplete</code> &rarr; outlined, compact, primary focus<br>
+            <code>VCheckbox</code> &rarr; compact, primary, hideDetails auto<br>
+            <code>VSwitch</code> &rarr; compact, primary, inset, hideDetails auto<br>
+            <code>VTextarea</code> &rarr; outlined, compact, primary focus
+          </div>
+          <div class="auth-annotation">
+            <strong>Never do this:</strong><br>
+            <code style="color:var(--color-danger);">&lt;v-text-field variant="outlined" density="compact" color="primary" /&gt;</code><br>
+            All three props are already set by <code>natcaDefaults</code>. Just use:<br>
+            <code style="color:var(--color-success);">&lt;v-text-field label="Email" /&gt;</code>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- ALERTS -->
+    <div class="ds-section">
+      <div class="ds-section-title">Alerts</div>
+      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-6);">Tonal variant with border-start. All set by <code>natcaDefaults.VAlert</code>.</p>
+
+      <div style="max-width: 600px;">
+        <div class="auth-alert auth-alert-info"><div><strong>Info:</strong> Migration batch #12 is scheduled for tonight at 0200 ET.</div></div>
+        <div class="auth-alert auth-alert-success"><div><strong>Success:</strong> 47 accounts migrated successfully to Mailcow.</div></div>
+        <div class="auth-alert auth-alert-warning"><div><strong>Warning:</strong> 3 accounts have exceeded their quota limit.</div></div>
+        <div class="auth-alert auth-alert-danger"><div><strong>Error:</strong> Failed to connect to Mailcow API. Check credentials.</div></div>
+      </div>
+    </div>
+
+    <!-- CHIPS -->
+    <div class="ds-section">
+      <div class="ds-section-title">Chips &amp; Status Badges</div>
+      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-6);">Pill-shaped, small, compact. Use Vuetify <code>color</code> prop for semantic coloring.</p>
+
+      <div style="display: flex; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-6);">
+        <span class="auth-chip auth-chip-success">Active</span>
+        <span class="auth-chip auth-chip-warning">Pending</span>
+        <span class="auth-chip auth-chip-danger">Disabled</span>
+        <span class="auth-chip auth-chip-info">Migrating</span>
+        <span class="auth-chip auth-chip-default">Archived</span>
+      </div>
+
+      <div class="auth-annotation" style="max-width: 500px;">
+        <strong>Usage:</strong> <code>&lt;v-chip color="success"&gt;Active&lt;/v-chip&gt;</code><br>
+        <code>natcaDefaults</code> sets <code>rounded: 'pill', size: 'small', density: 'compact'</code>.
       </div>
     </div>
 
     <!-- TABS -->
     <div class="ds-section">
       <div class="ds-section-title">Tabs</div>
-      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-8);">Three tab variants for different contexts. Uses <code>ds-tabs</code> prefix to avoid collision with Vuetify's <code>v-tabs</code>. In Vuetify apps, prefer <code>v-tabs</code> with NATCA theme tokens — use these for non-Vuetify pages (WordPress, static HTML).</p>
 
-      <h4 style="margin-bottom: var(--space-4);">Default — Underline</h4>
-      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-4);">Primary tab pattern. Use for page sections, detail views, settings pages.</p>
-      <div class="card" style="margin-bottom: var(--space-8);">
-        <div class="ds-tabs" role="tablist">
-          <button class="ds-tab ds-tab--active" role="tab" aria-selected="true" onclick="switchTab(event, 'overview')">Overview</button>
-          <button class="ds-tab" role="tab" aria-selected="false" onclick="switchTab(event, 'members')">Members <span class="ds-tab__count">312</span></button>
-          <button class="ds-tab" role="tab" aria-selected="false" onclick="switchTab(event, 'positions')">Positions</button>
-          <button class="ds-tab" role="tab" aria-selected="false" onclick="switchTab(event, 'history')">History</button>
-        </div>
-        <div class="ds-tab-panel" id="panel-overview" role="tabpanel">
-          <p style="color: var(--color-text-muted); font-size: var(--text-sm);">Facility overview content would appear here. The active tab gets a blue underline indicator using <code>--natca-blue</code>.</p>
-        </div>
-        <div class="ds-tab-panel" id="panel-members" role="tabpanel" hidden>
-          <p style="color: var(--color-text-muted); font-size: var(--text-sm);">Member list with 312 entries. The count badge uses <code>ds-tab__count</code> and shifts to blue tint when active.</p>
-        </div>
-        <div class="ds-tab-panel" id="panel-positions" role="tabpanel" hidden>
-          <p style="color: var(--color-text-muted); font-size: var(--text-sm);">Position assignments and details.</p>
-        </div>
-        <div class="ds-tab-panel" id="panel-history" role="tabpanel" hidden>
-          <p style="color: var(--color-text-muted); font-size: var(--text-sm);">Audit log and change history.</p>
-        </div>
-      </div>
-
-      <h4 style="margin-bottom: var(--space-4);">Pills</h4>
-      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-4);">Compact toggle for card headers, toolbars, and filter bars. Segmented-control feel.</p>
-      <div style="margin-bottom: var(--space-8);">
-        <div class="ds-row" style="gap: var(--space-8);">
-          <div>
-            <p class="eyebrow" style="margin-bottom: var(--space-3);">View Toggle</p>
-            <div class="ds-tabs ds-tabs--pills" role="tablist">
-              <button class="ds-tab ds-tab--active" role="tab" aria-selected="true">List</button>
-              <button class="ds-tab" role="tab" aria-selected="false">Grid</button>
-              <button class="ds-tab" role="tab" aria-selected="false">Map</button>
+      <div class="ds-row" style="margin-bottom: var(--space-8);">
+        <div class="ds-col">
+          <p class="eyebrow" style="margin-bottom: var(--space-3);">Underline (Default)</p>
+          <div class="auth-card" style="overflow: hidden;">
+            <div class="auth-tabs" style="padding: 0 16px;">
+              <button class="auth-tab active">Details</button>
+              <button class="auth-tab">Members <span class="auth-tab-badge">198</span></button>
+              <button class="auth-tab">History</button>
             </div>
-          </div>
-          <div>
-            <p class="eyebrow" style="margin-bottom: var(--space-3);">Time Range</p>
-            <div class="ds-tabs ds-tabs--pills" role="tablist">
-              <button class="ds-tab" role="tab" aria-selected="false">7d</button>
-              <button class="ds-tab ds-tab--active" role="tab" aria-selected="true">30d</button>
-              <button class="ds-tab" role="tab" aria-selected="false">90d</button>
-              <button class="ds-tab" role="tab" aria-selected="false">1y</button>
-            </div>
-          </div>
-          <div>
-            <p class="eyebrow" style="margin-bottom: var(--space-3);">Status Filter</p>
-            <div class="ds-tabs ds-tabs--pills" role="tablist">
-              <button class="ds-tab ds-tab--active" role="tab" aria-selected="true">All</button>
-              <button class="ds-tab" role="tab" aria-selected="false">Open</button>
-              <button class="ds-tab" role="tab" aria-selected="false">Closed</button>
-            </div>
+            <div style="padding: 12px 16px; font-size: 12px; color: var(--color-text-muted);">Tab panel content. Compact 36px height, Barlow font, red slider for active state.</div>
           </div>
         </div>
-      </div>
-
-      <h4 style="margin-bottom: var(--space-4);">Contained</h4>
-      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-4);">Tabs sit on a surface background with border. Use for page-level section navigation where tabs feel more structural.</p>
-      <div style="margin-bottom: var(--space-8);">
-        <div class="ds-tabs ds-tabs--contained" role="tablist">
-          <button class="ds-tab ds-tab--active" role="tab" aria-selected="true">Profile</button>
-          <button class="ds-tab" role="tab" aria-selected="false">Preferences</button>
-          <button class="ds-tab" role="tab" aria-selected="false">Notifications</button>
-          <button class="ds-tab" role="tab" aria-selected="false">Security</button>
-        </div>
-        <div class="card" style="border-top:none;border-radius:0 0 var(--radius-md) var(--radius-md);">
-          <p style="color: var(--color-text-muted); font-size: var(--text-sm);">Panel content for the contained variant. The tabs and card form a single visual unit.</p>
-        </div>
-      </div>
-
-      <h4 style="margin-bottom: var(--space-4);">In Context — Card with Tabs</h4>
-      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-4);">Common real-world pattern: tabs inside a card for detail views (member profile, bid details, facility info).</p>
-      <div class="card card--accent" style="padding:0;overflow:hidden;">
-        <div style="padding: var(--space-5) var(--space-6) 0;">
-          <p class="card__meta">Facility · ZJX</p>
-          <p class="card__title">Jacksonville ARTCC</p>
-        </div>
-        <div class="ds-tabs" role="tablist" style="padding: 0 var(--space-6); margin-top: var(--space-4);">
-          <button class="ds-tab ds-tab--active" role="tab" aria-selected="true">Details</button>
-          <button class="ds-tab" role="tab" aria-selected="false">Members <span class="ds-tab__count">198</span></button>
-          <button class="ds-tab" role="tab" aria-selected="false">Bids <span class="ds-tab__count">3</span></button>
-          <button class="ds-tab" role="tab" aria-selected="false">Documents</button>
-        </div>
-        <div style="padding: var(--space-5) var(--space-6);">
-          <div class="ds-row">
-            <div class="ds-col">
-              <p class="eyebrow" style="margin-bottom: var(--space-1);">Region</p>
-              <p style="font-size: var(--text-sm); color: var(--color-text-body);">Southern</p>
+        <div class="ds-col">
+          <p class="eyebrow" style="margin-bottom: var(--space-3);">Pills (Inline Toggle)</p>
+          <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+            <div>
+              <span style="font-size:10px;color:var(--color-text-faint);display:block;margin-bottom:4px;">Time Range</span>
+              <div class="auth-pills">
+                <button class="auth-pill">7d</button>
+                <button class="auth-pill active">30d</button>
+                <button class="auth-pill">90d</button>
+                <button class="auth-pill">1y</button>
+              </div>
             </div>
-            <div class="ds-col">
-              <p class="eyebrow" style="margin-bottom: var(--space-1);">Type</p>
-              <p style="font-size: var(--text-sm); color: var(--color-text-body);">ARTCC</p>
-            </div>
-            <div class="ds-col">
-              <p class="eyebrow" style="margin-bottom: var(--space-1);">Status</p>
-              <span class="badge badge-success">Active</span>
+            <div>
+              <span style="font-size:10px;color:var(--color-text-faint);display:block;margin-bottom:4px;">View</span>
+              <div class="auth-pills">
+                <button class="auth-pill active">List</button>
+                <button class="auth-pill">Grid</button>
+                <button class="auth-pill">Map</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- TOASTS / NOTIFICATIONS -->
+    <!-- DIALOGS -->
     <div class="ds-section">
-      <div class="ds-section-title">Toasts &amp; Notifications</div>
-      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-4);">Universal pattern for all apps. Toasts stack bottom-right, auto-dismiss after 5 seconds (errors persist until dismissed). All apps share the same toast component from <code>@natca/ui-shell</code>.</p>
-      <div style="font-size: var(--text-xs); color: var(--color-text-faint); margin-bottom: var(--space-8);">Position: bottom-right · Max width: 420px · Stack: newest on top · Auto-dismiss: 5s (configurable) · Errors: persist until closed</div>
+      <div class="ds-section-title">Dialogs</div>
+      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-6);"><code>natcaDefaults.VDialog</code> sets max-width 600px. Cards inside dialogs get rounded-lg, elevation 8, no border.</p>
 
-      <div class="toast-stack toast-stack--demo" style="margin-bottom: var(--space-6);">
-        <div class="toast toast--success">
-          <div class="toast__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-          <div class="toast__content"><div class="toast__title">LES uploaded successfully</div><div class="toast__message">Pay period 07 analysis is ready to view.</div></div>
-          <button class="toast__close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-        </div>
-        <div class="toast toast--error">
-          <div class="toast__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
-          <div class="toast__content"><div class="toast__title">Sync failed</div><div class="toast__message">Could not sync member data from UnionWare. Retrying in 30 seconds.</div></div>
-          <button class="toast__close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-        </div>
-        <div class="toast toast--warning">
-          <div class="toast__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
-          <div class="toast__content"><div class="toast__title">Bid closing soon</div><div class="toast__message">ZJX TMU bid closes in 2 hours. You haven't submitted a preference.</div></div>
-          <button class="toast__close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-        </div>
-        <div class="toast toast--info">
-          <div class="toast__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
-          <div class="toast__content"><div class="toast__title">Maintenance scheduled</div><div class="toast__message">MyNATCA will be offline Saturday Apr 12, 0200–0600 ET.</div></div>
-          <button class="toast__close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-        </div>
-      </div>
-
-      <h4 style="margin-bottom: var(--space-4);">Usage Guidelines</h4>
       <div class="ds-row">
         <div class="ds-col">
-          <div class="alert alert-success" style="margin-bottom:var(--space-3);">
-            <strong>Do:</strong> Use toasts for transient feedback — save confirmations, upload completions, background sync results. Keep messages under two lines.
-          </div>
-          <div class="alert alert-danger">
-            <strong>Don't:</strong> Use toasts for critical actions that need confirmation (deleting data, filing grievances). Use a modal dialog instead.
+          <p class="eyebrow" style="margin-bottom: var(--space-3);">Confirmation Dialog</p>
+          <div class="auth-dialog-backdrop">
+            <div class="auth-dialog-card">
+              <div class="auth-dialog-title">Confirm Migration</div>
+              <div class="auth-dialog-text">Are you sure you want to migrate <strong>34 accounts</strong> from O365 to Mailcow? This action cannot be undone.</div>
+              <div class="auth-dialog-actions">
+                <button class="auth-btn auth-btn-md auth-btn-ghost">Cancel</button>
+                <button class="auth-btn auth-btn-md auth-btn-primary">Migrate Now</button>
+              </div>
+            </div>
           </div>
         </div>
         <div class="ds-col">
-          <div style="font-size:var(--text-sm);color:var(--color-text-body);line-height:1.8;">
-            <strong style="color:var(--color-text-primary);">When to use each type:</strong><br>
-            <span style="color:var(--color-success);">Success</span> — Action completed (saved, uploaded, synced)<br>
-            <span style="color:var(--color-danger);">Error</span> — Action failed (persists until dismissed)<br>
-            <span style="color:var(--color-warning);">Warning</span> — Attention needed (deadline approaching, data issue)<br>
-            <span style="color:var(--color-info);">Info</span> — System notice (maintenance, updates, announcements)
+          <p class="eyebrow" style="margin-bottom: var(--space-3);">Danger Dialog</p>
+          <div class="auth-dialog-backdrop">
+            <div class="auth-dialog-card">
+              <div class="auth-dialog-title">Delete Account</div>
+              <div class="auth-dialog-text">This will permanently delete <strong>jason.doss@natca.net</strong> and all associated data. This action cannot be undone.</div>
+              <div class="auth-dialog-actions">
+                <button class="auth-btn auth-btn-md auth-btn-ghost">Cancel</button>
+                <button class="auth-btn auth-btn-md auth-btn-danger">Delete Account</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-  </div><!-- .ds-page -->
+    <!-- LOADING / EMPTY / ERROR STATES -->
+    <div class="ds-section">
+      <div class="ds-section-title">States</div>
+
+      <div class="ds-row" style="margin-bottom: var(--space-8);">
+        <div class="ds-col">
+          <p class="eyebrow" style="margin-bottom: var(--space-3);">Loading</p>
+          <div class="auth-card">
+            <div style="padding: 16px;">
+              <div class="auth-progress" style="margin-bottom: 8px;"><div class="auth-progress-fill" style="width: 65%;"></div></div>
+              <div style="font-size: 11px; color: var(--color-text-faint);">Migrating accounts... 22 of 34</div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-col">
+          <p class="eyebrow" style="margin-bottom: var(--space-3);">Empty State</p>
+          <div class="auth-card">
+            <div class="auth-empty">
+              <div class="auth-empty-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+              <div class="auth-empty-title">No accounts found</div>
+              <div class="auth-empty-desc">No email accounts match your current filters. Try adjusting the search or filter criteria.</div>
+              <button class="auth-btn auth-btn-sm auth-btn-ghost">Reset Filters</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-row">
+        <div class="ds-col" style="max-width: 50%;">
+          <p class="eyebrow" style="margin-bottom: var(--space-3);">Error State (Inline)</p>
+          <div class="auth-alert auth-alert-danger" style="align-items: center;">
+            <div style="flex: 1;">
+              <strong>Failed to load accounts</strong>
+              <div style="margin-top: 2px; font-size: 11px; color: var(--color-text-muted);">The Mailcow API returned an error. This might be temporary.</div>
+            </div>
+            <button class="auth-btn auth-btn-sm auth-btn-danger">Retry</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TYPOGRAPHY (AUTH) -->
+    <div class="ds-section">
+      <div class="ds-section-title">Typography</div>
+      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-6);">Same fonts as public-facing. Auth'd pages use the same type scale but at compact density (tighter line heights, smaller defaults). Headings always use Barlow; body always uses Public Sans.</p>
+
+      <div class="ds-row" style="margin-bottom: var(--space-8);">
+        <div class="ds-col">
+          <p class="eyebrow" style="margin-bottom: var(--space-3);">Display / Headings — Barlow</p>
+          <div style="font-family: var(--font-display);">
+            <div class="type-row"><span style="font-size: var(--text-3xl); font-weight: 700;">Page Title</span><div class="type-meta">--text-3xl · 38px<br>Barlow 700</div></div>
+            <div class="type-row"><span style="font-size: var(--text-2xl); font-weight: 700;">Section Title</span><div class="type-meta">--text-2xl · 30px<br>Barlow 700</div></div>
+            <div class="type-row"><span style="font-size: var(--text-xl); font-weight: 600;">Card Title</span><div class="type-meta">--text-xl · 24px<br>Barlow 600</div></div>
+            <div class="type-row"><span style="font-size: 18px; font-weight: 700;">Shell Page Header</span><div class="type-meta">18px · Barlow 700<br>(most common in auth)</div></div>
+            <div class="type-row"><span style="font-size: var(--text-base); font-weight: 700;">Sub-heading</span><div class="type-meta">--text-base · 15px<br>Barlow 700</div></div>
+          </div>
+        </div>
+        <div class="ds-col">
+          <p class="eyebrow" style="margin-bottom: var(--space-3);">Body / UI — Public Sans</p>
+          <div style="font-family: var(--font-body);">
+            <div class="type-row"><span style="font-size: var(--text-base);">Body text — default paragraph copy.</span><div class="type-meta">--text-base · 15px<br>Public Sans 400</div></div>
+            <div class="type-row"><span style="font-size: var(--text-sm);">Small text — table cells, form labels.</span><div class="type-meta">--text-sm · 13px<br>Public Sans 400</div></div>
+            <div class="type-row"><span style="font-size: var(--text-xs);">Caption — timestamps, metadata.</span><div class="type-meta">--text-xs · 12px<br>Public Sans 400</div></div>
+            <div class="type-row"><span style="font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">EYEBROW LABEL</span><div class="type-meta">--text-xs · 12px<br>700 uppercase 1px tracking</div></div>
+            <div class="type-row"><span style="font-family: var(--font-mono); font-size: var(--text-xs);">monospace code</span><div class="type-meta">--font-mono · 12px<br>Courier New</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-annotation">
+        <strong>In Vuetify:</strong> Typography classes are available (<code>text-h4</code>, <code>text-body-1</code>, etc.) but for auth pages use the CSS custom properties directly: <code>font-family: var(--font-display)</code> and <code>font-size: var(--text-xl)</code>. This ensures consistency regardless of Vuetify's built-in typography scale.
+      </div>
+    </div>
+
+    <!-- SPACING (AUTH) -->
+    <div class="ds-section">
+      <div class="ds-section-title">Spacing</div>
+      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-6);">4px base unit. Use Vuetify utility classes (<code>pa-4</code>, <code>mt-2</code>, <code>ga-3</code>) or CSS vars (<code>var(--space-4)</code>). Never hardcode pixel values.</p>
+
+      <div class="ds-row" style="margin-bottom: var(--space-8);">
+        <div class="ds-col">
+          <p class="eyebrow" style="margin-bottom: var(--space-3);">Scale</p>
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+            <div style="display: flex; align-items: center; gap: 12px; font-size: 12px;">
+              <code style="width: 80px; color: var(--color-text-muted);">--space-1</code>
+              <div style="width: 4px; height: 14px; background: var(--natca-blue); border-radius: 2px;"></div>
+              <span style="color: var(--color-text-faint);">4px — Vuetify: 1</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; font-size: 12px;">
+              <code style="width: 80px; color: var(--color-text-muted);">--space-2</code>
+              <div style="width: 8px; height: 14px; background: var(--natca-blue); border-radius: 2px;"></div>
+              <span style="color: var(--color-text-faint);">8px — Vuetify: 2</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; font-size: 12px;">
+              <code style="width: 80px; color: var(--color-text-muted);">--space-3</code>
+              <div style="width: 12px; height: 14px; background: var(--natca-blue); border-radius: 2px;"></div>
+              <span style="color: var(--color-text-faint);">12px — Vuetify: 3</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; font-size: 12px;">
+              <code style="width: 80px; color: var(--color-text-muted);">--space-4</code>
+              <div style="width: 16px; height: 14px; background: var(--natca-blue); border-radius: 2px;"></div>
+              <span style="color: var(--color-text-faint);">16px — Vuetify: 4</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; font-size: 12px;">
+              <code style="width: 80px; color: var(--color-text-muted);">--space-6</code>
+              <div style="width: 24px; height: 14px; background: var(--natca-blue); border-radius: 2px;"></div>
+              <span style="color: var(--color-text-faint);">24px — Vuetify: 6</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; font-size: 12px;">
+              <code style="width: 80px; color: var(--color-text-muted);">--space-8</code>
+              <div style="width: 32px; height: 14px; background: var(--natca-blue); border-radius: 2px;"></div>
+              <span style="color: var(--color-text-faint);">32px — Vuetify: 8</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; font-size: 12px;">
+              <code style="width: 80px; color: var(--color-text-muted);">--space-10</code>
+              <div style="width: 40px; height: 14px; background: var(--natca-blue); border-radius: 2px;"></div>
+              <span style="color: var(--color-text-faint);">40px — Vuetify: 10</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; font-size: 12px;">
+              <code style="width: 80px; color: var(--color-text-muted);">--space-16</code>
+              <div style="width: 64px; height: 14px; background: var(--natca-blue); border-radius: 2px;"></div>
+              <span style="color: var(--color-text-faint);">64px — Vuetify: 16</span>
+            </div>
+          </div>
+        </div>
+        <div class="ds-col">
+          <p class="eyebrow" style="margin-bottom: var(--space-3);">Border Radius</p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: var(--space-6);">
+            <div style="text-align: center;">
+              <div style="width: 48px; height: 48px; background: var(--overlay-hover); border: 1px solid var(--color-border); border-radius: var(--radius-sm);"></div>
+              <span style="font-size: 10px; color: var(--color-text-faint); margin-top: 4px; display: block;">sm · 3px</span>
+            </div>
+            <div style="text-align: center;">
+              <div style="width: 48px; height: 48px; background: var(--overlay-hover); border: 1px solid var(--color-border); border-radius: var(--radius);"></div>
+              <span style="font-size: 10px; color: var(--color-text-faint); margin-top: 4px; display: block;">default · 6px</span>
+            </div>
+            <div style="text-align: center;">
+              <div style="width: 48px; height: 48px; background: var(--overlay-hover); border: 1px solid var(--color-border); border-radius: var(--radius-md);"></div>
+              <span style="font-size: 10px; color: var(--color-text-faint); margin-top: 4px; display: block;">md · 8px</span>
+            </div>
+            <div style="text-align: center;">
+              <div style="width: 48px; height: 48px; background: var(--overlay-hover); border: 1px solid var(--color-border); border-radius: var(--radius-lg);"></div>
+              <span style="font-size: 10px; color: var(--color-text-faint); margin-top: 4px; display: block;">lg · 12px</span>
+            </div>
+            <div style="text-align: center;">
+              <div style="width: 48px; height: 48px; background: var(--overlay-hover); border: 1px solid var(--color-border); border-radius: var(--radius-full);"></div>
+              <span style="font-size: 10px; color: var(--color-text-faint); margin-top: 4px; display: block;">full · pill</span>
+            </div>
+          </div>
+
+          <p class="eyebrow" style="margin-bottom: var(--space-3);">Shadows</p>
+          <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+            <div style="text-align: center;">
+              <div style="width: 64px; height: 48px; background: var(--color-bg-surface); border-radius: var(--radius-md); box-shadow: var(--shadow-sm);"></div>
+              <span style="font-size: 10px; color: var(--color-text-faint); margin-top: 4px; display: block;">sm</span>
+            </div>
+            <div style="text-align: center;">
+              <div style="width: 64px; height: 48px; background: var(--color-bg-surface); border-radius: var(--radius-md); box-shadow: var(--shadow);"></div>
+              <span style="font-size: 10px; color: var(--color-text-faint); margin-top: 4px; display: block;">default</span>
+            </div>
+            <div style="text-align: center;">
+              <div style="width: 64px; height: 48px; background: var(--color-bg-surface); border-radius: var(--radius-md); box-shadow: var(--shadow-md);"></div>
+              <span style="font-size: 10px; color: var(--color-text-faint); margin-top: 4px; display: block;">md</span>
+            </div>
+            <div style="text-align: center;">
+              <div style="width: 64px; height: 48px; background: var(--color-bg-surface); border-radius: var(--radius-md); box-shadow: var(--shadow-lg);"></div>
+              <span style="font-size: 10px; color: var(--color-text-faint); margin-top: 4px; display: block;">lg</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLOR TOKEN REFERENCE -->
+    <div class="ds-section">
+      <div class="ds-section-title">Token Quick Reference</div>
+      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-6);">Use these tokens in CSS. For Vuetify components, use the <code>color</code> prop instead (e.g., <code>color="primary"</code>).</p>
+
+      <div class="ds-row">
+        <div class="ds-col">
+          <h4 style="font-size: var(--text-sm); margin-bottom: var(--space-3);">Brand</h4>
+          <table class="token-table">
+            <tr><td>--natca-red</td><td><span style="display:inline-block;width:14px;height:14px;background:var(--natca-red);border-radius:3px;vertical-align:middle;margin-right:6px;"></span> NATCA Red</td></tr>
+            <tr><td>--natca-navy</td><td><span style="display:inline-block;width:14px;height:14px;background:var(--natca-navy);border-radius:3px;vertical-align:middle;margin-right:6px;"></span> Always #003366</td></tr>
+            <tr><td>--natca-blue</td><td><span style="display:inline-block;width:14px;height:14px;background:var(--natca-blue);border-radius:3px;vertical-align:middle;margin-right:6px;"></span> Theme-aware</td></tr>
+            <tr><td>--natca-sky</td><td><span style="display:inline-block;width:14px;height:14px;background:var(--natca-sky);border-radius:3px;vertical-align:middle;margin-right:6px;"></span> Accent</td></tr>
+          </table>
+        </div>
+        <div class="ds-col">
+          <h4 style="font-size: var(--text-sm); margin-bottom: var(--space-3);">Surfaces</h4>
+          <table class="token-table">
+            <tr><td>--color-bg-surface</td><td><span style="display:inline-block;width:14px;height:14px;background:var(--color-bg-surface);border:1px solid var(--color-border);border-radius:3px;vertical-align:middle;margin-right:6px;"></span> Cards, inputs</td></tr>
+            <tr><td>--color-bg-subtle</td><td><span style="display:inline-block;width:14px;height:14px;background:var(--color-bg-subtle);border:1px solid var(--color-border);border-radius:3px;vertical-align:middle;margin-right:6px;"></span> Table headers</td></tr>
+            <tr><td>--color-shell-content</td><td><span style="display:inline-block;width:14px;height:14px;background:var(--color-shell-content);border:1px solid var(--color-border);border-radius:3px;vertical-align:middle;margin-right:6px;"></span> Main content bg</td></tr>
+            <tr><td>--overlay-hover</td><td><span style="display:inline-block;width:14px;height:14px;background:var(--overlay-hover);border:1px solid var(--color-border);border-radius:3px;vertical-align:middle;margin-right:6px;"></span> Hover states</td></tr>
+          </table>
+        </div>
+        <div class="ds-col">
+          <h4 style="font-size: var(--text-sm); margin-bottom: var(--space-3);">Spacing</h4>
+          <table class="token-table">
+            <tr><td>--space-1</td><td>4px</td></tr>
+            <tr><td>--space-2</td><td>8px</td></tr>
+            <tr><td>--space-3</td><td>12px</td></tr>
+            <tr><td>--space-4</td><td>16px</td></tr>
+            <tr><td>--space-6</td><td>24px</td></tr>
+            <tr><td>--space-8</td><td>32px</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </main>
 
-<footer>
-  <div class="ds-page">
-    <div style="display: flex; justify-content: space-between; align-items: center; font-size: var(--text-xs); padding-top: var(--space-6); border-top: 1px solid rgba(255,255,255,0.08);">
-      <span>© 2026 National Air Traffic Controllers Association. All rights reserved.</span>
-      <span>
-        <a href="#" style="margin-right: 16px;">Privacy Policy</a>
-        <a href="#">Accessibility</a>
-      </span>
-    </div>
-  </div>
-</footer>
+</div><!-- end .auth-only -->
 
 <script>
+// ── Context & Theme Switching ──
+var currentCtx = 'public';
+var currentTheme = 'light';
+
+function setContext(ctx) {
+  currentCtx = ctx;
+  document.body.classList.toggle('ctx-auth', ctx === 'auth');
+  document.getElementById('ctx-public').classList.toggle('active', ctx === 'public');
+  document.getElementById('ctx-auth').classList.toggle('active', ctx === 'auth');
+}
+
+function setTheme(theme) {
+  currentTheme = theme;
+  document.documentElement.setAttribute('data-theme', theme);
+  document.getElementById('theme-light').classList.toggle('active', theme === 'light');
+  document.getElementById('theme-dark').classList.toggle('active', theme === 'dark');
+}
+
+// ── Tab switching (public context) ──
 function switchTab(event, panelId) {
-  const tablist = event.target.closest('[role="tablist"]');
-  // Deactivate all tabs in this group
+  var tablist = event.target.closest('[role="tablist"]');
   tablist.querySelectorAll('.ds-tab').forEach(function(t) {
     t.classList.remove('ds-tab--active');
     t.setAttribute('aria-selected', 'false');
   });
-  // Activate clicked tab
   event.target.classList.add('ds-tab--active');
   event.target.setAttribute('aria-selected', 'true');
-  // Switch panels if they exist
   var card = tablist.closest('.card') || tablist.parentElement;
   var panels = card.querySelectorAll('.ds-tab-panel');
   if (panels.length > 0) {
@@ -811,16 +1667,7 @@ function switchTab(event, panelId) {
     if (target) target.hidden = false;
   }
 }
-function toggleTheme() {
-  const html = document.documentElement;
-  const current = html.getAttribute('data-theme');
-  const next = current === 'light' ? 'dark' : 'light';
-  html.setAttribute('data-theme', next);
-  document.getElementById('theme-icon').textContent = next === 'dark' ? '☽' : '☀';
-  document.getElementById('theme-label').textContent = next === 'dark' ? 'Dark mode' : 'Light mode';
-}
 </script>
-<a href="natca-header-variants.html" style="position:fixed;bottom:24px;right:24px;z-index:99999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#CE0E2D,#A30B24);color:white;text-decoration:none;font-family:'Outfit','Barlow',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.5px;padding:12px 20px;border-radius:50px;box-shadow:0 4px 20px rgba(206,14,45,0.5),0 0 0 2px rgba(255,255,255,0.1);transition:all 0.2s;cursor:pointer;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 28px rgba(206,14,45,0.6),0 0 0 2px rgba(255,255,255,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 20px rgba(206,14,45,0.5),0 0 0 2px rgba(255,255,255,0.1)'"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>Nav Variants</a>
 
 </body>
 </html>

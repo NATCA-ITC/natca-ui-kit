@@ -23,11 +23,15 @@ Design system, Vuetify theme preset, and shared Vue components for all NATCA web
 
 ### Source (`src/`)
 - `components/` — Vue shell + shared components
-- `composables/` — `useShellState` reactive state singleton
+- `composables/` — `useShellState`, `useNatcaTheme` reactive state singletons
 - `theme/` — Vuetify theme definitions (light, dark, defaults)
 - `css/` — Design tokens + standalone component CSS
-- `styles/` — Shell layout CSS
+- `styles/` — Shell layout CSS + Vuetify overrides
 - `types/` — TypeScript interfaces
+
+### Agent Docs (`docs/agent_docs/`)
+- **`architecture.md`** — Package layers, Vuetify integration strategy, shell contract, build pipeline
+- **`component-usage.md`** — **READ THIS FIRST** when building UI in consuming apps. Patterns, anti-patterns, color/spacing/typography rules, and code examples for every common component pattern. Prevents hardcoding.
 
 ### Design Previews (HTML)
 - `natca-design-system.html` — Full token reference + component library (standalone CSS)

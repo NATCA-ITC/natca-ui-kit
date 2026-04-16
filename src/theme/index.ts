@@ -58,11 +58,15 @@ export const natcaLightTheme: ThemeDefinition = {
     'on-info': '#FFFFFF',
   },
   variables: {
-    'border-color': '#DDDDDD',
+    'border-color': '#CCCCCC',
     'border-opacity': 1,
     'high-emphasis-opacity': 1,
-    'medium-emphasis-opacity': 0.7,
+    'medium-emphasis-opacity': 0.87,
     'disabled-opacity': 0.38,
+    'hover-opacity': 0.06,
+    'focus-opacity': 0.06,
+    'activated-opacity': 0.05,
+    'pressed-opacity': 0.08,
     'theme-kbd': '#333333',
     'theme-on-kbd': '#FFFFFF',
     'theme-code': '#E6EDF5',
@@ -101,6 +105,10 @@ export const natcaDarkTheme: ThemeDefinition = {
     'high-emphasis-opacity': 1,
     'medium-emphasis-opacity': 0.7,
     'disabled-opacity': 0.38,
+    'hover-opacity': 0.06,
+    'focus-opacity': 0.06,
+    'activated-opacity': 0.05,
+    'pressed-opacity': 0.08,
     'theme-kbd': '#22263A',
     'theme-on-kbd': '#E8EAF0',
     'theme-code': '#0D1E2F',
@@ -111,8 +119,10 @@ export const natcaDarkTheme: ThemeDefinition = {
 /**
  * Complete Vuetify theme config — drop into createVuetify().
  *
- * Dark theme is default because authenticated NATCA apps use dark.
- * Public-facing pages (WordPress, marketing) use light.
+ * Dark is the static Vuetify fallback (backwards-compatible for existing apps).
+ * Active theme is controlled at runtime by useNatcaTheme() — NatcaShell
+ * overrides it on mount via a watch with { immediate: true }.
+ * Apps call setTheme(savedPreference ?? 'dark') on boot to restore preference.
  */
 export const natcaVuetifyTheme = {
   defaultTheme: 'natcaDark',
@@ -131,18 +141,28 @@ export const natcaDefaults = {
     ripple: true,
     density: 'compact' as const,
   },
+  // ── Buttons ──
   VBtn: {
     variant: 'flat' as const,
     rounded: 'md',
     density: 'compact' as const,
     size: 'small',
   },
+  // NAT-281: Action buttons in card/dialog footers get proper sizing
+  VCardActions: {
+    VBtn: {
+      size: 'default' as const,
+      density: 'default' as const,
+    },
+  },
+  // ── Cards ──
   VCard: {
     rounded: 'lg',
     elevation: 0,
     border: true,
     density: 'compact' as const,
   },
+  // ── Form Inputs ──
   VTextField: {
     variant: 'outlined' as const,
     density: 'compact' as const,
@@ -152,12 +172,39 @@ export const natcaDefaults = {
     variant: 'outlined' as const,
     density: 'compact' as const,
     color: 'primary',
+    bgColor: 'surface',
+  },
+  VAutocomplete: {
+    variant: 'outlined' as const,
+    density: 'compact' as const,
+    color: 'primary',
   },
   VTextarea: {
     variant: 'outlined' as const,
     density: 'compact' as const,
     color: 'primary',
   },
+  VCheckbox: {
+    density: 'compact' as const,
+    color: 'primary',
+    hideDetails: 'auto' as const,
+  },
+  VRadio: {
+    density: 'compact' as const,
+    color: 'primary',
+  },
+  VRadioGroup: {
+    density: 'compact' as const,
+    color: 'primary',
+    hideDetails: 'auto' as const,
+  },
+  VSwitch: {
+    density: 'compact' as const,
+    color: 'primary',
+    hideDetails: 'auto' as const,
+    inset: true,
+  },
+  // ── Tabs ──
   VTabs: {
     color: 'primary',
     sliderColor: 'primary',
@@ -168,6 +215,7 @@ export const natcaDefaults = {
     density: 'compact' as const,
     size: 'small',
   },
+  // ── Chips & Badges ──
   VChip: {
     rounded: 'pill',
     size: 'small',
@@ -176,6 +224,7 @@ export const natcaDefaults = {
   VBadge: {
     density: 'compact' as const,
   },
+  // ── Data Display ──
   VDataTable: {
     hover: true,
     density: 'compact' as const,
@@ -185,5 +234,45 @@ export const natcaDefaults = {
   },
   VListItem: {
     density: 'compact' as const,
+  },
+  // ── Feedback ──
+  VAlert: {
+    variant: 'tonal' as const,
+    density: 'compact' as const,
+    rounded: 'md',
+    border: 'start' as const,
+  },
+  VSnackbar: {
+    rounded: 'md',
+    timeout: 5000,
+  },
+  // ── Overlays ──
+  VDialog: {
+    maxWidth: 600,
+    VCard: {
+      rounded: 'lg',
+      elevation: 8,
+      border: false,
+    },
+  },
+  VMenu: {
+    rounded: 'md',
+  },
+  VTooltip: {
+    location: 'top' as const,
+  },
+  // ── Toolbar ──
+  VToolbar: {
+    density: 'compact' as const,
+    color: 'transparent',
+  },
+  // ── Progress ──
+  VProgressLinear: {
+    color: 'primary',
+    rounded: true,
+    height: 4,
+  },
+  VProgressCircular: {
+    color: 'primary',
   },
 } as const
