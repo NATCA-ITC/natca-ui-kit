@@ -256,18 +256,28 @@ Props: `icon` (MDI icon name), `title`, `subtitle`. Slots: `default` (body), `ac
 ### Card with Actions
 
 ```vue
-<v-card>
-  <v-card-title>Email Account</v-card-title>
-  <v-card-subtitle>jason@natca.net · Active</v-card-subtitle>
-  <v-card-text>
-    <!-- content -->
-  </v-card-text>
-  <v-card-actions>
-    <v-spacer />
-    <v-btn variant="text">Cancel</v-btn>
-    <v-btn color="primary">Save Changes</v-btn>
-  </v-card-actions>
-</v-card>
+<NatcaCard title="Email Account" subtitle="jason@natca.net · Active">
+  <!-- body content -->
+  <div>Provider: Mailcow · Quota: 2.1 / 5 GB</div>
+  <template #actions>
+    <NatcaButton variant="ghost" size="md">Cancel</NatcaButton>
+    <NatcaButton variant="primary" size="md">Save Changes</NatcaButton>
+  </template>
+</NatcaCard>
+```
+
+Props: `title?`, `subtitle?`, `noBodyPadding?` (for tables or full-bleed content). Slots: `default` (body), `actions` (footer buttons), `header` (replaces title/subtitle with custom header).
+
+### Full-bleed Card (tables, tabs inside a card)
+
+```vue
+<NatcaCard no-body-padding>
+  <NatcaTabs v-model="tab" :items="items" />
+</NatcaCard>
+
+<NatcaCard no-body-padding>
+  <v-data-table :headers :items />
+</NatcaCard>
 ```
 
 ### Data Table
@@ -300,22 +310,20 @@ natcaDefaults configures VBtnToggle with pill shape, compact density, divided la
 ### Form in Card
 
 ```vue
-<v-card>
-  <v-card-title>Create Account</v-card-title>
-  <v-card-text>
-    <v-autocomplete label="Member" :items="members" />
-    <v-text-field label="Email" />
-    <v-select label="Provider" :items="['Mailcow', 'O365']" />
-    <v-checkbox label="Send welcome email" />
-    <v-switch label="Enable forwarding" />
-  </v-card-text>
-  <v-card-actions>
-    <v-spacer />
-    <v-btn variant="text">Cancel</v-btn>
-    <v-btn color="primary">Create</v-btn>
-  </v-card-actions>
-</v-card>
+<NatcaCard title="Create Account">
+  <v-autocomplete label="Member" :items="members" />
+  <v-text-field label="Email" />
+  <v-select label="Provider" :items="['Mailcow', 'O365']" />
+  <v-checkbox label="Send welcome email" />
+  <v-switch label="Enable forwarding" />
+  <template #actions>
+    <NatcaButton variant="ghost" size="md">Cancel</NatcaButton>
+    <NatcaButton variant="primary" size="md">Create</NatcaButton>
+  </template>
+</NatcaCard>
 ```
+
+Form inputs are still Vuetify (`v-text-field`, `v-select`, `v-autocomplete`, `v-checkbox`, `v-switch`) — they provide keyboard nav, validation, dropdown positioning, autocomplete search. The ui-shell ships `vuetify-overrides.css` which fixes input styling (backgrounds, fonts, switch size, checkbox size) so they match the design system.
 
 ### Dialog
 
@@ -425,20 +433,22 @@ Wrap in a `<v-card>` if you want a bordered container.
 | I want... | Use |
 |-----------|-----|
 | Button (any variant) | `<NatcaButton variant="...">` — 5 variants, 2 sizes |
+| Card with title + subtitle + actions | `<NatcaCard title="..." subtitle="...">` |
+| Card with navy header and icon | `<NatcaHeaderCard icon="..." title="...">` |
+| Card wrapping a table or tabs | `<NatcaCard no-body-padding>` |
 | Feedback message | `<NatcaAlert type="info/success/warning/danger">` |
 | Status indicator / badge | `<NatcaChip type="success/warning/danger/info">` |
 | Progress bar | `<NatcaProgressBar :value="65">` |
 | Pill toggle filters | `<NatcaPillNav v-model :items>` |
 | Underline tabs (router or local) | `<NatcaTabs>` |
 | Page title + subtitle + action button | `<NatcaPageHeader>` |
-| Card with navy header and icon | `<NatcaHeaderCard>` |
 | Grid of KPI/metric numbers | `<NatcaStatGrid>` + `<NatcaStatCard>` |
 | "No results" placeholder | `<NatcaEmptyState>` |
 | Info/tip/warning callout box | `<NatcaAnnotation>` |
 | Member display card | `<NatcaMemberCard>` |
-| Confirmation modal | `<v-dialog>` + `<v-card>` + `<NatcaButton>` for actions |
+| Confirmation modal | `<v-dialog>` + `<NatcaCard>` + `<NatcaButton>` |
 | Data table with filters | `<NatcaPillNav>` + `<v-data-table>` |
-| Form | `<v-text-field>`, `<v-select>`, etc. (no extra props needed) |
+| Form inputs | `<v-text-field>`, `<v-select>`, `<v-switch>`, etc. (styled by ui-shell overrides) |
 | Light/dark toggle | Built into topbar via `NatcaShell` (automatic) |
 
 ---

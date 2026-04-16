@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import {
   NatcaTabs,
+  NatcaCard,
   NatcaHeaderCard,
   NatcaStatCard,
   NatcaStatGrid,
@@ -146,11 +147,12 @@ const members: MemberCardData[] = [
         <div>
           <p class="eyebrow">Action Tier (size="md")</p>
           <p class="ds-hint">Card actions, dialog footers. 36px height, 13px font.</p>
-          <div class="ds-btn-row">
-            <NatcaButton variant="primary" size="md">Submit Request</NatcaButton>
-            <NatcaButton variant="danger" size="md">Delete Account</NatcaButton>
-            <NatcaButton variant="ghost" size="md">Cancel</NatcaButton>
-          </div>
+          <NatcaCard>
+            <template #actions>
+              <NatcaButton variant="ghost" size="md">Cancel</NatcaButton>
+              <NatcaButton variant="primary" size="md">Submit Request</NatcaButton>
+            </template>
+          </NatcaCard>
         </div>
       </div>
     </section>
@@ -191,22 +193,17 @@ const members: MemberCardData[] = [
       <p class="eyebrow" style="margin-top: 20px;">Card with Actions</p>
       <div class="ds-row">
         <div style="flex: 1;">
-          <VCard>
-            <VCardTitle>Email Account</VCardTitle>
-            <VCardSubtitle>jason@natca.net · Active</VCardSubtitle>
-            <VCardText>
-              <div class="ds-field-grid">
-                <div><span class="ds-field-label">Provider</span><br><span class="ds-field-value">Mailcow</span></div>
-                <div><span class="ds-field-label">Quota</span><br><span class="ds-field-value">2.1 / 5 GB</span></div>
-                <div><span class="ds-field-label">Status</span><br><NatcaChip type="success">Active</NatcaChip></div>
-              </div>
-            </VCardText>
-            <VCardActions>
-              <VSpacer />
+          <NatcaCard title="Email Account" subtitle="jason@natca.net · Active">
+            <div class="ds-field-grid">
+              <div><span class="ds-field-label">Provider</span><br><span class="ds-field-value">Mailcow</span></div>
+              <div><span class="ds-field-label">Quota</span><br><span class="ds-field-value">2.1 / 5 GB</span></div>
+              <div><span class="ds-field-label">Status</span><br><NatcaChip type="success">Active</NatcaChip></div>
+            </div>
+            <template #actions>
               <NatcaButton variant="ghost" size="md">Cancel</NatcaButton>
               <NatcaButton variant="primary" size="md">Save Changes</NatcaButton>
-            </VCardActions>
-          </VCard>
+            </template>
+          </NatcaCard>
         </div>
         <div style="flex: 1;">
           <p class="eyebrow">Stat Cards</p>
@@ -241,7 +238,7 @@ const members: MemberCardData[] = [
         <VTextField placeholder="Search accounts..." style="max-width: 200px;" hide-details />
       </div>
 
-      <VCard>
+      <NatcaCard no-body-padding>
         <VDataTable :headers="tableHeaders" :items="tableItems" :items-per-page="-1" hide-default-footer>
           <template #item.status="{ item }">
             <NatcaChip :type="statusChipType(item.status)">{{ item.status }}</NatcaChip>
@@ -250,7 +247,7 @@ const members: MemberCardData[] = [
             <NatcaButton variant="ghost">View</NatcaButton>
           </template>
         </VDataTable>
-      </VCard>
+      </NatcaCard>
     </section>
 
     <VDivider />
@@ -262,24 +259,20 @@ const members: MemberCardData[] = [
 
       <div class="ds-row">
         <div style="flex: 1;">
-          <VCard>
-            <VCardTitle>Create Email Account</VCardTitle>
-            <VCardText>
-              <VAutocomplete label="Member" placeholder="Search members..." :items="['Jason Doss', 'Sarah Mitchell']" />
-              <VTextField label="Email Address" placeholder="first.last@natca.net" />
-              <div class="d-flex ga-3">
-                <VSelect label="Provider" :items="['Mailcow', 'O365']" v-model="formProvider" style="flex: 1;" />
-                <VTextField label="Quota (GB)" type="number" v-model="formQuota" style="flex: 1;" />
-              </div>
-              <VCheckbox v-model="formWelcome" label="Send welcome email" />
-              <VSwitch v-model="formForward" label="Enable forwarding" />
-            </VCardText>
-            <VCardActions>
-              <VSpacer />
+          <NatcaCard title="Create Email Account">
+            <VAutocomplete label="Member" placeholder="Search members..." :items="['Jason Doss', 'Sarah Mitchell']" />
+            <VTextField label="Email Address" placeholder="first.last@natca.net" />
+            <div class="d-flex ga-3">
+              <VSelect label="Provider" :items="['Mailcow', 'O365']" v-model="formProvider" style="flex: 1;" />
+              <VTextField label="Quota (GB)" type="number" v-model="formQuota" style="flex: 1;" />
+            </div>
+            <VCheckbox v-model="formWelcome" label="Send welcome email" />
+            <VSwitch v-model="formForward" label="Enable forwarding" />
+            <template #actions>
               <NatcaButton variant="ghost" size="md">Cancel</NatcaButton>
               <NatcaButton variant="primary" size="md">Create Account</NatcaButton>
-            </VCardActions>
-          </VCard>
+            </template>
+          </NatcaCard>
         </div>
         <div style="flex: 1;">
           <NatcaAnnotation style="margin-bottom: 12px;">
@@ -342,7 +335,7 @@ const members: MemberCardData[] = [
       <div class="ds-row">
         <div style="flex: 1;">
           <p class="eyebrow">Underline (Default) — NatcaTabs</p>
-          <VCard style="overflow: hidden;">
+          <NatcaCard no-body-padding>
             <NatcaTabs v-model="localTab" :items="localTabItems">
               <template #panel-details>
                 <p style="font-size: 12px; color: var(--color-text-muted);">Tab panel content. Compact 36px height, Barlow font, red slider for active state.</p>
@@ -354,7 +347,7 @@ const members: MemberCardData[] = [
                 <p style="font-size: 12px; color: var(--color-text-muted);">Audit log and change history.</p>
               </template>
             </NatcaTabs>
-          </VCard>
+          </NatcaCard>
         </div>
         <div style="flex: 1;">
           <p class="eyebrow">Pills (Inline Toggle) — NatcaPillNav</p>
@@ -433,23 +426,21 @@ const members: MemberCardData[] = [
       <div class="ds-row">
         <div style="flex: 1;">
           <p class="eyebrow">Loading</p>
-          <VCard>
-            <VCardText>
-              <NatcaProgressBar :value="65" style="margin-bottom: 8px;" />
-              <span style="font-size: 11px; color: var(--color-text-faint);">Migrating accounts... 22 of 34</span>
-            </VCardText>
-          </VCard>
+          <NatcaCard>
+            <NatcaProgressBar :value="65" style="margin-bottom: 8px;" />
+            <span style="font-size: 11px; color: var(--color-text-faint);">Migrating accounts... 22 of 34</span>
+          </NatcaCard>
         </div>
         <div style="flex: 1;">
           <p class="eyebrow">Empty State</p>
-          <VCard>
+          <NatcaCard no-body-padding>
             <NatcaEmptyState
               icon="mdi-file-document-outline"
               title="No accounts found"
               description="No email accounts match your current filters. Try adjusting the search or filter criteria."
               action-label="Reset Filters"
             />
-          </VCard>
+          </NatcaCard>
         </div>
       </div>
 

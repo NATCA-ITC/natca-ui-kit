@@ -24,6 +24,7 @@ import NatcaProgressBar from './components/NatcaProgressBar.vue'
 import NatcaPillNav from './components/NatcaPillNav.vue'
 
 // Composite pattern components
+import NatcaCard from './components/NatcaCard.vue'
 import NatcaHeaderCard from './components/NatcaHeaderCard.vue'
 import NatcaStatCard from './components/NatcaStatCard.vue'
 import NatcaStatGrid from './components/NatcaStatGrid.vue'
@@ -62,6 +63,7 @@ export {
 
 // Composite pattern components
 export {
+  NatcaCard,
   NatcaHeaderCard,
   NatcaStatCard,
   NatcaStatGrid,
@@ -114,6 +116,7 @@ export const NatcaUiShell = {
     app.component('NatcaProgressBar', NatcaProgressBar)
     app.component('NatcaPillNav', NatcaPillNav)
     // Composite pattern components
+    app.component('NatcaCard', NatcaCard)
     app.component('NatcaHeaderCard', NatcaHeaderCard)
     app.component('NatcaStatCard', NatcaStatCard)
     app.component('NatcaStatGrid', NatcaStatGrid)

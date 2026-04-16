@@ -29,3 +29,152 @@
 .v-list-item[aria-haspopup="menu"][aria-expanded="true"]:focus-visible > .v-list-item__overlay {
   opacity: 0.14 !important;
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   FORM INPUTS — align Vuetify VTextField/VSelect/VAutocomplete/
+   VTextarea/VCheckbox/VSwitch output with the NATCA design system.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Font inheritance — Vuetify's internal .v-field__input falls back to
+   Arial. Force the body font everywhere so headers/labels/values match. */
+.v-input,
+.v-field,
+.v-field__input,
+.v-field-label,
+.v-label,
+.v-select__selection,
+.v-select__selection-text,
+.v-autocomplete__selection-text {
+  font-family: var(--font-body) !important;
+}
+
+/* ── Outlined fields (VTextField, VSelect, VAutocomplete, VTextarea) ── */
+
+/* Kill the weird inner box — .v-field__input was rendering with its own
+   background color because Vuetify applies the theme surface to it as part
+   of the "filled" heuristic. We want the input to be transparent and let
+   the outline show through. */
+.v-field--variant-outlined .v-field__input,
+.v-field--variant-outlined .v-field__field,
+.v-field--variant-outlined input,
+.v-field--variant-outlined textarea {
+  background: transparent !important;
+  color: var(--color-text-primary) !important;
+}
+
+/* The overlay also gets a surface tint we don't want for outlined */
+.v-field--variant-outlined .v-field__overlay {
+  background: transparent !important;
+  opacity: 0 !important;
+}
+
+/* Match the design system: outline uses --color-border */
+.v-field--variant-outlined .v-field__outline {
+  --v-field-border-opacity: 1;
+  color: var(--color-border) !important;
+}
+.v-field--variant-outlined:hover .v-field__outline {
+  color: var(--color-border-hover, var(--color-text-faint)) !important;
+}
+/* Focus state — still use the theme primary but softer opacity */
+.v-field--variant-outlined.v-field--focused .v-field__outline {
+  color: var(--color-border-focus, var(--color-info)) !important;
+  --v-field-border-width: 2px;
+}
+
+/* Label color */
+.v-field__label,
+.v-field-label {
+  color: var(--color-text-muted) !important;
+}
+.v-field--focused .v-field__label,
+.v-field--focused .v-field-label {
+  color: var(--color-info) !important;
+}
+
+/* Placeholder — color only; let Vuetify handle visibility/opacity so that
+   the placeholder hides correctly when the label is at its resting position. */
+.v-field__input::placeholder,
+.v-field input::placeholder,
+.v-field textarea::placeholder {
+  color: var(--color-text-faint);
+}
+
+/* VSelect gets .bg-surface added automatically — strip that for outlined */
+.v-select.v-field--variant-outlined .v-field,
+.v-autocomplete.v-field--variant-outlined .v-field,
+.v-select .v-field--has-background,
+.v-autocomplete .v-field--has-background {
+  background: transparent !important;
+}
+.v-select .v-field--has-background .v-field__overlay,
+.v-autocomplete .v-field--has-background .v-field__overlay {
+  opacity: 0 !important;
+}
+
+/* ── VSwitch — shrink to design-system size (36×20 vs default 52×32) ── */
+
+/* Compact density switch: track ~34px wide, 18px tall, thumb 14px */
+.v-switch.v-input--density-compact .v-switch__track {
+  width: 34px !important;
+  height: 18px !important;
+  border-radius: 9px !important;
+  opacity: 1 !important;
+  background: var(--color-border) !important;
+}
+
+.v-switch.v-input--density-compact .v-selection-control--dirty .v-switch__track {
+  background: var(--natca-navy) !important;
+}
+[data-theme="dark"] .v-switch.v-input--density-compact .v-selection-control--dirty .v-switch__track,
+.v-theme--natcaDark .v-switch.v-input--density-compact .v-selection-control--dirty .v-switch__track {
+  background: var(--natca-red) !important;
+}
+
+.v-switch.v-input--density-compact .v-switch__thumb {
+  width: 14px !important;
+  height: 14px !important;
+  background: #FFFFFF !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Thumb position — off: x=2px, on: x=18px */
+.v-switch.v-input--density-compact .v-selection-control__input {
+  width: 18px !important;
+  height: 18px !important;
+  top: 0 !important;
+}
+.v-switch.v-input--density-compact .v-selection-control--dirty .v-selection-control__input {
+  transform: translateX(16px) !important;
+}
+.v-switch.v-input--density-compact .v-selection-control__wrapper {
+  width: 34px !important;
+  height: 18px !important;
+}
+
+/* Hide the ripple on switches — too visually loud at small size */
+.v-switch .v-selection-control__input::before {
+  display: none !important;
+}
+
+/* ── VCheckbox — shrink ripple area, keep the checkbox visible ── */
+.v-checkbox.v-input--density-compact .v-selection-control__wrapper {
+  width: 24px !important;
+  height: 24px !important;
+}
+
+/* ── Input density adjustments — make the min-height tighter ── */
+.v-input--density-compact .v-field {
+  --v-field-input-padding-top: 6px;
+  --v-field-input-padding-bottom: 6px;
+}
+
+/* ── Label/value typography inside inputs ──
+   Only set font on the input value. Let Vuetify own label sizing so its
+   float-position animation works correctly. */
+.v-field__input,
+.v-select__selection-text,
+.v-autocomplete__selection-text {
+  font-size: 13px;
+  line-height: 1.3;
+}
