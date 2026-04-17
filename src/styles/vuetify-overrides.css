@@ -1,194 +1,68 @@
 /*
  * Vuetify Overrides — NATCA UI Shell
  *
- * Vuetify's list-item overlay system uses opacity variables multiplied by
- * a per-color overlay multiplier. The multiplier varies by color luma and
- * theme, making it impossible to get consistent subtle tints through theme
- * variables alone. These overrides set the final rendered opacity directly.
+ * Everything here is either (a) a color decision that Vuetify's theme
+ * system can't express, or (b) a runtime-only CSS-variable tweak that
+ * has no SASS counterpart. Never add `!important` rules here unless the
+ * cascade genuinely can't be resolved another way — `!important` on
+ * Vuetify internals has caused focus-notch bugs before.
+ *
+ * SASS-addressable customization lives in `src/scss/settings.scss`.
+ * Vuetify ships a ress.css-based reset (`vuetify/lib/styles/generic/_reset.scss`)
+ * which handles `<input>/<textarea>/<select>` border reset, utilities, and
+ * typography resets — it runs when the consuming app imports `vuetify/styles`
+ * at the top of main.ts. Don't duplicate that work here.
  */
 
-/* Hover: subtle tint */
-.v-list-item:hover > .v-list-item__overlay {
-  opacity: 0.06 !important;
-}
+/* ═══ List-item overlay opacity ═══════════════════════════════════════
+   Vuetify's overlay system multiplies a base opacity by a per-color luma
+   factor, which makes consistent subtle tints impossible via theme vars.
+   Setting final rendered opacity directly is the only way. */
 
-/* Active/selected item */
+.v-list-item:hover > .v-list-item__overlay {
+  opacity: 0.06;
+}
 .v-list-item--active > .v-list-item__overlay,
 .v-list-item[aria-haspopup="menu"][aria-expanded="true"] > .v-list-item__overlay {
-  opacity: 0.1 !important;
+  opacity: 0.1;
 }
-
-/* Active + hover */
 .v-list-item--active:hover > .v-list-item__overlay,
 .v-list-item[aria-haspopup="menu"][aria-expanded="true"]:hover > .v-list-item__overlay {
-  opacity: 0.14 !important;
+  opacity: 0.14;
 }
-
-/* Active + focus */
 .v-list-item--active:focus-visible > .v-list-item__overlay,
 .v-list-item[aria-haspopup="menu"][aria-expanded="true"]:focus-visible > .v-list-item__overlay {
-  opacity: 0.14 !important;
+  opacity: 0.14;
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   FORM INPUTS — align Vuetify VTextField/VSelect/VAutocomplete/
-   VTextarea output with the NATCA design system.
-   (VSwitch and VCheckbox have native replacements: NatcaSwitch/NatcaCheckbox)
+/* ═══ Outlined field color tokens ════════════════════════════════════
+   Vuetify outlines inherit `color: currentColor` from the field, which
+   picks up the theme's on-surface text color. We want the outline to use
+   our border token (not text color), so we override the outline color
+   directly. No SASS variable addresses this separately from text color. */
 
-   Vuetify SASS vars that are only build-time customizable:
-     $field-outline-opacity: .38  → we set opacity via CSS on __outline children
-     $field-border-width: 1px
-     $field-focused-border-width: 2px
-   Runtime CSS vars we CAN override:
-     --v-field-padding-top, --v-field-padding-bottom
-     --v-field-border-width
-   ═══════════════════════════════════════════════════════════════════ */
-
-/* Full outline opacity (Vuetify defaults to 0.38 which looks washed out) */
 .v-field--variant-outlined .v-field__outline {
-  --v-field-border-opacity: 1;
-}
-.v-field--variant-outlined .v-field__outline__start,
-.v-field--variant-outlined .v-field__outline__end,
-.v-field--variant-outlined .v-field__outline__notch::before,
-.v-field--variant-outlined .v-field__outline__notch::after {
-  opacity: 1 !important;
-}
-
-/* Font inheritance — Vuetify's internal .v-field__input falls back to
-   Arial or the OS sans-serif stack. Force the body font everywhere. */
-.v-application,
-.v-application__wrap,
-.v-input,
-.v-input *,
-.v-field,
-.v-field *,
-.v-field__input,
-.v-field-label,
-.v-label,
-.v-select__selection,
-.v-select__selection-text,
-.v-autocomplete__selection-text,
-.v-overlay__content,
-.v-overlay__content *,
-.v-list,
-.v-list-item,
-.v-list-item-title,
-.v-list-item-subtitle,
-.v-menu .v-list {
-  font-family: var(--font-body) !important;
-}
-
-/* ── Outlined fields (VTextField, VSelect, VAutocomplete, VTextarea) ── */
-
-/* Kill the weird inner box — .v-field__input was rendering with its own
-   background color because Vuetify applies the theme surface to it as part
-   of the "filled" heuristic. We want the input to be transparent and let
-   the outline show through. */
-.v-field--variant-outlined .v-field__input,
-.v-field--variant-outlined .v-field__field,
-.v-field--variant-outlined input,
-.v-field--variant-outlined textarea {
-  background: transparent !important;
-  color: var(--color-text-primary) !important;
-}
-
-/* Kill the browser-default inset border that user-agent stylesheets put on
-   <input>/<textarea>/<select>. Vuetify assumes a global reset exists; we
-   don't ship one in Vuetify apps, so the raw <input> was rendering its own
-   `2px inset #858585` border inside .v-field, which looked like a second
-   rectangle inside the outlined field (visible most on empty fields). */
-.v-field input,
-.v-field textarea,
-.v-field select,
-.v-autocomplete input,
-.v-select input {
-  border: 0 !important;
-  outline: none !important;
-  box-shadow: none !important;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-/* The overlay also gets a surface tint we don't want for outlined */
-.v-field--variant-outlined .v-field__overlay {
-  background: transparent !important;
-  opacity: 0 !important;
-}
-
-/* Match the design system: outline uses --color-border */
-.v-field--variant-outlined .v-field__outline {
-  --v-field-border-opacity: 1;
-  color: var(--color-border) !important;
+  color: var(--color-border);
 }
 .v-field--variant-outlined:hover .v-field__outline {
-  color: var(--color-border-hover, var(--color-text-faint)) !important;
+  color: var(--color-text-faint);
 }
-/* Focus state — still use the theme primary but softer opacity */
 .v-field--variant-outlined.v-field--focused .v-field__outline {
-  color: var(--color-border-focus, var(--color-info)) !important;
-  --v-field-border-width: 2px;
+  color: var(--color-border-focus, var(--color-info));
 }
 
-/* Label color */
+/* Label + placeholder use NATCA text tokens rather than Vuetify's
+   on-surface + medium-emphasis-opacity composite. Same reason as above. */
 .v-field__label,
 .v-field-label {
-  color: var(--color-text-muted) !important;
+  color: var(--color-text-muted);
 }
 .v-field--focused .v-field__label,
 .v-field--focused .v-field-label {
-  color: var(--color-info) !important;
+  color: var(--color-info);
 }
-
-/* Placeholder — color only; let Vuetify handle visibility/opacity so that
-   the placeholder hides correctly when the label is at its resting position. */
 .v-field__input::placeholder,
 .v-field input::placeholder,
 .v-field textarea::placeholder {
   color: var(--color-text-faint);
-}
-
-/* VSelect gets .bg-surface added automatically — strip that for outlined */
-.v-select.v-field--variant-outlined .v-field,
-.v-autocomplete.v-field--variant-outlined .v-field,
-.v-select .v-field--has-background,
-.v-autocomplete .v-field--has-background {
-  background: transparent !important;
-}
-.v-select .v-field--has-background .v-field__overlay,
-.v-autocomplete .v-field--has-background .v-field__overlay {
-  opacity: 0 !important;
-}
-
-/* VSwitch and VCheckbox have native replacements (NatcaSwitch/NatcaCheckbox)
-   but if an app still uses VSwitch/VCheckbox, hide-details these so they
-   don't break layout. */
-
-/* ── Input density adjustments — make the min-height tighter ── */
-.v-input--density-compact .v-field {
-  --v-field-input-padding-top: 6px;
-  --v-field-input-padding-bottom: 6px;
-}
-
-/* ── Label/value typography inside inputs ──
-   Set font on both the value and the label. Vuetify's default resting label
-   is 1rem (16px) which looks oversized against our 13px values — the empty
-   field labels end up dwarfing the filled-field notched labels. Matching
-   sizes keeps empty + filled fields visually consistent. Vuetify scales the
-   floating label via font-size: var(--v-field-label-scale) so the floating
-   label shrinks proportionally. */
-.v-field__input,
-.v-select__selection-text,
-.v-autocomplete__selection-text {
-  font-size: 13px;
-  line-height: 1.3;
-}
-.v-field .v-label.v-field-label {
-  font-size: 13px;
-  line-height: 1.3;
-}
-/* Floating label — override Vuetify's 0.75em scale so the resulting pixel
-   size stays readable (13 * 0.75 = 9.75px, too small). Fix at 11px. */
-.v-field .v-label.v-field-label--floating {
-  font-size: 11px;
 }

@@ -3,6 +3,7 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
+import 'vuetify/styles'
 import '../src/css/natca-tokens.css'
 // natca-components.css is for WordPress/static pages ONLY — Vuetify apps must NOT load it
 import '@mdi/font/css/materialdesignicons.css'

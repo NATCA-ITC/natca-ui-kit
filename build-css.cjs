@@ -14,6 +14,8 @@ const files = [
   { src: 'src/css/natca-tokens.css', dest: 'natca-tokens.css' },
   { src: 'src/css/natca-components.css', dest: 'natca-components.css' },
   { src: 'src/theme.json', dest: 'theme.json' },
+  // SCSS settings shipped as-is for consuming apps to point vite-plugin-vuetify at.
+  { src: 'src/scss/settings.scss', dest: 'scss/settings.scss' },
 ]
 
 // Ensure dist/ exists (vue build may not have run yet)
@@ -30,6 +32,7 @@ for (const { src, dest } of files) {
     process.exit(1)
   }
 
+  fs.mkdirSync(path.dirname(destPath), { recursive: true })
   fs.copyFileSync(srcPath, destPath)
   const size = (fs.statSync(destPath).size / 1024).toFixed(1)
   console.log(`  ${dest} (${size} KB)`)

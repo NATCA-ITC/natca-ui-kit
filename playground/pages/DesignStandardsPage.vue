@@ -12,18 +12,15 @@ import {
   NatcaMemberCard,
   NatcaButton,
   NatcaAlert,
-  NatcaChip,
-  NatcaProgressBar,
   NatcaPillNav,
-  NatcaSwitch,
-  NatcaCheckbox,
   NatcaDialog,
 } from '@/index'
 import type { NatcaTabItem } from '@/components/NatcaTabs.vue'
 import type { MemberCardData } from '@/components/NatcaMemberCard.vue'
 import {
   VSpacer, VTextField, VSelect, VAutocomplete,
-  VDataTable, VDivider,
+  VDataTable, VDivider, VChip, VProgressLinear,
+  VSwitch, VCheckbox,
 } from 'vuetify/components'
 
 // ── Tabs demo ──
@@ -55,11 +52,11 @@ const tableItems = [
   { name: 'Emily Rodriguez', facility: 'ZAU', email: 'e.rodriguez@natca.net', provider: 'Mailcow', status: 'Disabled' },
 ]
 
-function statusChipType(status: string): 'success' | 'warning' | 'danger' | 'default' {
-  const map: Record<string, 'success' | 'warning' | 'danger' | 'default'> = {
-    Active: 'success', Pending: 'warning', Disabled: 'danger'
+function statusChipColor(status: string): string | undefined {
+  const map: Record<string, string> = {
+    Active: 'success', Pending: 'warning', Disabled: 'error'
   }
-  return map[status] || 'default'
+  return map[status]
 }
 
 // ── Dialog demo ──
@@ -173,7 +170,7 @@ const members: MemberCardData[] = [
             <div class="ds-field-grid">
               <div><span class="ds-field-label">Provider</span><br><span class="ds-field-value">Mailcow</span></div>
               <div><span class="ds-field-label">Storage</span><br><span class="ds-field-value">2.1 / 5 GB</span></div>
-              <div><span class="ds-field-label">Status</span><br><NatcaChip type="success">Active</NatcaChip></div>
+              <div><span class="ds-field-label">Status</span><br><VChip color="success" variant="tonal">Active</VChip></div>
             </div>
             <template #actions>
               <NatcaButton variant="ghost" size="md">Settings</NatcaButton>
@@ -183,7 +180,7 @@ const members: MemberCardData[] = [
         </div>
         <div style="flex: 1;">
           <NatcaHeaderCard icon="mdi-briefcase" title="Migration Status" subtitle="Batch #12 · 34 accounts">
-            <NatcaProgressBar :value="65" style="margin-bottom: 8px;" />
+            <VProgressLinear :model-value="65" color="primary" rounded height="4" style="margin-bottom: 8px;" />
             <div style="display: flex; justify-content: space-between; font-size: 11px;">
               <span style="color: var(--color-text-muted);">22 of 34 migrated</span>
               <span style="color: var(--color-success); font-weight: 600;">65%</span>
@@ -199,7 +196,7 @@ const members: MemberCardData[] = [
             <div class="ds-field-grid">
               <div><span class="ds-field-label">Provider</span><br><span class="ds-field-value">Mailcow</span></div>
               <div><span class="ds-field-label">Quota</span><br><span class="ds-field-value">2.1 / 5 GB</span></div>
-              <div><span class="ds-field-label">Status</span><br><NatcaChip type="success">Active</NatcaChip></div>
+              <div><span class="ds-field-label">Status</span><br><VChip color="success" variant="tonal">Active</VChip></div>
             </div>
             <template #actions>
               <NatcaButton variant="ghost" size="md">Cancel</NatcaButton>
@@ -243,7 +240,7 @@ const members: MemberCardData[] = [
       <NatcaCard no-body-padding>
         <VDataTable :headers="tableHeaders" :items="tableItems" :items-per-page="-1" hide-default-footer>
           <template #item.status="{ item }">
-            <NatcaChip :type="statusChipType(item.status)">{{ item.status }}</NatcaChip>
+            <VChip :color="statusChipColor(item.status)" variant="tonal">{{ item.status }}</VChip>
           </template>
           <template #item.actions="{}">
             <NatcaButton variant="ghost">View</NatcaButton>
@@ -269,8 +266,8 @@ const members: MemberCardData[] = [
               <VTextField label="Quota (GB)" type="number" v-model="formQuota" style="flex: 1;" />
             </div>
             <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 4px;">
-              <NatcaCheckbox v-model="formWelcome" label="Send welcome email" />
-              <NatcaSwitch v-model="formForward" label="Enable forwarding" />
+              <VCheckbox v-model="formWelcome" label="Send welcome email" hide-details />
+              <VSwitch v-model="formForward" label="Enable forwarding" color="primary" inset hide-details />
             </div>
             <template #actions>
               <NatcaButton variant="ghost" size="md">Cancel</NatcaButton>
@@ -315,18 +312,19 @@ const members: MemberCardData[] = [
     <!-- ═══════════ CHIPS ═══════════ -->
     <section class="ds-section">
       <h3 class="ds-section-title">Chips &amp; Status Badges</h3>
-      <p class="ds-hint">NatcaChip — pill-shaped, tonal bg + matching text color.</p>
+      <p class="ds-hint">VChip with variant="tonal" + theme color. NATCA SASS settings handle the pill shape, weight, and 11.5px size.</p>
 
       <div class="d-flex ga-2 flex-wrap" style="margin-bottom: 12px;">
-        <NatcaChip type="success">Active</NatcaChip>
-        <NatcaChip type="warning">Pending</NatcaChip>
-        <NatcaChip type="danger">Disabled</NatcaChip>
-        <NatcaChip type="info">Migrating</NatcaChip>
-        <NatcaChip>Archived</NatcaChip>
+        <VChip color="success" variant="tonal">Active</VChip>
+        <VChip color="warning" variant="tonal">Pending</VChip>
+        <VChip color="error" variant="tonal">Disabled</VChip>
+        <VChip color="info" variant="tonal">Migrating</VChip>
+        <VChip variant="tonal">Archived</VChip>
       </div>
 
-      <NatcaAnnotation style="max-width: 500px;">
-        <strong>Usage:</strong> <code>&lt;NatcaChip type="success"&gt;Active&lt;/NatcaChip&gt;</code>
+      <NatcaAnnotation style="max-width: 600px;">
+        <strong>Usage:</strong> <code>&lt;VChip color="success" variant="tonal"&gt;Active&lt;/VChip&gt;</code><br>
+        Color maps: <code>success</code> | <code>warning</code> | <code>error</code> | <code>info</code> | (none → default).
       </NatcaAnnotation>
     </section>
 
@@ -434,7 +432,7 @@ const members: MemberCardData[] = [
         <div style="flex: 1;">
           <p class="eyebrow">Loading</p>
           <NatcaCard>
-            <NatcaProgressBar :value="65" style="margin-bottom: 8px;" />
+            <VProgressLinear :model-value="65" color="primary" rounded height="4" style="margin-bottom: 8px;" />
             <span style="font-size: 11px; color: var(--color-text-faint);">Migrating accounts... 22 of 34</span>
           </NatcaCard>
         </div>

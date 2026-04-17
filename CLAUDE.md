@@ -4,8 +4,8 @@ Design system, Vuetify theme preset, and shared Vue components for all NATCA web
 
 ## Project Context
 
-- **Status:** Phase 2 (BETA) — Vue + Vuetify component library with shared theme
-- **Package:** `@natca-itc/ui-shell@0.2.0-beta.1` on GitHub Packages
+- **Status:** Phase 2 (BETA) — Vue + Vuetify component library with shared theme + SASS overrides
+- **Package:** `@natca-itc/ui-shell@0.4.0-beta.1` on GitHub Packages
 - **Org:** NATCA-ITC
 - **Repo:** `NATCA-ITC/natca-ui-shell`
 - **Port:** 1310 (playground dev server, `strictPort: true`)
@@ -19,14 +19,16 @@ Design system, Vuetify theme preset, and shared Vue components for all NATCA web
 - Vuetify theme preset (`natcaVuetifyTheme`, `natcaDefaults`)
 - `natca-tokens.css` — CSS custom properties (colors, typography, spacing, light/dark)
 - `natca-components.css` — Standalone component styles (non-Vuetify pages only)
+- `scss/settings.scss` — Vuetify SASS variable overrides (fonts, field sizing, chip/button weights — consuming apps point vite-plugin-vuetify's `styles.configFile` at this)
 - `theme.json` — WordPress block editor token mapping
 
 ### Source (`src/`)
 - `components/` — Vue shell + shared components
 - `composables/` — `useShellState`, `useNatcaTheme` reactive state singletons
 - `theme/` — Vuetify theme definitions (light, dark, defaults)
+- `scss/settings.scss` — Vuetify SASS variable overrides (single source of truth for SASS-level customization; loaded by vite-plugin-vuetify before every component compile)
 - `css/` — Design tokens + standalone component CSS
-- `styles/` — Shell layout CSS + Vuetify overrides
+- `styles/` — Shell layout CSS + Vuetify color-token overrides (color decisions only — NO `!important`, no SASS-addressable rules)
 - `types/` — TypeScript interfaces
 
 ### Agent Docs (`docs/agent_docs/`)
@@ -50,22 +52,51 @@ Design system, Vuetify theme preset, and shared Vue components for all NATCA web
 |-------|--------|-------------|
 | **Tokens CSS** | `@natca-itc/ui-shell/tokens` | Everyone (Vuetify apps, WordPress, static) |
 | **Vuetify theme preset** | `import { natcaVuetifyTheme, natcaDefaults }` | All Vuetify apps (Hub, BID, DMS, Pay, GATS) |
+| **Vuetify SASS settings** | `@natca-itc/ui-shell/scss/settings.scss` | All Vuetify apps (wired via `vite-plugin-vuetify` `styles.configFile`) |
 | **Shell components** | `import { NatcaShell }` | All Vuetify apps |
 | **Shared components** | `import { NatcaTabs, NatcaMemberCard }` | All Vuetify apps |
 | **Standalone CSS** | `@natca-itc/ui-shell/components` | WordPress, static HTML only — NOT Vuetify apps |
 
-### Consuming App Setup
+### Consuming App Setup (since 0.4.0)
 
+Three wiring steps are all required — without SASS settings, form fields render at Vuetify's 16px default and VBtn uppercases everything.
+
+**main.ts:**
 ```ts
+import 'vuetify/styles'                                        // Vuetify's own reset + utilities — don't skip!
+import '@natca-itc/ui-shell/tokens'
+import '@mdi/font/css/materialdesignicons.css'
 import { createVuetify } from 'vuetify'
 import { natcaVuetifyTheme, natcaDefaults } from '@natca-itc/ui-shell'
-import '@natca-itc/ui-shell/tokens'
 
 const vuetify = createVuetify({
   theme: natcaVuetifyTheme,
   defaults: natcaDefaults,
 })
 ```
+
+**vite.config.ts:**
+```ts
+import vuetify from 'vite-plugin-vuetify'
+import { fileURLToPath } from 'url'
+
+export default defineConfig({
+  plugins: [
+    vuetify({
+      autoImport: true,
+      styles: {
+        configFile: fileURLToPath(
+          import.meta.resolve('@natca-itc/ui-shell/scss/settings.scss')
+        ),
+      },
+    }),
+  ],
+})
+```
+
+**package.json:** `"sass": "^1.99"` as a devDependency (vite-plugin-vuetify compiles SASS at build time).
+
+Full details in `docs/agent_docs/component-usage.md` → "Consuming-app setup".
 
 ### Relationship to Other Projects
 
@@ -104,6 +135,12 @@ npm publish --tag beta # Publish to GitHub Packages
 - HTML preview files consume `src/css/` via `<link>` tags — they are living proof the standalone CSS works
 - Token changes must be verified in HTML previews AND playground before publishing
 - The `src/theme.json` file exists at the same level as `src/theme/` directory — always use explicit `./theme/index` imports to avoid resolution ambiguity
+
+### SASS-first for Vuetify customization
+- **SASS variables are the primary customization path** — anything with a Vuetify SASS var goes in `src/scss/settings.scss`, not in `src/styles/vuetify-overrides.css`. Addressable vars live in `node_modules/vuetify/lib/components/VFoo/_variables.scss` (per-component) and `vuetify/lib/styles/settings/_variables.scss` (global).
+- **Dart Sass only permits `with (...)` once per module.** All SASS overrides must live in a single `@forward 'vuetify/settings' with (...)` call — that file resolves to `node_modules/vuetify/_settings.scss` which re-exports all three aggregators (global, component-variables, component-variables-labs).
+- **`vuetify-overrides.css` is for color-only tweaks** that can't be expressed as Vuetify theme colors or SASS vars (e.g., outline uses border token not text token, list-item overlay opacity tuning). No `!important` — if you feel like you need it, you're fighting Vuetify and breaking something (the focus-notch bug of April 2026 was caused by `opacity: 1 !important` on `.v-field__outline__notch::before`, which broke Vuetify's own `.v-field--active { opacity: 0 }` notch-cutout rule).
+- **Vuetify ships a CSS reset** in `vuetify/lib/styles/generic/_reset.scss` (enabled by `$reset: true`). It runs when the consuming app imports `vuetify/styles` in main.ts. That reset includes `input, textarea, select { border-style: none; background-color: transparent }` — don't hand-write that rule in `vuetify-overrides.css`.
 
 ### Component Design
 - All shared components wrap Vuetify — never build raw HTML/CSS equivalents for Vuetify apps

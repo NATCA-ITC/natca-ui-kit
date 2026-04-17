@@ -61,17 +61,26 @@ For faster initial load, apps can optionally add a preconnect hint to `index.htm
 
 ---
 
-## Native primitives — USE THESE, NOT Vuetify equivalents
+## When to use Natca primitives vs Vuetify components
 
-For buttons, alerts, chips, progress bars, and pill toggles, **use the Natca native primitives — they match the design system exactly with zero config.** Only fall back to Vuetify for complex interactive widgets (forms, tables, dialogs, autocomplete, date pickers).
+Since 0.4.0 the ui-shell configures Vuetify's SASS variables through `@natca-itc/ui-shell/scss/settings.scss` (fonts, field sizing, chip/button weights). Most Vuetify components render with the design system out of the box — reach for a native Natca primitive only when the Vuetify component materially differs from the design system.
 
 | Use this | Instead of | Why |
 |----------|-----------|-----|
-| `<NatcaButton variant="primary">` | `<v-btn color="primary">` | Vuetify uppercases text, wrong fonts, wrong fills |
-| `<NatcaAlert type="info">` | `<v-alert type="info">` | Vuetify forces icons, different padding |
-| `<NatcaChip type="success">` | `<v-chip color="success">` | Exact color/padding match |
-| `<NatcaProgressBar :value="65">` | `<v-progress-linear>` | Correct blue color, correct 4px height |
-| `<NatcaPillNav v-model="f" :items>` | `<v-btn-toggle>` | Correct pill container + raised active state |
+| `<NatcaButton variant="primary">` | `<v-btn color="primary">` | NatcaButton has 5 brand-specific variants (primary/secondary/danger/ghost/link) with auto light/dark color switching |
+| `<NatcaAlert type="info">` | `<v-alert type="info">` | Vuetify forces icons and different padding; NatcaAlert is just border-start + tonal |
+| `<NatcaPillNav v-model>` | `<v-btn-toggle>` | Correct pill container + raised active state |
+| `<NatcaDialog>` | `<v-dialog>` | Distinct navy (default) or red (danger) header pattern with icon + title + subtitle |
+| `<NatcaCard>` | `<v-card>` | Composite pattern (title + subtitle + body + actions slots) |
+
+**Use Vuetify directly — SASS settings match them to NATCA:**
+
+- `<VTextField>`, `<VSelect>`, `<VAutocomplete>`, `<VTextarea>` — form inputs (font-size 13, outline opacity 1, label floating scale 0.85)
+- `<VChip variant="tonal" color="success|warning|error|info">` — status badges
+- `<VSwitch inset color="primary">` — toggles
+- `<VCheckbox>` — checkboxes
+- `<VProgressLinear color="primary" rounded height="4">` — progress bars
+- `<VDataTable>`, `<VTabs>`, etc. — all handled by `natcaDefaults` + SASS
 
 ### NatcaButton — the 5 variants
 
@@ -97,22 +106,22 @@ Primary auto-switches: navy in light, red in dark. No theme prop needed.
 <NatcaAlert type="danger"><strong>Error:</strong> API connection failed.</NatcaAlert>
 ```
 
-### NatcaChip — status badges
+### VChip — status badges
 
 ```vue
-<NatcaChip type="success">Active</NatcaChip>
-<NatcaChip type="warning">Pending</NatcaChip>
-<NatcaChip type="danger">Disabled</NatcaChip>
-<NatcaChip type="info">Migrating</NatcaChip>
-<NatcaChip>Archived</NatcaChip>
+<VChip color="success" variant="tonal">Active</VChip>
+<VChip color="warning" variant="tonal">Pending</VChip>
+<VChip color="error" variant="tonal">Disabled</VChip>
+<VChip color="info" variant="tonal">Migrating</VChip>
+<VChip variant="tonal">Archived</VChip>
 ```
 
-### NatcaProgressBar — thin blue bar
+### VProgressLinear — thin blue bar
 
 ```vue
-<NatcaProgressBar :value="65" />
-<NatcaProgressBar indeterminate />
-<NatcaProgressBar :value="80" color="success" />
+<VProgressLinear :model-value="65" color="primary" rounded height="4" />
+<VProgressLinear indeterminate color="primary" rounded height="4" />
+<VProgressLinear :model-value="80" color="success" rounded height="4" />
 ```
 
 ### NatcaPillNav — segmented filter toggles
@@ -437,8 +446,8 @@ Wrap in a `<v-card>` if you want a bordered container.
 | Card with navy header and icon | `<NatcaHeaderCard icon="..." title="...">` |
 | Card wrapping a table or tabs | `<NatcaCard no-body-padding>` |
 | Feedback message | `<NatcaAlert type="info/success/warning/danger">` |
-| Status indicator / badge | `<NatcaChip type="success/warning/danger/info">` |
-| Progress bar | `<NatcaProgressBar :value="65">` |
+| Status indicator / badge | `<VChip color="success\|warning\|error\|info" variant="tonal">` |
+| Progress bar | `<VProgressLinear :model-value="65" color="primary" rounded height="4">` |
 | Pill toggle filters | `<NatcaPillNav v-model :items>` |
 | Underline tabs (router or local) | `<NatcaTabs>` |
 | Page title + subtitle + action button | `<NatcaPageHeader>` |
@@ -459,3 +468,65 @@ Wrap in a `<v-card>` if you want a bordered container.
 - **Static reference:** Open `natca-design-system.html` (toggle Public/Authenticated + Light/Dark)
 - **Tokens:** `src/css/natca-tokens.css`
 - **Vuetify defaults:** `src/theme/index.ts`
+- **Vuetify SASS overrides:** `src/scss/settings.scss`
+
+---
+
+## Consuming-app setup (required since 0.4.0)
+
+Vuetify is configured through three mechanisms — every app must wire all three for components to match the design system:
+
+### 1. main.ts — import Vuetify baseline CSS + tokens
+
+```ts
+import 'vuetify/styles'              // Vuetify's own reset + utilities (ships the input-border reset — do NOT skip)
+import '@natca-itc/ui-shell/tokens'  // NATCA CSS custom properties
+import '@mdi/font/css/materialdesignicons.css'
+
+import { createVuetify } from 'vuetify'
+import { natcaVuetifyTheme, natcaDefaults } from '@natca-itc/ui-shell'
+
+const vuetify = createVuetify({
+  theme: natcaVuetifyTheme,
+  defaults: natcaDefaults,
+})
+```
+
+### 2. vite.config.ts — point vite-plugin-vuetify at the NATCA SASS settings
+
+```ts
+import vuetify from 'vite-plugin-vuetify'
+import { fileURLToPath } from 'url'
+
+export default defineConfig({
+  plugins: [
+    vuetify({
+      autoImport: true,
+      styles: {
+        configFile: fileURLToPath(
+          import.meta.resolve('@natca-itc/ui-shell/scss/settings.scss')
+        ),
+      },
+    }),
+  ],
+})
+```
+
+This injects our SASS settings before every Vuetify component compiles, so `$field-font-size: 13px`, `$button-text-transform: none`, `$chip-font-weight: 600`, etc. all flow through natively.
+
+### 3. Install `sass` as a dev dependency
+
+```bash
+npm install -D sass
+```
+
+vite-plugin-vuetify uses it to compile the SASS settings file at build time.
+
+### Verifying it's wired up
+
+After configuring, a VTextField rendered in your app should show:
+- `getComputedStyle(fieldInput).fontSize === '13px'` (from SASS, not from CSS override)
+- No visible inner input border (Vuetify's own reset handles it — you don't need CSS for this)
+- `getComputedStyle(btn).textTransform === 'none'` on plain VBtn instances (tabs may be uppercase — that's by design)
+
+If you see 16px field text or uppercase VBtn, the `configFile` path is probably wrong or `vuetify/styles` import is missing from main.ts.

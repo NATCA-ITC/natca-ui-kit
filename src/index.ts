@@ -17,13 +17,12 @@ import NatcaTabs from './components/NatcaTabs.vue'
 import NatcaMemberCard from './components/NatcaMemberCard.vue'
 
 // Native primitives (no Vuetify — exact design-system visual fidelity)
+// For VSwitch / VCheckbox / VChip / VProgressLinear use the Vuetify components
+// directly; the SASS settings at src/scss/settings.scss match them to the
+// design system. They used to have Natca* wrappers which were removed in 0.4.0.
 import NatcaButton from './components/NatcaButton.vue'
 import NatcaAlert from './components/NatcaAlert.vue'
-import NatcaChip from './components/NatcaChip.vue'
-import NatcaProgressBar from './components/NatcaProgressBar.vue'
 import NatcaPillNav from './components/NatcaPillNav.vue'
-import NatcaSwitch from './components/NatcaSwitch.vue'
-import NatcaCheckbox from './components/NatcaCheckbox.vue'
 import NatcaDialog from './components/NatcaDialog.vue'
 
 // Composite pattern components
@@ -59,11 +58,7 @@ export {
 export {
   NatcaButton,
   NatcaAlert,
-  NatcaChip,
-  NatcaProgressBar,
   NatcaPillNav,
-  NatcaSwitch,
-  NatcaCheckbox,
   NatcaDialog,
 }
 
@@ -118,11 +113,7 @@ export const NatcaUiShell = {
     // Native primitives
     app.component('NatcaButton', NatcaButton)
     app.component('NatcaAlert', NatcaAlert)
-    app.component('NatcaChip', NatcaChip)
-    app.component('NatcaProgressBar', NatcaProgressBar)
     app.component('NatcaPillNav', NatcaPillNav)
-    app.component('NatcaSwitch', NatcaSwitch)
-    app.component('NatcaCheckbox', NatcaCheckbox)
     app.component('NatcaDialog', NatcaDialog)
     // Composite pattern components
     app.component('NatcaCard', NatcaCard)

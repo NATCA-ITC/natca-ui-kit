@@ -1,0 +1,37 @@
+// ═══════════════════════════════════════════════════════════════════════
+//  NATCA UI Shell — Vuetify SASS overrides
+//
+//  Canonical entry: `vuetify/settings` resolves to node_modules/vuetify/_settings.scss,
+//  which `@forward`s three aggregators in one place:
+//    - lib/styles/settings           (global: typography, spacing, rounded, border)
+//    - dist/component-variables      (all VFoo/_variables.scss)
+//    - dist/component-variables-labs (labs components)
+//
+//  Dart Sass only permits a single `with (...)` per module, so every
+//  SASS variable override — global OR per-component — lives in this
+//  single @forward call. Don't split it across multiple @forwards.
+//
+//  This file is loaded by vite-plugin-vuetify via its styles.configFile
+//  option. Runs before every Vuetify component's SASS compile.
+// ═══════════════════════════════════════════════════════════════════════
+
+@forward 'vuetify/settings' with (
+  // ── Global typography ─────────────────────────────────────────────
+  $body-font-family: ('Public Sans', sans-serif),
+  $heading-font-family: ('Barlow', sans-serif),
+
+  // ── VField (drives VTextField / VSelect / VAutocomplete / VTextarea) ──
+  $field-outline-opacity: 1,           // default .38 looks washed out
+  $field-font-size: 13px,              // default 16px vs our 13px body text
+  $field-label-floating-scale: 0.85,   // default .75 → 9.75px (too small)
+
+  // ── VBtn ──
+  $button-text-transform: none,        // kill Vuetify's Material uppercase
+  $button-text-letter-spacing: 0.01em,
+  $button-font-weight: 600,
+  $button-border-radius: 6px,
+
+  // ── VChip (replaces NatcaChip) ──
+  $chip-font-weight: 600,
+  $chip-font-size: 11.5px,
+);

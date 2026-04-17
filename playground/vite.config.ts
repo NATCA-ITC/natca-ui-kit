@@ -42,7 +42,12 @@ export default defineConfig({
   plugins: [
     serveRepoRoot(),
     vue(),
-    vuetify({ autoImport: true }),
+    vuetify({
+      autoImport: true,
+      styles: {
+        configFile: resolve(__dirname, '../src/scss/settings.scss'),
+      },
+    }),
   ],
   resolve: {
     alias: {

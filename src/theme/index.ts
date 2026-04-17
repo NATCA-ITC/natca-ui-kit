@@ -172,7 +172,10 @@ export const natcaDefaults = {
     variant: 'outlined' as const,
     density: 'compact' as const,
     color: 'primary',
-    bgColor: 'surface',
+    // NOTE: do not set bgColor here — it triggers Vuetify's `.bg-surface`
+    // class on the field, which paints a filled-style background beneath
+    // the outline and forces separate overrides to undo. Outlined fields
+    // should have transparent background by default.
   },
   VAutocomplete: {
     variant: 'outlined' as const,
@@ -198,7 +201,6 @@ export const natcaDefaults = {
     color: 'primary',
     hideDetails: 'auto' as const,
   },
-  // VSwitch: native NatcaSwitch preferred; defaults kept for apps still using v-switch.
   VSwitch: {
     density: 'compact' as const,
     color: 'primary',
