@@ -16,6 +16,24 @@ import NatcaAppSwitcher from './components/NatcaAppSwitcher.vue'
 import NatcaTabs from './components/NatcaTabs.vue'
 import NatcaMemberCard from './components/NatcaMemberCard.vue'
 
+// Native primitives (no Vuetify — exact design-system visual fidelity)
+// For VSwitch / VCheckbox / VChip / VProgressLinear use the Vuetify components
+// directly; the SASS settings at src/scss/settings.scss match them to the
+// design system. They used to have Natca* wrappers which were removed in 0.4.0.
+import NatcaButton from './components/NatcaButton.vue'
+import NatcaAlert from './components/NatcaAlert.vue'
+import NatcaPillNav from './components/NatcaPillNav.vue'
+import NatcaDialog from './components/NatcaDialog.vue'
+
+// Composite pattern components
+import NatcaCard from './components/NatcaCard.vue'
+import NatcaHeaderCard from './components/NatcaHeaderCard.vue'
+import NatcaStatCard from './components/NatcaStatCard.vue'
+import NatcaStatGrid from './components/NatcaStatGrid.vue'
+import NatcaEmptyState from './components/NatcaEmptyState.vue'
+import NatcaPageHeader from './components/NatcaPageHeader.vue'
+import NatcaAnnotation from './components/NatcaAnnotation.vue'
+
 // Theme components
 import NatcaThemeToggle from './components/NatcaThemeToggle.vue'
 
@@ -35,6 +53,27 @@ export {
   NatcaTabs,
   NatcaMemberCard,
 }
+
+// Native primitives
+export {
+  NatcaButton,
+  NatcaAlert,
+  NatcaPillNav,
+  NatcaDialog,
+}
+
+// Composite pattern components
+export {
+  NatcaCard,
+  NatcaHeaderCard,
+  NatcaStatCard,
+  NatcaStatGrid,
+  NatcaEmptyState,
+  NatcaPageHeader,
+  NatcaAnnotation,
+}
+
+export type { NatcaPillItem } from './components/NatcaPillNav.vue'
 
 // Theme components
 export { NatcaThemeToggle }
@@ -71,6 +110,19 @@ export const NatcaUiShell = {
     // Shared components
     app.component('NatcaTabs', NatcaTabs)
     app.component('NatcaMemberCard', NatcaMemberCard)
+    // Native primitives
+    app.component('NatcaButton', NatcaButton)
+    app.component('NatcaAlert', NatcaAlert)
+    app.component('NatcaPillNav', NatcaPillNav)
+    app.component('NatcaDialog', NatcaDialog)
+    // Composite pattern components
+    app.component('NatcaCard', NatcaCard)
+    app.component('NatcaHeaderCard', NatcaHeaderCard)
+    app.component('NatcaStatCard', NatcaStatCard)
+    app.component('NatcaStatGrid', NatcaStatGrid)
+    app.component('NatcaEmptyState', NatcaEmptyState)
+    app.component('NatcaPageHeader', NatcaPageHeader)
+    app.component('NatcaAnnotation', NatcaAnnotation)
     // Theme
     app.component('NatcaThemeToggle', NatcaThemeToggle)
   },

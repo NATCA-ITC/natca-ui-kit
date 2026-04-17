@@ -1,31 +1,82 @@
 /*
  * Vuetify Overrides — NATCA UI Shell
  *
- * Vuetify's list-item overlay system uses opacity variables multiplied by
- * a per-color overlay multiplier. The multiplier varies by color luma and
- * theme, making it impossible to get consistent subtle tints through theme
- * variables alone. These overrides set the final rendered opacity directly.
+ * Everything here is either (a) a color decision that Vuetify's theme
+ * system can't express, or (b) a runtime-only CSS-variable tweak that
+ * has no SASS counterpart. Never add `!important` rules here unless the
+ * cascade genuinely can't be resolved another way — `!important` on
+ * Vuetify internals has caused focus-notch bugs before.
+ *
+ * SASS-addressable customization lives in `src/scss/settings.scss`.
+ * Vuetify ships a ress.css-based reset (`vuetify/lib/styles/generic/_reset.scss`)
+ * which handles `<input>/<textarea>/<select>` border reset, utilities, and
+ * typography resets — it runs when the consuming app imports `vuetify/styles`
+ * at the top of main.ts. Don't duplicate that work here.
  */
 
-/* Hover: subtle tint */
-.v-list-item:hover > .v-list-item__overlay {
-  opacity: 0.06 !important;
-}
+/* ═══ List-item overlay opacity ═══════════════════════════════════════
+   Vuetify's overlay system multiplies a base opacity by a per-color luma
+   factor, which makes consistent subtle tints impossible via theme vars.
+   Setting final rendered opacity directly is the only way. */
 
-/* Active/selected item */
+.v-list-item:hover > .v-list-item__overlay {
+  opacity: 0.06;
+}
 .v-list-item--active > .v-list-item__overlay,
 .v-list-item[aria-haspopup="menu"][aria-expanded="true"] > .v-list-item__overlay {
-  opacity: 0.1 !important;
+  opacity: 0.1;
 }
-
-/* Active + hover */
 .v-list-item--active:hover > .v-list-item__overlay,
 .v-list-item[aria-haspopup="menu"][aria-expanded="true"]:hover > .v-list-item__overlay {
-  opacity: 0.14 !important;
+  opacity: 0.14;
 }
-
-/* Active + focus */
 .v-list-item--active:focus-visible > .v-list-item__overlay,
 .v-list-item[aria-haspopup="menu"][aria-expanded="true"]:focus-visible > .v-list-item__overlay {
-  opacity: 0.14 !important;
+  opacity: 0.14;
+}
+
+/* ═══ Outlined field color tokens ════════════════════════════════════
+   Vuetify outlines inherit `color: currentColor` from the field, which
+   picks up the theme's on-surface text color. We want the outline to use
+   our border token (not text color), so we override the outline color
+   directly. No SASS variable addresses this separately from text color. */
+
+.v-field--variant-outlined .v-field__outline {
+  color: var(--color-border);
+}
+.v-field--variant-outlined:hover .v-field__outline {
+  color: var(--color-text-faint);
+}
+.v-field--variant-outlined.v-field--focused .v-field__outline {
+  color: var(--color-border-focus, var(--color-info));
+}
+
+/* ═══ Selection-control label spacing ══════════════════════════════════
+   VSwitch ships `$switch-label-margin-inline-start: 10px` applied via
+   `.v-switch .v-label { padding-inline-start }`. VCheckbox and VRadio
+   have no equivalent SASS variable — their visual gap between the
+   control icon and label comes from the `.v-selection-control__input`
+   hit-area being wider than the rendered icon. Since we've shrunk
+   `$selection-control-size` for compact auth, that hit-area padding
+   nearly vanishes and labels end up flush against the icon. Match the
+   switch's 10px explicitly. */
+.v-checkbox .v-label,
+.v-radio .v-label {
+  padding-inline-start: 10px;
+}
+
+/* Label + placeholder use NATCA text tokens rather than Vuetify's
+   on-surface + medium-emphasis-opacity composite. Same reason as above. */
+.v-field__label,
+.v-field-label {
+  color: var(--color-text-muted);
+}
+.v-field--focused .v-field__label,
+.v-field--focused .v-field-label {
+  color: var(--color-info);
+}
+.v-field__input::placeholder,
+.v-field input::placeholder,
+.v-field textarea::placeholder {
+  color: var(--color-text-faint);
 }

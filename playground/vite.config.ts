@@ -42,7 +42,12 @@ export default defineConfig({
   plugins: [
     serveRepoRoot(),
     vue(),
-    vuetify({ autoImport: true }),
+    vuetify({
+      autoImport: true,
+      styles: {
+        configFile: resolve(__dirname, '../src/scss/settings.scss'),
+      },
+    }),
   ],
   resolve: {
     alias: {
@@ -51,6 +56,7 @@ export default defineConfig({
   },
   publicDir: resolve(__dirname, '../assets'),
   server: {
+    host: '127.0.0.1',
     port: 1310,
     strictPort: true,
     fs: {

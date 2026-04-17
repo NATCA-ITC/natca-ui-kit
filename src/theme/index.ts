@@ -172,7 +172,10 @@ export const natcaDefaults = {
     variant: 'outlined' as const,
     density: 'compact' as const,
     color: 'primary',
-    bgColor: 'surface',
+    // NOTE: do not set bgColor here — it triggers Vuetify's `.bg-surface`
+    // class on the field, which paints a filled-style background beneath
+    // the outline and forces separate overrides to undo. Outlined fields
+    // should have transparent background by default.
   },
   VAutocomplete: {
     variant: 'outlined' as const,
@@ -214,6 +217,19 @@ export const natcaDefaults = {
   VTab: {
     density: 'compact' as const,
     size: 'small',
+  },
+  // ── Button Toggle (pill nav) ──
+  VBtnToggle: {
+    rounded: 'pill',
+    density: 'compact' as const,
+    variant: 'outlined' as const,
+    divided: true,
+    mandatory: true as any,
+    VBtn: {
+      variant: 'text' as const,
+      size: 'small',
+      rounded: 'pill',
+    },
   },
   // ── Chips & Badges ──
   VChip: {
