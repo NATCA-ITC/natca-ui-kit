@@ -93,6 +93,23 @@
   color: var(--color-text-primary) !important;
 }
 
+/* Kill the browser-default inset border that user-agent stylesheets put on
+   <input>/<textarea>/<select>. Vuetify assumes a global reset exists; we
+   don't ship one in Vuetify apps, so the raw <input> was rendering its own
+   `2px inset #858585` border inside .v-field, which looked like a second
+   rectangle inside the outlined field (visible most on empty fields). */
+.v-field input,
+.v-field textarea,
+.v-field select,
+.v-autocomplete input,
+.v-select input {
+  border: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 /* The overlay also gets a surface tint we don't want for outlined */
 .v-field--variant-outlined .v-field__overlay {
   background: transparent !important;
@@ -154,11 +171,24 @@
 }
 
 /* ── Label/value typography inside inputs ──
-   Only set font on the input value. Let Vuetify own label sizing so its
-   float-position animation works correctly. */
+   Set font on both the value and the label. Vuetify's default resting label
+   is 1rem (16px) which looks oversized against our 13px values — the empty
+   field labels end up dwarfing the filled-field notched labels. Matching
+   sizes keeps empty + filled fields visually consistent. Vuetify scales the
+   floating label via font-size: var(--v-field-label-scale) so the floating
+   label shrinks proportionally. */
 .v-field__input,
 .v-select__selection-text,
 .v-autocomplete__selection-text {
   font-size: 13px;
   line-height: 1.3;
+}
+.v-field .v-label.v-field-label {
+  font-size: 13px;
+  line-height: 1.3;
+}
+/* Floating label — override Vuetify's 0.75em scale so the resulting pixel
+   size stays readable (13 * 0.75 = 9.75px, too small). Fix at 11px. */
+.v-field .v-label.v-field-label--floating {
+  font-size: 11px;
 }
