@@ -32,19 +32,50 @@
 
 /* ═══════════════════════════════════════════════════════════════════
    FORM INPUTS — align Vuetify VTextField/VSelect/VAutocomplete/
-   VTextarea/VCheckbox/VSwitch output with the NATCA design system.
+   VTextarea output with the NATCA design system.
+   (VSwitch and VCheckbox have native replacements: NatcaSwitch/NatcaCheckbox)
+
+   Vuetify SASS vars that are only build-time customizable:
+     $field-outline-opacity: .38  → we set opacity via CSS on __outline children
+     $field-border-width: 1px
+     $field-focused-border-width: 2px
+   Runtime CSS vars we CAN override:
+     --v-field-padding-top, --v-field-padding-bottom
+     --v-field-border-width
    ═══════════════════════════════════════════════════════════════════ */
 
+/* Full outline opacity (Vuetify defaults to 0.38 which looks washed out) */
+.v-field--variant-outlined .v-field__outline {
+  --v-field-border-opacity: 1;
+}
+.v-field--variant-outlined .v-field__outline__start,
+.v-field--variant-outlined .v-field__outline__end,
+.v-field--variant-outlined .v-field__outline__notch::before,
+.v-field--variant-outlined .v-field__outline__notch::after {
+  opacity: 1 !important;
+}
+
 /* Font inheritance — Vuetify's internal .v-field__input falls back to
-   Arial. Force the body font everywhere so headers/labels/values match. */
+   Arial or the OS sans-serif stack. Force the body font everywhere. */
+.v-application,
+.v-application__wrap,
 .v-input,
+.v-input *,
 .v-field,
+.v-field *,
 .v-field__input,
 .v-field-label,
 .v-label,
 .v-select__selection,
 .v-select__selection-text,
-.v-autocomplete__selection-text {
+.v-autocomplete__selection-text,
+.v-overlay__content,
+.v-overlay__content *,
+.v-list,
+.v-list-item,
+.v-list-item-title,
+.v-list-item-subtitle,
+.v-menu .v-list {
   font-family: var(--font-body) !important;
 }
 
@@ -112,56 +143,9 @@
   opacity: 0 !important;
 }
 
-/* ── VSwitch — shrink to design-system size (36×20 vs default 52×32) ── */
-
-/* Compact density switch: track ~34px wide, 18px tall, thumb 14px */
-.v-switch.v-input--density-compact .v-switch__track {
-  width: 34px !important;
-  height: 18px !important;
-  border-radius: 9px !important;
-  opacity: 1 !important;
-  background: var(--color-border) !important;
-}
-
-.v-switch.v-input--density-compact .v-selection-control--dirty .v-switch__track {
-  background: var(--natca-navy) !important;
-}
-[data-theme="dark"] .v-switch.v-input--density-compact .v-selection-control--dirty .v-switch__track,
-.v-theme--natcaDark .v-switch.v-input--density-compact .v-selection-control--dirty .v-switch__track {
-  background: var(--natca-red) !important;
-}
-
-.v-switch.v-input--density-compact .v-switch__thumb {
-  width: 14px !important;
-  height: 14px !important;
-  background: #FFFFFF !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
-}
-
-/* Thumb position — off: x=2px, on: x=18px */
-.v-switch.v-input--density-compact .v-selection-control__input {
-  width: 18px !important;
-  height: 18px !important;
-  top: 0 !important;
-}
-.v-switch.v-input--density-compact .v-selection-control--dirty .v-selection-control__input {
-  transform: translateX(16px) !important;
-}
-.v-switch.v-input--density-compact .v-selection-control__wrapper {
-  width: 34px !important;
-  height: 18px !important;
-}
-
-/* Hide the ripple on switches — too visually loud at small size */
-.v-switch .v-selection-control__input::before {
-  display: none !important;
-}
-
-/* ── VCheckbox — shrink ripple area, keep the checkbox visible ── */
-.v-checkbox.v-input--density-compact .v-selection-control__wrapper {
-  width: 24px !important;
-  height: 24px !important;
-}
+/* VSwitch and VCheckbox have native replacements (NatcaSwitch/NatcaCheckbox)
+   but if an app still uses VSwitch/VCheckbox, hide-details these so they
+   don't break layout. */
 
 /* ── Input density adjustments — make the min-height tighter ── */
 .v-input--density-compact .v-field {

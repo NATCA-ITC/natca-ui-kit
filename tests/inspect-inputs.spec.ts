@@ -4,7 +4,7 @@ const BASE = 'http://localhost:1310'
 
 test('inspect form input DOM structure', async ({ page }) => {
   await page.goto(`${BASE}/admin/design-standards`)
-  await page.evaluate(() => localStorage.setItem('natca-theme', 'light'))
+  await page.evaluate(() => localStorage.setItem('natca-theme', 'dark'))
   await page.reload()
   await page.waitForLoadState('networkidle')
   await page.waitForTimeout(1000)
@@ -62,6 +62,6 @@ test('inspect form input DOM structure', async ({ page }) => {
   console.log(JSON.stringify(computed, null, 2))
 
   // Take a closeup screenshot of the form card
-  const formCard = page.locator('section:has(h3:text("Forms")) .v-card').first()
-  await formCard.screenshot({ path: 'TEMP/visual-audit/form-card-closeup-light.png' })
+  const formCard = page.locator('section:has(h3:text("Forms")) .natca-card').first()
+  await formCard.screenshot({ path: 'TEMP/visual-audit/form-card-closeup-dark.png' })
 })

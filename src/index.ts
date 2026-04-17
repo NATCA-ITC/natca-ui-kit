@@ -22,6 +22,9 @@ import NatcaAlert from './components/NatcaAlert.vue'
 import NatcaChip from './components/NatcaChip.vue'
 import NatcaProgressBar from './components/NatcaProgressBar.vue'
 import NatcaPillNav from './components/NatcaPillNav.vue'
+import NatcaSwitch from './components/NatcaSwitch.vue'
+import NatcaCheckbox from './components/NatcaCheckbox.vue'
+import NatcaDialog from './components/NatcaDialog.vue'
 
 // Composite pattern components
 import NatcaCard from './components/NatcaCard.vue'
@@ -59,6 +62,9 @@ export {
   NatcaChip,
   NatcaProgressBar,
   NatcaPillNav,
+  NatcaSwitch,
+  NatcaCheckbox,
+  NatcaDialog,
 }
 
 // Composite pattern components
@@ -115,6 +121,9 @@ export const NatcaUiShell = {
     app.component('NatcaChip', NatcaChip)
     app.component('NatcaProgressBar', NatcaProgressBar)
     app.component('NatcaPillNav', NatcaPillNav)
+    app.component('NatcaSwitch', NatcaSwitch)
+    app.component('NatcaCheckbox', NatcaCheckbox)
+    app.component('NatcaDialog', NatcaDialog)
     // Composite pattern components
     app.component('NatcaCard', NatcaCard)
     app.component('NatcaHeaderCard', NatcaHeaderCard)

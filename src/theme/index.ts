@@ -198,6 +198,7 @@ export const natcaDefaults = {
     color: 'primary',
     hideDetails: 'auto' as const,
   },
+  // VSwitch: native NatcaSwitch preferred; defaults kept for apps still using v-switch.
   VSwitch: {
     density: 'compact' as const,
     color: 'primary',

@@ -15,13 +15,15 @@ import {
   NatcaChip,
   NatcaProgressBar,
   NatcaPillNav,
+  NatcaSwitch,
+  NatcaCheckbox,
+  NatcaDialog,
 } from '@/index'
 import type { NatcaTabItem } from '@/components/NatcaTabs.vue'
 import type { MemberCardData } from '@/components/NatcaMemberCard.vue'
 import {
-  VCard, VCardTitle, VCardSubtitle, VCardText, VCardActions, VSpacer,
-  VTextField, VSelect, VAutocomplete, VCheckbox, VSwitch,
-  VDataTable, VDialog, VDivider,
+  VSpacer, VTextField, VSelect, VAutocomplete,
+  VDataTable, VDivider,
 } from 'vuetify/components'
 
 // ── Tabs demo ──
@@ -266,8 +268,10 @@ const members: MemberCardData[] = [
               <VSelect label="Provider" :items="['Mailcow', 'O365']" v-model="formProvider" style="flex: 1;" />
               <VTextField label="Quota (GB)" type="number" v-model="formQuota" style="flex: 1;" />
             </div>
-            <VCheckbox v-model="formWelcome" label="Send welcome email" />
-            <VSwitch v-model="formForward" label="Enable forwarding" />
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 4px;">
+              <NatcaCheckbox v-model="formWelcome" label="Send welcome email" />
+              <NatcaSwitch v-model="formForward" label="Enable forwarding" />
+            </div>
             <template #actions>
               <NatcaButton variant="ghost" size="md">Cancel</NatcaButton>
               <NatcaButton variant="primary" size="md">Create Account</NatcaButton>
@@ -385,36 +389,39 @@ const members: MemberCardData[] = [
     <!-- ═══════════ DIALOGS ═══════════ -->
     <section class="ds-section">
       <h3 class="ds-section-title">Dialogs</h3>
-      <p class="ds-hint">VDialog handles positioning/focus/escape. NatcaButton for actions.</p>
+      <p class="ds-hint">NatcaDialog wraps VDialog for positioning/focus/escape. Has a distinct navy (default) or red (danger) header with icon + title + subtitle.</p>
 
       <div class="ds-btn-row">
         <NatcaButton variant="primary" @click="showConfirmDialog = true">Open Confirm Dialog</NatcaButton>
         <NatcaButton variant="danger" @click="showDangerDialog = true">Open Danger Dialog</NatcaButton>
       </div>
 
-      <VDialog v-model="showConfirmDialog">
-        <VCard>
-          <VCardTitle>Confirm Migration</VCardTitle>
-          <VCardText>Are you sure you want to migrate <strong>34 accounts</strong> from O365 to Mailcow? This action cannot be undone.</VCardText>
-          <VCardActions>
-            <VSpacer />
-            <NatcaButton variant="ghost" size="md" @click="showConfirmDialog = false">Cancel</NatcaButton>
-            <NatcaButton variant="primary" size="md" @click="showConfirmDialog = false">Migrate Now</NatcaButton>
-          </VCardActions>
-        </VCard>
-      </VDialog>
+      <NatcaDialog
+        v-model="showConfirmDialog"
+        title="Confirm Migration"
+        subtitle="Batch #12 · 34 accounts"
+        icon="mdi-swap-horizontal-circle"
+      >
+        Are you sure you want to migrate <strong>34 accounts</strong> from O365 to Mailcow? This action cannot be undone.
+        <template #actions>
+          <NatcaButton variant="ghost" size="md" @click="showConfirmDialog = false">Cancel</NatcaButton>
+          <NatcaButton variant="primary" size="md" @click="showConfirmDialog = false">Migrate Now</NatcaButton>
+        </template>
+      </NatcaDialog>
 
-      <VDialog v-model="showDangerDialog">
-        <VCard>
-          <VCardTitle>Delete Account</VCardTitle>
-          <VCardText>This will permanently delete <strong>jason.doss@natca.net</strong> and all associated data.</VCardText>
-          <VCardActions>
-            <VSpacer />
-            <NatcaButton variant="ghost" size="md" @click="showDangerDialog = false">Cancel</NatcaButton>
-            <NatcaButton variant="danger" size="md" @click="showDangerDialog = false">Delete Account</NatcaButton>
-          </VCardActions>
-        </VCard>
-      </VDialog>
+      <NatcaDialog
+        v-model="showDangerDialog"
+        title="Delete Account"
+        subtitle="This action cannot be undone"
+        variant="danger"
+        icon="mdi-trash-can"
+      >
+        This will permanently delete <strong>jason.doss@natca.net</strong> and all associated data.
+        <template #actions>
+          <NatcaButton variant="ghost" size="md" @click="showDangerDialog = false">Cancel</NatcaButton>
+          <NatcaButton variant="danger" size="md" @click="showDangerDialog = false">Delete Account</NatcaButton>
+        </template>
+      </NatcaDialog>
     </section>
 
     <VDivider />
