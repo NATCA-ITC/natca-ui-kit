@@ -103,6 +103,16 @@ export const router = createRouter({
         ],
       },
     },
+    {
+      path: '/admin/email',
+      component: PlaceholderPage,
+      meta: { title: 'Email', breadcrumbs: [{ label: 'Hub', to: '/admin' }, { label: 'Email' }] },
+    },
+    {
+      path: '/admin/settings',
+      component: PlaceholderPage,
+      meta: { title: 'Settings', breadcrumbs: [{ label: 'Hub', to: '/admin' }, { label: 'Settings' }] },
+    },
 
     // ── BID Member (Variant 2: tabs only, no sidebar) ──
     {
@@ -145,6 +155,21 @@ export const router = createRouter({
           { label: 'Bid Summary' },
         ],
       },
+    },
+    {
+      path: '/member/schedule',
+      component: PlaceholderPage,
+      meta: { title: 'Schedule', breadcrumbs: [{ label: 'BID', to: '/member' }, { label: 'Schedule' }] },
+    },
+    {
+      path: '/member/training',
+      component: PlaceholderPage,
+      meta: { title: 'Training', breadcrumbs: [{ label: 'BID', to: '/member' }, { label: 'Training' }] },
+    },
+    {
+      path: '/member/grievances',
+      component: PlaceholderPage,
+      meta: { title: 'Grievances', breadcrumbs: [{ label: 'BID', to: '/member' }, { label: 'Grievances' }] },
     },
 
     // ── PayChecker Minimal (Variant 3: minimal tabs, no sidebar) ──

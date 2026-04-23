@@ -7,10 +7,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body style="margin:0;padding:0;background:#0a0f1a;min-height:100vh;width:100%;overflow-x:hidden;">
   <!-- Design System control bar — identical across design system, playground, nav ideas -->
   <style>
-    #ds-bar { position:fixed;top:0;left:0;right:0;z-index:99999;background:#003366;height:52px;display:flex;align-items:center;padding:0 20px;gap:12px;box-shadow:0 4px 16px rgba(0,0,0,0.3);font-family:'Public Sans',sans-serif; }
+    #ds-bar { position:fixed;top:0;left:0;right:0;z-index:99999;background:#003366;height:52px;display:flex;align-items:center;padding:0 20px;gap:12px;box-shadow:0 4px 16px rgba(0,0,0,0.3);font-family:'Public Sans',sans-serif;overflow:hidden;max-width:100vw; }
     #ds-bar .ds-logo { display:flex;align-items:center;gap:8px;margin-right:auto; }
     #ds-bar .ds-logo img { height:28px;width:auto; }
     #ds-bar .ds-logo span { font-family:'Barlow',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:white; }

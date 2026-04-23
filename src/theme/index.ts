@@ -58,7 +58,7 @@ export const natcaLightTheme: ThemeDefinition = {
     'on-info': '#FFFFFF',
   },
   variables: {
-    'border-color': '#CCCCCC',
+    'border-color': '204, 204, 204',
     'border-opacity': 1,
     'high-emphasis-opacity': 1,
     'medium-emphasis-opacity': 0.87,
@@ -100,7 +100,7 @@ export const natcaDarkTheme: ThemeDefinition = {
     'on-info': '#FFFFFF',
   },
   variables: {
-    'border-color': '#2E3347',
+    'border-color': '46, 51, 71',
     'border-opacity': 1,
     'high-emphasis-opacity': 1,
     'medium-emphasis-opacity': 0.7,

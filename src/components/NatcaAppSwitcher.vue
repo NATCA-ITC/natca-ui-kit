@@ -50,12 +50,21 @@ function handleSelect(app: NatcaApp) {
   top: 52px;
   left: 140px;
   width: 320px;
+  max-width: calc(100vw - 16px);
   background: var(--color-shell-surface);
   border: 1px solid var(--overlay-border);
   border-radius: 10px;
   box-shadow: var(--shadow-lg);
   z-index: 110;
   overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .natca-shell-app-switcher {
+    left: 8px;
+    right: 8px;
+    width: auto;
+  }
 }
 
 .natca-shell-app-switcher-header {

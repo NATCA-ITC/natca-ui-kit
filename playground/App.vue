@@ -22,13 +22,15 @@ const apps: NatcaApp[] = [
 // ── Admin config (Hub — Variant 1: sidebar + breadcrumbs) ──
 
 const adminTabs: NatcaTab[] = [
-  { id: 'dashboard', label: 'Dashboard', icon: 'mdi-view-dashboard', to: '/admin' },
+  { id: 'home', label: 'Dashboard', icon: 'mdi-view-dashboard', to: '/admin', collapseToIcon: true },
   { id: 'members', label: 'Members', icon: 'mdi-account-group', to: '/admin/members' },
   { id: 'facilities', label: 'Facilities', icon: 'mdi-office-building', to: '/admin/facilities' },
-  { id: 'regions', label: 'Regions', icon: 'mdi-map', to: '/admin/regions' },
+  { id: 'regions', label: 'Regions', icon: 'mdi-map', to: '/admin/regions', collapseToIcon: true },
   { id: 'reports', label: 'Reports', icon: 'mdi-chart-bar', to: '/admin/reports' },
+  { id: 'email', label: 'Email', icon: 'mdi-email', to: '/admin/email' },
   { id: 'components', label: 'Components', icon: 'mdi-puzzle', to: '/admin/components' },
   { id: 'design-standards', label: 'Design Standards', icon: 'mdi-palette', to: '/admin/design-standards' },
+  { id: 'settings', label: 'Settings', icon: 'mdi-cog', to: '/admin/settings' },
 ]
 
 const adminSidebar: NatcaNavSection[] = [
@@ -62,10 +64,13 @@ const adminSidebar: NatcaNavSection[] = [
 // ── Member config (BID — Variant 2: tabs only, no sidebar) ──
 
 const memberTabs: NatcaTab[] = [
-  { id: 'facility', label: 'My Facility', icon: 'mdi-office-building', to: '/member' },
+  { id: 'home', label: 'My Facility', icon: 'mdi-office-building', to: '/member' },
   { id: 'lines', label: 'Lines', icon: 'mdi-format-list-bulleted', to: '/member/lines' },
   { id: 'leave', label: 'Leave', icon: 'mdi-calendar', to: '/member/leave' },
   { id: 'summary', label: 'Bid Summary', icon: 'mdi-clipboard-check', to: '/member/summary' },
+  { id: 'schedule', label: 'Schedule', icon: 'mdi-clock-outline', to: '/member/schedule' },
+  { id: 'training', label: 'Training', icon: 'mdi-school', to: '/member/training' },
+  { id: 'grievances', label: 'Grievances', icon: 'mdi-gavel', to: '/member/grievances' },
 ]
 
 // ── Minimal config (PayChecker — Variant 3: minimal tabs, no sidebar) ──
@@ -143,8 +148,10 @@ const breadcrumbs = computed<NatcaBreadcrumb[] | undefined>(() => {
 
 html, body, #app {
   height: 100%;
-  background: var(--color-shell-base);
+  width: 100%;
+  background: var(--color-shell-base, #0a0f1a);
   color: var(--color-text-primary);
+  overflow-x: hidden;
 }
 
 /* Override shell margin for full-viewport playground */
@@ -152,6 +159,7 @@ html, body, #app {
   margin: 0 !important;
   border-radius: 0 !important;
   border: none !important;
+  width: 100% !important;
   height: calc(100vh - 52px) !important;
 }
 </style>

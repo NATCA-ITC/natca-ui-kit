@@ -12,6 +12,9 @@ export interface NatcaTab {
   icon?: string // MDI icon name, e.g. 'mdi-account-group'
   to: RouteLocationRaw
   badge?: string | number
+  /** When true, collapse to icon-only on narrow viewports before overflowing into "More".
+   *  Tabs with id 'home' auto-collapse by default (convention). Requires `icon` to be set. */
+  collapseToIcon?: boolean
 }
 
 export interface NatcaNavItem {
